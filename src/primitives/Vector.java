@@ -13,6 +13,10 @@ public class Vector {
         this.head = head;
     }
 
+    public Vector(Vector v) {
+        this.head = v.head;
+    }
+
     public void setHead(Point3D p) {
         this.head = p;
     }
@@ -27,7 +31,7 @@ public class Vector {
     }
 
     public Vector subtract(Vector v) {
-        Vector vec = new Vector(this.head.subtract(v.head).head);
+        Vector vec = new Vector(this.head.subtract(v.head));        
         return vec;
     }
 

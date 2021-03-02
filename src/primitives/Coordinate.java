@@ -12,6 +12,10 @@ public class Coordinate {
         this.coord = c;
     }
 
+    public Coordinate(Coordinate c) {
+        this.coord = c.coord;
+    }
+
     public void setCoordinate(double c) {
         this.coord = c;
     }

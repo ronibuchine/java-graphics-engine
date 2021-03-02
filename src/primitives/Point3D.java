@@ -26,6 +26,12 @@ public class Point3D {
         this.z = new Coordinate(z);
     }
 
+    public Point3D(Point3D p) {
+        this.x = p.x;
+        this.y = p.y;
+        this.z = p.z;
+    }
+
     public void setX(Coordinate x) {
         this.x = x;
     }
