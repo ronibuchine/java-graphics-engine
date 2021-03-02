@@ -42,13 +42,13 @@ public class Point3D {
         return this.z;
     }
 
-    public Vector add(Point3D p) {
+    public Point3D add(Point3D p) {
         Coordinate xCoord = new Coordinate(p.x.getCoordinate()+this.x.getCoordinate());
         Coordinate yCoord = new Coordinate(p.y.getCoordinate()+this.y.getCoordinate());
         Coordinate zCoord = new Coordinate(p.z.getCoordinate()+this.z.getCoordinate());
         Point3D point = new Point3D(xCoord, yCoord, zCoord);
 
-        return new Vector(point);
+        return point;
     }
 
     public Vector subtract(Point3D p) {
