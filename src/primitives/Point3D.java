@@ -12,10 +12,18 @@ public class Point3D {
     Coordinate y;
     Coordinate z;
 
+    public static final Point3D ZERO = new Point3D(0, 0, 0);
+
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public Point3D(double x, double y, double z) {
+        this.x = new Coordinate(x);
+        this.y = new Coordinate(y);
+        this.z = new Coordinate(z);
     }
 
     public void setX(Coordinate x) {
@@ -43,9 +51,9 @@ public class Point3D {
     }
 
     public Point3D add(Point3D p) {
-        Coordinate xCoord = new Coordinate(p.x.getCoordinate()+this.x.getCoordinate());
-        Coordinate yCoord = new Coordinate(p.y.getCoordinate()+this.y.getCoordinate());
-        Coordinate zCoord = new Coordinate(p.z.getCoordinate()+this.z.getCoordinate());
+        double xCoord = p.x.getCoordinate()+this.x.getCoordinate();
+        double yCoord = p.y.getCoordinate()+this.y.getCoordinate();
+        double zCoord = p.z.getCoordinate()+this.z.getCoordinate();
         Point3D point = new Point3D(xCoord, yCoord, zCoord);
 
         return point;

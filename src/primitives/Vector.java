@@ -13,6 +13,14 @@ public class Vector {
         this.head = head;
     }
 
+    public Vector(Coordinate x, Coordinate y, Coordinate z) {
+        this.head = new Point3D(x, y, z);
+    }
+
+    public Vector(double x, double y, double z) {
+        this.head = new Point3D(x, y, z);
+    }
+
     public void setHead(Point3D p) {
         this.head = p;
     }
@@ -27,16 +35,16 @@ public class Vector {
     }
 
     public Vector subtract(Vector v) {
-        Vector vec = new Vector(this.head.subtract(v.head).head);
+        Vector vec = this.head.subtract(v.head);              
         return vec;
     }
 
-    public Vector scale(double n) {
+    public Vector scale(double n) {        
         Vector vec = new Vector(head);
         vec.head.setX(new Coordinate(vec.head.getX().getCoordinate()*n));
         vec.head.setY(new Coordinate(vec.head.getY().getCoordinate()*n));
         vec.head.setZ(new Coordinate(vec.head.getZ().getCoordinate()*n));
-
+        
         return vec;        
     }
 

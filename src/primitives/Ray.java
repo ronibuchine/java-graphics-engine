@@ -14,6 +14,11 @@ public class Ray {
         this.p0 = p0;
     }
 
+    public Ray(Ray r) {
+        this.dir = r.dir;
+        this.p0 = r.p0;
+    }
+
     public boolean equals(Ray r) {
         return r.dir == this.dir && r.p0 == this.p0;
     }
