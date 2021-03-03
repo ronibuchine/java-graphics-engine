@@ -26,56 +26,47 @@ public class Point3D {
         this.z = new Coordinate(z);
     }
 
-    public void setX(Coordinate x) {
-        this.x = x;
-    }
-    
-    public void setY(Coordinate y) {
-        this.y = y;
-    }
-
-    public void setZ(Coordinate z) {
-        this.z = z;
-    }
-
-    public Coordinate getX() {
-        return this.x;
-    }
-
-    public Coordinate getY() {
-        return this.y;
-    }
-
-    public Coordinate getZ() {
-        return this.z;
-    }
-
+    /**
+     * method to add two Point3Ds together
+     * @param p
+     * @return new Point3D with sum of the two added points
+     */
     public Point3D add(Point3D p) {
-        double xCoord = p.x.getCoordinate()+this.x.getCoordinate();
-        double yCoord = p.y.getCoordinate()+this.y.getCoordinate();
-        double zCoord = p.z.getCoordinate()+this.z.getCoordinate();
-        Point3D point = new Point3D(xCoord, yCoord, zCoord);
-
-        return point;
+        Coordinate xCoord = x.add(p.x);
+        Coordinate yCoord = y.add(p.y);
+        Coordinate zCoord = z.add(p.z);
+        return new Point3D(xCoord, yCoord, zCoord);       
     }
 
-    public Vector subtract(Point3D p) {
-        Coordinate xCoord = new Coordinate(p.x.getCoordinate()-this.x.getCoordinate());
-        Coordinate yCoord = new Coordinate(p.y.getCoordinate()-this.y.getCoordinate());
-        Coordinate zCoord = new Coordinate(p.z.getCoordinate()-this.z.getCoordinate());
+    /**
+     * method subtracts the parameter Point3D from the instance of the Point3D
+     * @param p
+     * @return a Vector with a head whose value is the difference of the two coordinates
+     */
+    public Vector subtract(Point3D p) {        
+        Coordinate xCoord = x.subtract(p.x);
+        Coordinate yCoord = y.subtract(p.y);
+        Coordinate zCoord = z.subtract(p.z);
         Point3D point = new Point3D(xCoord, yCoord, zCoord);
 
         return new Vector(point);
     }
 
+    /**
+     * 
+     * @param p
+     * @return The squared distance between two Point3Ds
+     */
     private double distanceSquared(Point3D p) {
-        double squareDistance = (this.x.getCoordinate()-p.x.getCoordinate())*(this.x.getCoordinate()-p.x.getCoordinate())
-        + (this.y.getCoordinate()-p.y.getCoordinate())*(this.y.getCoordinate()-p.y.getCoordinate()) 
-        + (this.z.getCoordinate()-p.z.getCoordinate())*(this.z.getCoordinate()-p.z.getCoordinate());
-
+        double squareDistance = x.subtract(p.x).squared() + y.subtract(p.y).squared() + z.subtract(p.z).squared();
         return squareDistance;
     }
 
+    /**
+     * 
+     * @param p
+     * @return The distance between 2 Point3Ds
+     */
     public double distance(Point3D p) {
         return Math.sqrt(distanceSquared(p));
     }

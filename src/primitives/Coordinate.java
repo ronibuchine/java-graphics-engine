@@ -26,6 +26,45 @@ public final class Coordinate {
         this.coord = alignZero(coord);
     }
 
+    /**
+     * method that adds two Coordinates together and returns the sum
+     * @param c
+     * @return a Coordinate value 
+     */
+    public Coordinate add(Coordinate c) {
+        double newCoord = coord + c.coord;
+        // if its too close to 0 make it 0
+        return new Coordinate(alignZero(newCoord));
+    }
+
+    /**
+     * multiplies coordinate value by scalar c
+     * @param n
+     * @return a neew Coorcinate scaled by c
+     */
+    public Coordinate mult(double n) {
+        double c = alignZero(coord*n);
+        return new Coordinate(c);
+    }
+
+    /**
+     * subtracts the passed parameter from the coordinate value of the object and returns the new coordinate value
+     * @param c
+     * @return new Coordinate value
+     */
+    public Coordinate subtract(Coordinate c) {
+        double newCoord = coord - c.coord;
+        return new Coordinate(alignZero(newCoord));
+    }
+
+    /**
+     * method that squares any coordinate value
+     * @return the double value of a squared Coordinate
+     */
+    public double squared() {
+        return coord*coord;
+    }
+
     /*************** Admin *****************/
     @Override
     public boolean equals(Object obj) {
