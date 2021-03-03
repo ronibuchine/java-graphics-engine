@@ -9,15 +9,16 @@ public class Ray {
     Vector dir;
     Point3D p0;
 
+    /**
+     * ctor normalizes the Vector and creates the object with that Vector and point
+     * @param dir
+     * @param p0
+     */
     public Ray(Vector dir, Point3D p0) {
-        this.dir = dir;
+        this.dir = dir.normalized();
         this.p0 = p0;
     }
-
-    public Ray(Ray r) {
-        this.dir = r.dir;
-        this.p0 = r.p0;
-    }
+    
 
     @Override
     public boolean equals(Object obj) {
