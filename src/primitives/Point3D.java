@@ -57,7 +57,7 @@ public class Point3D {
      * @param p
      * @return The squared distance between two Point3Ds
      */
-    private double distanceSquared(Point3D p) {
+    public double distanceSquared(Point3D p) {
         double squareDistance = x.subtract(p.x).squared() + y.subtract(p.y).squared() + z.subtract(p.z).squared();
         return squareDistance;
     }

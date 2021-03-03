@@ -31,7 +31,7 @@ public class Vector {
     public Vector(Coordinate x, Coordinate y, Coordinate z) {
         Point3D newHead = new Point3D(x, y, z);
         if (newHead.equals(Point3D.ZERO)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Error: Zero Vector");
         }
         head = newHead;
     }
@@ -45,7 +45,7 @@ public class Vector {
     public Vector(double x, double y, double z) {
         Point3D newHead = new Point3D(x, y, z);
         if (newHead.equals(Point3D.ZERO)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Error: Zero Vector");
         }
         head = newHead;
     }
@@ -85,8 +85,46 @@ public class Vector {
         return vec;        
     }
 
+    /**
+     * 
+     * @return Squared leength of the vector
+     */
+    public double lengthSquared() {
+        double sqLength = head.distanceSquared(Point3D.ZERO);
+        return sqLength;
+    }
+
+    /**
+     * Calculates the length by taking the square root of the head coordinates squared
+     * @return Length of the Vector
+     */
+    public double length() {
+        return Math.sqrt(lengthSquared());
+    }
+
+    /**
+     * normalizes the Vector and actually changes the head coordinate values
+     * @return The new Vector itself so that in can be chained together with other objects
+     */
+    public Vector normalize() {
+        double scalar = 1/length();
+        head.x.mult(scalar);
+        head.y.mult(scalar);
+        head.z.mult(scalar);
+        return this;
+    }
+
+    /**
+     * 
+     * @return a new normalized Vector without changing the actual values of the Vector
+     */
+    public Vector normalized() {
+        Vector vec = new Vector(head);
+        vec.normalize();
+        return vec;
+    }
     
-    // TODO: make methods for cross product, dot product, length, length squared, normalize, normalized
+    // TODO: make methods for cross product, dot product
     
 
     @Override
