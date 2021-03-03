@@ -71,8 +71,13 @@ public class Point3D {
         return Math.sqrt(distanceSquared(p));
     }
 
-    public boolean equals(Point3D p) {
-        return this.x == p.x && this.y == p.y && this.z == p.z;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof Point3D)) return false;
+        Point3D other = (Point3D)obj;
+        return x.equals(other.x) && y.equals(other.y) && z.equals(other.z);
     }
 
 }

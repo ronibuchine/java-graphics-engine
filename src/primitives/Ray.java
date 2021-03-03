@@ -19,8 +19,13 @@ public class Ray {
         this.p0 = r.p0;
     }
 
-    public boolean equals(Ray r) {
-        return r.dir == this.dir && r.p0 == this.p0;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof Ray)) return false;
+        Ray other = (Ray)obj;
+        return dir.equals(other.dir) && p0.equals(other.p0);
     }
     
 }

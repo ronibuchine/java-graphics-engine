@@ -89,8 +89,13 @@ public class Vector {
     * TODO: make methods for cross product, dot product, length, length squared, normalize, normalized
     */
 
-    public boolean equals(Vector v) {
-        return v.head == this.head;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof Vector)) return false;
+        Vector other = (Vector)obj;
+        return head == other.head;
     }
     
 }
