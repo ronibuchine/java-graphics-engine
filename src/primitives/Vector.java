@@ -85,9 +85,9 @@ public class Vector {
         return vec;        
     }
 
-    /*
-    * TODO: make methods for cross product, dot product, length, length squared, normalize, normalized
-    */
+    
+    // TODO: make methods for cross product, dot product, length, length squared, normalize, normalized
+    
 
     @Override
     public boolean equals(Object obj) {
@@ -95,7 +95,7 @@ public class Vector {
         if (obj == null) return false;
         if (!(obj instanceof Vector)) return false;
         Vector other = (Vector)obj;
-        return head == other.head;
+        return head.equals(other.head);
     }
     
 }
