@@ -24,7 +24,9 @@ public class Vector {
 
     /**
      * Vector ctor that takes in 3 coordinates as parameters and throws exception if they are the 0 Vector
-     * @param x @param y @param z
+     * @param x 
+     * @param y
+     * @param z
      */
     public Vector(Coordinate x, Coordinate y, Coordinate z) {
         Point3D newHead = new Point3D(x, y, z);
@@ -61,7 +63,7 @@ public class Vector {
      * @return A new Vector whos head is the sum of the two Vectors
      */
     public Vector add(Vector v) {
-        Vector vec = new Vector(head.add(v.head));
+        Vector vec = new Vector(head.add(v));
         return vec;
     }
 

@@ -27,7 +27,7 @@ public class Point3D {
     }
 
     /**
-     * method to add two Point3Ds together
+     * method to add a Vector to a Point3D
      * @param p
      * @return new Vector with head as sum of the two added points
      */
