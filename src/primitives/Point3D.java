@@ -29,12 +29,12 @@ public class Point3D {
     /**
      * method to add two Point3Ds together
      * @param p
-     * @return new Point3D with sum of the two added points
+     * @return new Vector with head as sum of the two added points
      */
-    public Point3D add(Point3D p) {
-        Coordinate xCoord = x.add(p.x);
-        Coordinate yCoord = y.add(p.y);
-        Coordinate zCoord = z.add(p.z);
+    public Point3D add(Vector v) {
+        Coordinate xCoord = x.add(v.getHead().x);
+        Coordinate yCoord = y.add(v.getHead().y);
+        Coordinate zCoord = z.add(v.getHead().z);
         return new Point3D(xCoord, yCoord, zCoord);       
     }
 
