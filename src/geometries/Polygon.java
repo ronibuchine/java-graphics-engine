@@ -10,7 +10,7 @@ import static primitives.Util.*;
  * 
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends java.awt.Polygon implements Geometry {
 	/**
 	 * List of polygon's vertices
 	 */
@@ -84,5 +84,16 @@ public class Polygon implements Geometry {
 	@Override
 	public Vector getNormal(Point3D point) {
 		return plane.getNormal();
+	}
+
+	public String toString() {
+
+		StringBuilder allVertices = new StringBuilder();
+		allVertices.append('{');
+		for (Point3D a:vertices) {
+			allVertices.append(a.toString()).append(',');
+		}
+		allVertices.replace(allVertices.length() - 1,allVertices.length() - 1, "}"); //replaces last ',' with '}'
+		return allVertices.toString();
 	}
 }

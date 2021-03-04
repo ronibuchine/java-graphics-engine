@@ -80,4 +80,9 @@ public class Point3D {
         return x.equals(other.x) && y.equals(other.y) && z.equals(other.z);
     }
 
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ", " + z + ')';
+    }
+
 }
