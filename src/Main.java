@@ -1,6 +1,7 @@
-import primitives.*;
 import static java.lang.System.out;
 import static primitives.Util.*;
+import primitives.*;
+
 
 /**
  * Test program for the 1st stage
