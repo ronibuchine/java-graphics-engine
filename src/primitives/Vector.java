@@ -108,9 +108,9 @@ public class Vector {
      */
     public Vector normalize() {
         double scalar = 1/length();
-        head.x.mult(scalar);
-        head.y.mult(scalar);
-        head.z.mult(scalar);
+        head.x = head.x.mult(scalar);
+        head.y = head.y.mult(scalar);
+        head.z = head.z.mult(scalar);
         return this;
     }
 
@@ -123,9 +123,33 @@ public class Vector {
         vec.normalize();
         return vec;
     }
-    
-    // TODO: make methods for cross product, dot product
-    
+
+    /**
+     * takes two vector and calculates the dot product of them 
+     * by multiplying each coordinate value individually and then summing them together
+     * @param v
+     * @return result of the dot product of the two vectors
+     */
+    public double dotProduct(Vector v) {
+        double xVal = v.head.x.coord*head.x.coord;
+        double yVal = v.head.y.coord*head.y.coord;
+        double zVal = v.head.z.coord*head.z.coord;
+        double result = xVal + yVal + zVal;
+        return result;
+    }
+
+    /**
+     * @param v
+     * cross product takes two vectors with coordinates a, b, and c and calculates the new Vector:
+     *  (V1.b*V2.c-V1.c*V2.b, V1.c*V2.a-V1.a*V2.c, V1.a*V2.b-V1.b*V2.a)
+     * @return new Vector((V1.b*V2.c-V1.c*V2.b, V1.c*V2.a-V1.a*V2.c, V1.a*V2.b-V1.b*V2.a))
+     */
+    public Vector crossProduct(Vector v) {
+        double xVal = head.y.coord*v.head.z.coord - head.z.coord*v.head.y.coord;
+        double yVal = head.z.coord*v.head.x.coord - head.x.coord*v.head.z.coord;
+        double zVal = head.x.coord*v.head.y.coord - head.y.coord*v.head.x.coord;
+        return new Vector(xVal, yVal, zVal);
+    }    
 
     @Override
     public boolean equals(Object obj) {
