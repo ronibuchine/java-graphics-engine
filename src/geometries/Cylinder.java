@@ -5,8 +5,8 @@ import primitives.*;
 /**
  * @author Roni Buchine and Eliezer Jacobs
  */
-public class Cylinder {
+public class Cylinder extends Tube{
     
-
+    double height;
     
 }
