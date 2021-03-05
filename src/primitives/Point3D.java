@@ -1,6 +1,8 @@
 package primitives;
 
 import java.lang.Math;
+import java.util.StringJoiner;
+
 /**
  * Class Point3D is the basic class representing a point in 3d space of Euclidean geometry in Cartesian
  * 3-dimensional coordinate system
@@ -82,7 +84,9 @@ public class Point3D {
 
     @Override
     public String toString() {
-        return "(" + x + ", " + y + ", " + z + ')';
+        StringJoiner allCoords = new StringJoiner(", ", "(", ")");
+        allCoords.add(x.toString()).add((y.toString())).add((z.toString()));
+        return allCoords.toString();
     }
 
 }

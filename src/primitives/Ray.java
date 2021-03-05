@@ -1,4 +1,7 @@
 package primitives;
+
+import java.util.StringJoiner;
+
 /**
  * Class Ray is the basic ray class to represent a camera ray in a scene in 3-dimensional space
  * @see Point3D.java, Vector.java
@@ -27,6 +30,13 @@ public class Ray {
         if (!(obj instanceof Ray)) return false;
         Ray other = (Ray)obj;
         return dir.equals(other.dir) && p0.equals(other.p0);
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner ray = new StringJoiner(": ", "{", "}");
+        ray.add(p0.toString()).add(dir.toString());
+        return ray.toString();
     }
     
 }

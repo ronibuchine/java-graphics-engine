@@ -1,6 +1,8 @@
 package geometries;
 
 import java.util.List;
+import java.util.StringJoiner;
+
 import primitives.*;
 import static primitives.Util.*;
 
@@ -88,12 +90,10 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 
 	public String toString() {
 
-		StringBuilder allVertices = new StringBuilder();
-		allVertices.append('{');
+		StringJoiner allVertices = new StringJoiner(", ", "{","}");
 		for (Point3D a:vertices) {
-			allVertices.append(a.toString()).append(',');
+			allVertices.add(a.toString());
 		}
-		allVertices.replace(allVertices.length() - 1,allVertices.length() - 1, "}"); //replaces last ',' with '}'
 		return allVertices.toString();
 	}
 }

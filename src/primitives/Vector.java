@@ -60,7 +60,7 @@ public class Vector {
 
     /**
      * @param v
-     * @return A new Vector whos head is the sum of the two Vectors
+     * @return A new Vector whose head is the sum of the two Vectors
      */
     public Vector add(Vector v) {
         Vector vec = new Vector(head.add(v));
@@ -69,7 +69,7 @@ public class Vector {
 
     /**
      * @param v
-     * @return a new Vector whos head is the difference of the two Vectors
+     * @return a new Vector whose head is the difference of the two Vectors
      */
     public Vector subtract(Vector v) {
         Vector vec = head.subtract(v.head);              
@@ -87,7 +87,7 @@ public class Vector {
 
     /**
      * 
-     * @return Squared leength of the vector
+     * @return Squared length of the vector
      */
     public double lengthSquared() {
         double sqLength = head.distanceSquared(Point3D.ZERO);
@@ -104,7 +104,7 @@ public class Vector {
 
     /**
      * normalizes the Vector and actually changes the head coordinate values
-     * @return The new Vector itself so that in can be chained together with other objects
+     * @return The new Vector itself so that it can be chained together with other objects
      */
     public Vector normalize() {
         double scalar = 1/length();
@@ -125,7 +125,7 @@ public class Vector {
     }
 
     /**
-     * takes two vector and calculates the dot product of them 
+     * takes two vectors and calculates the dot product of them
      * by multiplying each coordinate value individually and then summing them together
      * @param v
      * @return result of the dot product of the two vectors
@@ -158,6 +158,11 @@ public class Vector {
         if (!(obj instanceof Vector)) return false;
         Vector other = (Vector)obj;
         return head.equals(other.head);
+    }
+
+    @Override
+    public String toString() {
+        return head.toString();
     }
     
 }
