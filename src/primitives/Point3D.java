@@ -60,9 +60,7 @@ public class Point3D {
      * @return The squared distance between two Point3Ds
      */
     public double distanceSquared(Point3D p) {
-        double squareDistance = (x.coord-p.x.coord*x.coord-p.x.coord)
-         + (y.coord - p.y.coord*y.coord - p.y.coord)
-         + (z.coord-p.z.coord*z.coord-p.z.coord);
+        double squareDistance = (x.coord-p.x.coord)*(x.coord-p.x.coord) + (y.coord - p.y.coord)*(y.coord - p.y.coord) + (z.coord-p.z.coord)*(z.coord-p.z.coord);
         return squareDistance;
     }
 

@@ -82,7 +82,7 @@ public class Vector {
      * @return Vector scaled by the parameter n
      */
     public Vector scale(double n) { 
-        Vector vec = new Vector(head.x.mult(n), head.y.mult(n), head.z.mult(n));        
+        Vector vec = new Vector(head.x.coord*n, head.y.coord*n, head.z.coord*n);        
         return vec;        
     }
 
@@ -91,8 +91,8 @@ public class Vector {
      * @return Squared length of the vector
      */
     public double lengthSquared() {
-        double sqLength = head.distanceSquared(Point3D.ZERO);
-        return sqLength;
+        double squaredLength = head.distanceSquared(Point3D.ZERO);
+        return squaredLength;
     }
 
     /**
@@ -109,9 +109,8 @@ public class Vector {
      */
     public Vector normalize() {
         double scalar = 1/length();
-        head.x = head.x.mult(scalar);
-        head.y = head.y.mult(scalar);
-        head.z = head.z.mult(scalar);
+        Vector vec = this.scale(scalar);
+        head = vec.head;        
         return this;
     }
 
