@@ -35,9 +35,9 @@ public class Point3D {
      * @return new Vector with head as sum of the two added points
      */
     public Point3D add(Vector v) {
-        Coordinate xCoord = x.add(v.getHead().x);
-        Coordinate yCoord = y.add(v.getHead().y);
-        Coordinate zCoord = z.add(v.getHead().z);
+        double xCoord = x.coord + v.head.x.coord;
+        double yCoord = y.coord + v.head.y.coord;
+        double zCoord = z.coord + v.head.z.coord;
         return new Point3D(xCoord, yCoord, zCoord);       
     }
 
@@ -47,21 +47,22 @@ public class Point3D {
      * @return a Vector with a head whose value is the difference of the two coordinates
      */
     public Vector subtract(Point3D p) {        
-        Coordinate xCoord = x.subtract(p.x);
-        Coordinate yCoord = y.subtract(p.y);
-        Coordinate zCoord = z.subtract(p.z);
+        double xCoord = x.coord - p.x.coord;
+        double yCoord = y.coord - p.y.coord;
+        double zCoord = z.coord - p.z.coord;
         Point3D point = new Point3D(xCoord, yCoord, zCoord);
 
         return new Vector(point);
     }
 
     /**
-     * 
-     * @param p
+     * @param p the point we use to calculate the distance squared
      * @return The squared distance between two Point3Ds
      */
     public double distanceSquared(Point3D p) {
-        double squareDistance = x.subtract(p.x).squared() + y.subtract(p.y).squared() + z.subtract(p.z).squared();
+        double squareDistance = (x.coord-p.x.coord*x.coord-p.x.coord)
+         + (y.coord - p.y.coord*y.coord - p.y.coord)
+         + (z.coord-p.z.coord*z.coord-p.z.coord);
         return squareDistance;
     }
 
