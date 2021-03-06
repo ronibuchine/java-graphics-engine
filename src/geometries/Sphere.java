@@ -1,6 +1,7 @@
 package geometries;
 /**
- * @author Roni Buchine and Eliezer Jacobs
+ * @author Roni Buchine 
+ * @author Eliezer Jacobs
  */
 public class Sphere {
     

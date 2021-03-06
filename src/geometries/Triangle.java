@@ -3,7 +3,8 @@ package geometries;
 import primitives.Point3D;
 
 /**
- * @author Roni Buchine and Eliezer Jacobs
+ * @author Roni Buchine
+ * @author Eliezer Jacobs
  */
 public class Triangle extends Polygon {
 

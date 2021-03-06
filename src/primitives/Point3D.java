@@ -6,7 +6,8 @@ import java.util.StringJoiner;
 /**
  * Class Point3D is the basic class representing a point in 3d space of Euclidean geometry in Cartesian
  * 3-dimensional coordinate system
- * @author Roni Buchine and Eliezer Jacobs  
+ * @author Roni Buchine 
+ * @author Eliezer Jacobs  
  */
 public class Point3D {
 
