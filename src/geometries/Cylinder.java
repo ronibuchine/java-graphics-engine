@@ -6,8 +6,30 @@ import primitives.*;
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */
-public class Cylinder extends Tube{
+public class Cylinder extends Tube implements Geometry {
     
+    /**
+     * height paramter for the cylinder
+     */
     double height;
+
+    /**
+     * Uses Tube constructor to initialize inherited radius and dir fields
+     * @param radius
+     * @param dir
+     * @param height
+     */
+    public Cylinder(double radius, Ray dir, double height) {
+        super(radius, dir);
+        this.height = height;
+    }
+    
+    @Override
+    /**
+     * overrides Geometry getNormal
+     */
+    public Vector getNormal(Point3D p0){
+        return null;
+    }
     
 }

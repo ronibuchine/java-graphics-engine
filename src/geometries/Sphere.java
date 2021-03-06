@@ -5,7 +5,7 @@ import primitives.*;
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */
-public class Sphere {
+public class Sphere implements Geometry {
 
     /**
      * Center of the sphere
@@ -43,13 +43,14 @@ public class Sphere {
         return radius;
     }
 
+    @Override
     /**
      * calculates normal vector from a given point on the sphere
      * @param p0 point passed to get the normal from
      * @return the normal Vector from the given point
      */
     public Vector getNormal(Point3D p0) {        
-        return center.subtract(p0).normalized();
+        return null;
     }
     
 }
