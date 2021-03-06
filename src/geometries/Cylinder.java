@@ -6,7 +6,7 @@ import primitives.*;
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */
-public class Cylinder extends Tube implements Geometry {
+public class Cylinder extends Tube {
     
     /**
      * height paramter for the cylinder
