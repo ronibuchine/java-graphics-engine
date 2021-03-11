@@ -1,6 +1,7 @@
 import static java.lang.System.out;
 import static primitives.Util.*;
-import primitives.*;
+import primitives.Point3D;
+import primitives.Vector;
 
 
 /**

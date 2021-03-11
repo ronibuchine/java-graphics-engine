@@ -3,7 +3,8 @@ package geometries;
 import java.util.List;
 import java.util.StringJoiner;
 
-import primitives.*;
+import primitives.Vector;
+import primitives.Point3D;
 import static primitives.Util.*;
 
 /**

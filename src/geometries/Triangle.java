@@ -1,6 +1,7 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point3D;
+import primitives.Vector;
 
 /**
  * @author Roni Buchine
