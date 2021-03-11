@@ -8,8 +8,14 @@ import primitives.*;
  */
 public class Triangle extends Polygon {
 
+    /**
+     * Constructor for the class triangle that takes the three vertices as parameters
+     * @param p0 a vertex of the triangle
+     * @param p1 a vertex of the triangle
+     * @param p2 a vertex of the triangle
+     */
     public Triangle(Point3D p0, Point3D p1, Point3D p2) {
-        super(p0, p1, p2); //apparently this calls the SuperClass's constructor
+        super(p0, p1, p2); 
     }
 
     @Override

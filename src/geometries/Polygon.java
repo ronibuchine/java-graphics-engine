@@ -11,6 +11,8 @@ import static primitives.Util.*;
  * system
  * 
  * @author Dan
+ * @author Roni Buchines
+ * @author Eliezer Jacobs
  */
 public class Polygon extends java.awt.Polygon implements Geometry {
 	/**
@@ -88,6 +90,7 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 		return plane.getNormal();
 	}
 
+	@Override
 	public String toString() {
 
 		StringJoiner allVertices = new StringJoiner(", ", "{","}");

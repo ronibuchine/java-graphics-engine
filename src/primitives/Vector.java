@@ -60,7 +60,7 @@ public class Vector {
     }
 
     /**
-     * @param v
+     * @param v 
      * @return A new Vector whose head is the sum of the two Vectors
      */
     public Vector add(Vector v) {

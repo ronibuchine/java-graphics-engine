@@ -10,7 +10,14 @@ import java.util.StringJoiner;
  */
 public class Ray {
 
+    /**
+     * Ray takes a direction vector as a parameter
+     */
     Vector dir;
+
+    /**
+     * the origin point of the Ray
+     */
     Point3D p0;
 
     /**

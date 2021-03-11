@@ -8,8 +8,14 @@ import primitives.*;
  */
 public class Plane implements Geometry {
 
+    /**
+     * a point on the plane
+     */
     Point3D p0;
 
+    /**
+     * One of the normal vectors for the plane
+     */
     Vector normal;
     
     /**

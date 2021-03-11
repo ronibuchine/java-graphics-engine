@@ -11,18 +11,44 @@ import java.util.StringJoiner;
  */
 public class Point3D {
 
+    /**
+     * X Coordinate in a 3-dimensional coordinate system
+     */
     Coordinate x;
+
+    /**
+     * Y Coordinate in a 3-dimensional coordinate system
+     */
     Coordinate y;
+
+    /**
+     * Z Coordinate in a 3-dimensional coordinate system
+     */
     Coordinate z;
 
+    /**
+     * A constant value representing the origin of the x, y, z plane
+     */
     public static final Point3D ZERO = new Point3D(0, 0, 0);
 
+    /**
+     * Constructor that takes three Coordinates as parameters and initializes the new Point3D
+     * @param x coordinate
+     * @param y coordinate
+     * @param z coordinate
+     */
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
+    /**
+     * Constructor that takes three double values and initializes the cooridnates with those values
+     * @param x double value
+     * @param y double value
+     * @param z double value
+     */
     public Point3D(double x, double y, double z) {
         this.x = new Coordinate(x);
         this.y = new Coordinate(y);

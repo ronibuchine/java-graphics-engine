@@ -20,8 +20,8 @@ public class Tube implements Geometry {
 
     /**
      * constructor which takes a radius and direction Ray and initializes the Tube
-     * @param radius
-     * @param dir
+     * @param radius the radius of the given tube
+     * @param dir the direction Ray in which the tube is going
      */
     public Tube(double radius, Ray dir) {
         this.radius = radius;
