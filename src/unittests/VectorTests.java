@@ -7,15 +7,17 @@ import primitives.Vector;
 
 /**
  * Unit testing class made to test the functionality Vector methods
+ * @author Roni Buchine
+ * @author Eliezer Jacobs * 
  */
 public class VectorTests {
-
-    @Test
+    
+    @Test   
     public void testCrossProduct() {
         fail("Not yet implemented");
     }
 
-    @Test
+    @Test    
     public void testDotProduct() {
         fail("Not yet implemented");
     }
