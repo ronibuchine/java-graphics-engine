@@ -1,4 +1,4 @@
-package unittests;
+package unittests.geometries;
 
 import org.junit.jupiter.api.Assertions;
 import geometries.Tube;
