@@ -4,6 +4,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
+ * an interfacce used by the classes in the geometries package to implement methods that are package wide
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */

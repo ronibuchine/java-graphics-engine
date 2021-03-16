@@ -5,6 +5,7 @@ import primitives.Vector;
 import primitives.Point3D;
 
 /**
+ * Class that represents an infinite tube in a 3-dimensional coordinate system
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */

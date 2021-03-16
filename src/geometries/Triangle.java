@@ -4,6 +4,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
+ * A class that represents a 2-dimensional triangle in a 3-dimensional coordinate system
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */

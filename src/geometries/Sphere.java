@@ -2,7 +2,9 @@ package geometries;
 
 import primitives.Point3D;
 import primitives.Vector;
+
 /**
+ * Clas that represents a sphere in a 3-dimensional coordinate system
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */

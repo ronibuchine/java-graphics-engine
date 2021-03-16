@@ -4,6 +4,7 @@ import primitives.Vector;
 import primitives.Point3D;
 
 /**
+ * A class that represents a 2-dimensional plane in 3-dimensional coordinate system
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */

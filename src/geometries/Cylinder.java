@@ -5,6 +5,7 @@ import primitives.Vector;
 import primitives.Point3D;
 
 /**
+ * Class used to represent a cylinder in 3-dimensional space
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */
