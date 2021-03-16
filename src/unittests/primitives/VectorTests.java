@@ -1,4 +1,4 @@
-package unittests;
+package unittests.primitives;
 
 import static org.junit.Assert.fail;
 import org.junit.jupiter.api.Assertions;
