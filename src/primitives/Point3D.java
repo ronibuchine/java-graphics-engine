@@ -14,17 +14,17 @@ public class Point3D {
     /**
      * X Coordinate in a 3-dimensional coordinate system
      */
-    Coordinate x;
+    final Coordinate x;
 
     /**
      * Y Coordinate in a 3-dimensional coordinate system
      */
-    Coordinate y;
+    final Coordinate y;
 
     /**
      * Z Coordinate in a 3-dimensional coordinate system
      */
-    Coordinate z;
+    final Coordinate z;
 
     /**
      * A constant value representing the origin of the x, y, z plane
