@@ -11,9 +11,9 @@ import primitives.Point3D;
 public class Cylinder extends Tube {
     
     /**
-     * height paramter for the cylinder
+     * height paramter for the {@link Cylinder}
      */
-    double height;
+    private double height;
 
     /**
      * Uses Tube constructor to initialize inherited radius and dir fields
@@ -28,7 +28,7 @@ public class Cylinder extends Tube {
     
     @Override
     /**
-     * overrides Geometry getNormal
+     * overrides {@link Geometry} getNormal
      */
     public Vector getNormal(Point3D p0){
         return null;

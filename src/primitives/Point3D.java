@@ -32,7 +32,7 @@ public class Point3D {
     public static final Point3D ZERO = new Point3D(0, 0, 0);
 
     /**
-     * Constructor that takes three Coordinates as parameters and initializes the new Point3D
+     * Constructor that takes three {@link Coordinate}s as parameters and initializes the new Point3D
      * @param x coordinate
      * @param y coordinate
      * @param z coordinate
@@ -44,7 +44,7 @@ public class Point3D {
     }
 
     /**
-     * Constructor that takes three double values and initializes the cooridnates with those values
+     * Constructor that takes three double values and initializes the {@link Coordinate}s with those values
      * @param x double value
      * @param y double value
      * @param z double value
@@ -56,9 +56,9 @@ public class Point3D {
     }
 
     /**
-     * method to add a Vector to a Point3D
+     * method to add a {@link Vector} to a {@link Point3D}
      * @param p
-     * @return new Vector with head as sum of the two added points
+     * @return new {@link Vector} with head as sum of the two added points
      */
     public Point3D add(Vector v) {
         double xCoord = x.coord + v.head.x.coord;
@@ -70,7 +70,7 @@ public class Point3D {
     /**
      * method subtracts the parameter Point3D from the instance of the Point3D
      * @param p
-     * @return a Vector with a head whose value is the difference of the two coordinates
+     * @return a {@link Vector} with a head whose value is the difference of the two {@link Coordinate}s
      */
     public Vector subtract(Point3D p) {        
         double xCoord = x.coord - p.x.coord;

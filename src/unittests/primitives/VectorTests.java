@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Vector;
 
 /**
- * Unit testing class made to test the functionality Vector methods
+ * Unit testing class made to test the functionality {@link Vector} methods
  * @author Roni Buchine
  * @author Eliezer Jacobs * 
  */

@@ -11,19 +11,19 @@ import primitives.Point3D;
 public class Tube implements Geometry {
     
     /**
-     * radius field for the Tube
+     * radius field for the {@link Tube}
      */
-    double radius;
+    protected double radius;
 
     /**
-     * direction vector to show where the Tube is facing in 3-dimensional space
+     * direction {@link Vector} to show where the {@link Tube} is facing in 3-dimensional space
      */
-    Ray dir;
+    protected Ray dir;
 
     /**
-     * constructor which takes a radius and direction Ray and initializes the Tube
+     * constructor which takes a radius and direction {@link Ray} and initializes the Tube
      * @param radius the radius of the given tube
-     * @param dir the direction Ray in which the tube is going
+     * @param dir the direction {@link Ray} in which the tube is going
      */
     public Tube(double radius, Ray dir) {
         this.radius = radius;

@@ -12,7 +12,7 @@ public class Vector {
     Point3D head;
 
     /**
-     * A constructor for Vector that takes a Point3D parameter
+     * A constructor for Vector that takes a {@link Point3D} parameter
      * throws an exception if the Vector is initialized to the zero Vector
      * @param head
      */
@@ -24,7 +24,7 @@ public class Vector {
     }
 
     /**
-     * Vector ctor that takes in 3 coordinates as parameters and throws exception if they are the 0 Vector
+     * Vector ctor that takes in 3 {@link Coordinate}s as parameters and throws exception if they are the 0 Vector
      * @param x 
      * @param y
      * @param z

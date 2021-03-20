@@ -2,7 +2,9 @@ package geometries;
 
 import primitives.Point3D;
 import primitives.Vector;
+
 /**
+ * Class implements a {@link Sphere} in 3-dimensional coordinate space.
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */
@@ -11,12 +13,12 @@ public class Sphere implements Geometry {
     /**
      * Center of the sphere
      */
-    Point3D center;
+    private Point3D center;
 
     /**
      * radius of the sphere
      */
-    double radius;
+    private double radius;
 
     /**
      * Constructor that takes center and radius parameters
@@ -46,9 +48,9 @@ public class Sphere implements Geometry {
 
     @Override
     /**
-     * calculates normal vector from a given point on the sphere
+     * calculates normal {@link Vector} from a given {@link Point3D} on the sphere
      * @param p0 point passed to get the normal from
-     * @return the normal Vector from the given point
+     * @return the normal {@link Vector} from the given {@link Point3D} on the sphere
      */
     public Vector getNormal(Point3D p0) {        
         return null;

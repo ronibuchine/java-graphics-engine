@@ -11,17 +11,17 @@ import java.util.StringJoiner;
 public class Ray {
 
     /**
-     * Ray takes a direction vector as a parameter
+     * Ray takes a direction {@link Vector} as a parameter
      */
     Vector dir;
 
     /**
-     * the origin point of the Ray
+     * the origin {@link Point3D} of the Ray
      */
     Point3D p0;
 
     /**
-     * ctor normalizes the Vector and creates the object with that Vector and point
+     * ctor normalizes the {@link Vector} and creates the object with that {@link Vector} and {@link Point3D}
      * @param dir
      * @param p0
      */

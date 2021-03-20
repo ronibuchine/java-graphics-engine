@@ -8,7 +8,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * unit testing class for polygon methods.
+ * unit testing class for {@link Polygon} methods.
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */
@@ -36,7 +36,7 @@ public class PolygonTests {
             fail("Constructed a polygon with wrong order of vertices");
         } catch (IllegalArgumentException e) {}
 
-        // TC03: Not in the same plane
+        // TC03: Not in the same {@link Plane}
         try {
             new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
                     new Point3D(0, 1, 0), new Point3D(0, 2, 2));

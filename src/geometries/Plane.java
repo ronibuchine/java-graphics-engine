@@ -10,18 +10,18 @@ import primitives.Point3D;
 public class Plane implements Geometry {
 
     /**
-     * a point on the plane
+     * a {@link Point3D} on the {@link Plane}
      */
-    Point3D p0;
+    private Point3D p0;
 
     /**
-     * One of the normal vectors for the plane
+     * One of the normal {@link Vector}s for the {@link Plane}
      */
-    Vector normal;
+    private Vector normal;
     
     /**
-     * Ctor which takes 3 points, calculates vectors in the plane and assigns the normal to be 
-     * the cross product of the 2 vectors and choose p0 to be the first input parameter
+     * Ctor which takes 3 {@link Point3D}s, calculates {@link Vector}s in the {@link Plane} and assigns the normal to be 
+     * the cross product of the 2 {@link Vector}s and choose p0 to be the first input parameter
      * @param p1
      * @param p2
      * @param p3
@@ -35,7 +35,7 @@ public class Plane implements Geometry {
     }
 
     /**
-     * Constructs a Plane wiwth the passed normal vector and point p0
+     * Constructs a {@Link Plane} with the passed normal {@link vector} and {@link Point3D} p0
      * @param normal
      * @param p0
      */
@@ -46,9 +46,9 @@ public class Plane implements Geometry {
     }
 
     /**
-     * passes a point as a paramter and returns the normalized normal Vector of the plane
+     * passes a {@link Point3D} as a paramter and returns the normalized normal {@link Vector} of the {@link Plane}
      * @param p
-     * @return normalized normal vector that defines the plane
+     * @return normalized normal {@link Vector} that defines the {@link Plane}
      */
     public Vector getNormal() {
         return normal;
@@ -56,6 +56,6 @@ public class Plane implements Geometry {
 
     @Override
     public Vector getNormal(Point3D p) {
-        return normal;
+        return getNormal();
     }
 }
