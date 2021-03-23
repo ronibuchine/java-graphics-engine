@@ -6,7 +6,8 @@ import primitives.Vector;
 
 /**
  * Test program for the 1st stage
- *
+ * @author Roni Buchine - ronibuchine@gmail.com
+ * @author Eliezer Jacobs - eliezerjacobs118@gmail.com
  * @author Dan Zilberstein
  */
 public final class Main {
