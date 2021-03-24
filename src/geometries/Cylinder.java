@@ -25,6 +25,13 @@ public class Cylinder extends Tube {
         super(radius, dir);
         this.height = height;
     }
+
+    /**
+     * getter for the field height
+     */
+    public double getHeight() {
+        return height;
+    }
     
     @Override
     /**

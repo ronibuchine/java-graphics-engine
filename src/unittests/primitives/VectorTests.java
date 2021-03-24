@@ -1,8 +1,11 @@
 package unittests.primitives;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 import primitives.Vector;
+import static primitives.Util.*;
 
 /**
  * Unit testing class made to test the functionality {@link Vector} methods
@@ -13,22 +16,59 @@ public class VectorTests {
     
     @Test   
     public void testCrossProduct() {
-        fail("Not yet implemented");
+        Vector v1 = new Vector(1, 2, 3);
+        Vector v2 = new Vector(-2, -4, -6);
+
+        // ============ Equivalence Partitions Tests ==============
+        Vector v3 = new Vector(0, 3, -2);
+        Vector vr = v1.crossProduct(v3);
+
+        // Test that length of cross-product is proper (orthogonal vectors taken for simplicity)
+        assertEquals("crossProduct() wrong result length", v1.length() * v3.length(), vr.length(), 0.00001);
+
+        // Test cross-product result orthogonality to its operands
+        assertTrue("crossProduct() result is not orthogonal to 1st operand", isZero(vr.dotProduct(v1)));
+        assertTrue("crossProduct() result is not orthogonal to 2nd operand", isZero(vr.dotProduct(v3)));
+
+        // =============== Boundary Values Tests ==================
+        // test zero vector from cross-productof co-lined vectors
+        try {
+            v1.crossProduct(v2);
+            fail("crossProduct() for parallel vectors does not throw an exception");
+        } catch (Exception e) {}
+
     }
 
     @Test    
     public void testDotProduct() {
-        fail("Not yet implemented");
+        // ============ Equivalence Partitions Tests ==============
+        // perpendicular vectors - returns 0 vector
+        // co-linear vectors - returns 0 vectors
+        // vectors that form an acute angle - return positive
+        // vectors that form an obtuse angle - return negative
     }
 
     @Test 
     public void testLength() {
-        fail("Not yet implemented");
+        // ============ Equivalence Partitions Tests ==============
+        // length of a vector in each octant - should all be equal to each other
+
     }
 
     @Test
     public void testSubtract() {
-        fail("Not yet implemented");
+        // =============Equivalence Partitions Tests ==============
+        // vector and itself - return error
+        // vector and its complement - return error
+        // two regular vectors
+    }
+
+    public void testNormalize() {
+        // ============Equivalence Partitions Tests ==============
+        // unit vector - return itself
+        // a random vector // return normalized version
+        // a negative vector - returns a negative normalized vector
+    
     }
 
 }
