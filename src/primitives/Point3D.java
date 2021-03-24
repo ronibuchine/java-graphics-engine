@@ -57,7 +57,7 @@ public class Point3D {
 
     /**
      * method to add a {@link Vector} to a {@link Point3D}
-     * @param p
+     * @param v
      * @return new {@link Vector} with head as sum of the two added points
      */
     public Point3D add(Vector v) {
