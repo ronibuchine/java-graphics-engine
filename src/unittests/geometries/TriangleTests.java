@@ -1,6 +1,8 @@
 package unittests.geometries;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
 import geometries.Triangle;
 
 /**
@@ -9,5 +11,10 @@ import geometries.Triangle;
  * @author Eliezer Jacobs
  */
 public class TriangleTests {
+
+    @Test
+    public void testGetNormal() {
+        fail("unimplemented");
+    }
     
 }

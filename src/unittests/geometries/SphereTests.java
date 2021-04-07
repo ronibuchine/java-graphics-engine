@@ -1,6 +1,8 @@
 package unittests.geometries;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
 import geometries.Sphere;
 
 /**
@@ -10,4 +12,8 @@ import geometries.Sphere;
  */
 public class SphereTests {
     
+    @Test
+    public void testGetNormal() {
+        fail("unimplemented");
+    }
 }

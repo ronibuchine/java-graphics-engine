@@ -41,18 +41,29 @@ public class VectorTests {
 
     @Test    
     public void testDotProduct() {
-        // ============ Equivalence Partitions Tests ==============
-        // perpendicular vectors - returns 0 vector
-        // co-linear vectors - returns 0 vectors
-        // vectors that form an acute angle - return positive
+        
+        Vector v1 = new Vector(0, 0, 1);
+        Vector v2 = new Vector(1, 0, -0);
+        Vector v3 = new Vector(0, 1, 5);
+        Vector v4 = new Vector(0, 0, -1);
+
+        // ============ Equivalence Partitions Tests ==============    
+        // acute angle vector - returns poitive
+        assertEquals(5, v1.dotProduct(v3), 0.000001);
+
         // vectors that form an obtuse angle - return negative
+        assertEquals(-1, v1.dotProduct(v4), 0.000001);
+
+        // ============== Boundary Tests =================
+        // perpendicular vectors - returns 0         
+        assertEquals(0, v1.dotProduct(v2), 0.000001);        
     }
 
     @Test 
     public void testLength() {
         // ============ Equivalence Partitions Tests ==============
         // length of a vector in each octant - should all be equal to each other
-
+        fail("unimplemented");
     }
 
     @Test
@@ -61,6 +72,7 @@ public class VectorTests {
         // vector and itself - return error
         // vector and its complement - return error
         // two regular vectors
+        fail("unimplemented");
     }
 
     public void testNormalize() {
@@ -68,6 +80,7 @@ public class VectorTests {
         // unit vector - return itself
         // a random vector // return normalized version
         // a negative vector - returns a negative normalized vector
+        fail("unimplemented");
     
     }
 

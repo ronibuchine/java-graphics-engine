@@ -1,6 +1,8 @@
 package unittests.geometries;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
 import geometries.Tube;
 
 /**
@@ -10,4 +12,8 @@ import geometries.Tube;
  */
 public class TubeTests {
     
+    @Test
+    public void testGetNormal() {
+        fail("unimplemented");
+    }
 }
