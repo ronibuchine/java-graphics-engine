@@ -7,6 +7,8 @@ import org.junit.Test;
 import primitives.Vector;
 import static primitives.Util.*;
 
+import java.util.ArrayList;
+
 /**
  * Unit testing class made to test the functionality {@link Vector} methods
  * @author Roni Buchine
@@ -43,7 +45,7 @@ public class VectorTests {
     public void testDotProduct() {
         
         Vector v1 = new Vector(0, 0, 1);
-        Vector v2 = new Vector(1, 0, -0);
+        Vector v2 = new Vector(1, 0, 0);
         Vector v3 = new Vector(0, 1, 5);
         Vector v4 = new Vector(0, 0, -1);
 
@@ -63,7 +65,15 @@ public class VectorTests {
     public void testLength() {
         // ============ Equivalence Partitions Tests ==============
         // length of a vector in each octant - should all be equal to each other
-        fail("unimplemented");
+        assertEquals(Math.sqrt(3), new Vector(1, 1, 1).length(), .00000001);
+        assertEquals(Math.sqrt(3), new Vector(1, 1, -1).length(), .00000001);
+        assertEquals(Math.sqrt(3), new Vector(1, -1, 1).length(), .00000001);
+        assertEquals(Math.sqrt(3), new Vector(-1, 1, 1).length(), .00000001);
+        assertEquals(Math.sqrt(3), new Vector(-1, -1, 1).length(), .00000001);
+        assertEquals(Math.sqrt(3), new Vector(1, -1, -1).length(), .0000001);
+        assertEquals(Math.sqrt(3), new Vector(-1, 1, -1).length(), .00000001);
+        assertEquals(Math.sqrt(3), new Vector(-1, -1, -1).length(), .00000001);
+        
     }
 
     @Test
