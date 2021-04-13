@@ -10,7 +10,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 /**
- * unit testing class for {@link Cylinder} methods.
+ * Unit testing class for {@link Cylinder} methods.
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */

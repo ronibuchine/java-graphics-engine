@@ -7,7 +7,7 @@ import org.junit.Test;
 import primitives.Vector;
 import static primitives.Util.*;
 
-import java.util.ArrayList;
+
 
 /**
  * Unit testing class made to test the functionality {@link Vector} methods
@@ -16,6 +16,8 @@ import java.util.ArrayList;
  */
 public class VectorTests {
     
+    final double ACCURACY = .0000001;
+
     @Test   
     public void testCrossProduct() {
         Vector v1 = new Vector(1, 2, 3);
@@ -26,7 +28,7 @@ public class VectorTests {
         Vector vr = v1.crossProduct(v3);
 
         // Test that length of cross-product is proper (orthogonal vectors taken for simplicity)
-        assertEquals("crossProduct() wrong result length", v1.length() * v3.length(), vr.length(), 0.00001);
+        assertEquals("crossProduct() wrong result length", v1.length() * v3.length(), vr.length(), ACCURACY);
 
         // Test cross-product result orthogonality to its operands
         assertTrue("crossProduct() result is not orthogonal to 1st operand", isZero(vr.dotProduct(v1)));
@@ -51,28 +53,28 @@ public class VectorTests {
 
         // ============ Equivalence Partitions Tests ==============    
         // acute angle vector - returns poitive
-        assertEquals(5, v1.dotProduct(v3), 0.000001);
+        assertEquals(5, v1.dotProduct(v3), ACCURACY);
 
         // vectors that form an obtuse angle - return negative
-        assertEquals(-1, v1.dotProduct(v4), 0.000001);
+        assertEquals(-1, v1.dotProduct(v4), ACCURACY);
 
         // ============== Boundary Tests =================
         // perpendicular vectors - returns 0         
-        assertEquals(0, v1.dotProduct(v2), 0.000001);        
+        assertEquals(0, v1.dotProduct(v2), ACCURACY);        
     }
 
     @Test 
     public void testLength() {
         // ============ Equivalence Partitions Tests ==============
         // length of a vector in each octant - should all be equal to each other
-        assertEquals(Math.sqrt(3), new Vector(1, 1, 1).length(), .00000001);
-        assertEquals(Math.sqrt(3), new Vector(1, 1, -1).length(), .00000001);
-        assertEquals(Math.sqrt(3), new Vector(1, -1, 1).length(), .00000001);
-        assertEquals(Math.sqrt(3), new Vector(-1, 1, 1).length(), .00000001);
-        assertEquals(Math.sqrt(3), new Vector(-1, -1, 1).length(), .00000001);
-        assertEquals(Math.sqrt(3), new Vector(1, -1, -1).length(), .0000001);
-        assertEquals(Math.sqrt(3), new Vector(-1, 1, -1).length(), .00000001);
-        assertEquals(Math.sqrt(3), new Vector(-1, -1, -1).length(), .00000001);
+        assertEquals(Math.sqrt(3), new Vector(1, 1, 1).length(), ACCURACY);
+        assertEquals(Math.sqrt(3), new Vector(1, 1, -1).length(), ACCURACY);
+        assertEquals(Math.sqrt(3), new Vector(1, -1, 1).length(), ACCURACY);
+        assertEquals(Math.sqrt(3), new Vector(-1, 1, 1).length(), ACCURACY);
+        assertEquals(Math.sqrt(3), new Vector(-1, -1, 1).length(), ACCURACY);
+        assertEquals(Math.sqrt(3), new Vector(1, -1, -1).length(), ACCURACY);
+        assertEquals(Math.sqrt(3), new Vector(-1, 1, -1).length(), ACCURACY);
+        assertEquals(Math.sqrt(3), new Vector(-1, -1, -1).length(), ACCURACY);
         
     }
 
@@ -85,11 +87,15 @@ public class VectorTests {
         fail("unimplemented");
     }
 
+    @Test
     public void testNormalize() {
         // ============Equivalence Partitions Tests ==============
-        // unit vector - return itself
-        // a random vector // return normalized version
+        
+        // a positive vector // return normalized version
         // a negative vector - returns a negative normalized vector
+
+        // ============== Boundary Value Tests ==============
+        // unit vector - return itself
         fail("unimplemented");
     
     }

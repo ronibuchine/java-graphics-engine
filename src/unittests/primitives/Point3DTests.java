@@ -16,6 +16,8 @@ import primitives.Vector;
  */
 public class Point3DTests {
 
+    final double ACCURACY = .000001;
+
     @Test
     public void testAdd() {
  
@@ -36,15 +38,15 @@ public class Point3DTests {
     @Test
     public void testDistance() {
 
-        assertEquals("distance() didn't return 0 between the origin and itself", 0, ZERO.distance(ZERO), 0.000001);
+        assertEquals("distance() didn't return 0 between the origin and itself", 0, ZERO.distance(ZERO), ACCURACY);
 
         Point3D p1 = new Point3D(3, 4, 0);
 
-        assertEquals("distance() didn't return 0 between non-origin point and itself", 0, p1.distance(p1), 0.000001);
-        assertEquals("distance() didn't return the correct distance from the origin.", 5, ZERO.distance(p1), 0.000001);
+        assertEquals("distance() didn't return 0 between non-origin point and itself", 0, p1.distance(p1), ACCURACY);
+        assertEquals("distance() didn't return the correct distance from the origin.", 5, ZERO.distance(p1), ACCURACY);
 
         Point3D p2 = new Point3D(6, 7, 0);
         Point3D p3 = new Point3D(3, 3, 0);
-        assertEquals("distance() didn't return the correct distance between two non-zero points.", 5, p2.distance(p3), 0.000001);
+        assertEquals("distance() didn't return the correct distance between two non-zero points.", 5, p2.distance(p3), ACCURACY);
     }
 }
