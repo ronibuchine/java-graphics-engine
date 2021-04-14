@@ -38,7 +38,11 @@ public class Cylinder extends Tube {
      * overrides {@link Geometry} getNormal
      */
     public Vector getNormal(Point3D p0){
-        return null;
+        /* if p0 is on end of cylinder:
+         *      return dir;
+         * else
+         */
+        return super.getNormal(p0);
     }
     
 }

@@ -53,7 +53,7 @@ public class Sphere implements Geometry {
      * @return the normal {@link Vector} from the given {@link Point3D} on the sphere
      */
     public Vector getNormal(Point3D p0) {        
-        return p0.subtract(center);
+        return p0.subtract(center).normalize();
     }
     
 }

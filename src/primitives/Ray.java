@@ -29,6 +29,14 @@ public class Ray {
         this.dir = dir.normalized();
         this.p0 = p0;
     }
+
+    public Vector getDir() {
+        return dir;
+    }
+
+    public Point3D getStartPoint() {
+        return p0;
+    }
     
 
     @Override
