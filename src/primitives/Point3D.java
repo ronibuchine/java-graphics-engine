@@ -76,9 +76,9 @@ public class Point3D {
         double xCoord = x.coord - p.x.coord;
         double yCoord = y.coord - p.y.coord;
         double zCoord = z.coord - p.z.coord;
-        Point3D point = new Point3D(xCoord, yCoord, zCoord);
+        //Point3D point = new Point3D(xCoord, yCoord, zCoord);
 
-        return new Vector(point);
+        return new Vector(xCoord, yCoord, zCoord);
     }
 
     /**
