@@ -38,10 +38,12 @@ public class Cylinder extends Tube {
     /**
      * Overrides {@link Geometry} getNormal
      */
-    public Vector getNormal(Point3D p0){
+    public Vector getNormal(Point3D p0) {
+        if (p0 == dir.getStartPoint()) return dir.getDir();
+        double t = dir.getDir().dotProduct(p0.subtract(dir.getStartPoint()));
+        if (t == 0 || t == height) return dir.getDir();
         Vector tubeNorm = super.getNormal(p0);
-        if (tubeNorm.length() == height) return tubeNorm;
-        else return dir.getDir();
+        return tubeNorm;
     }
     
 }
