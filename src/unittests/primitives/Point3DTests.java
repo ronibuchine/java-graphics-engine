@@ -1,6 +1,7 @@
 package unittests.primitives;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -19,6 +20,9 @@ public class Point3DTests {
     final double ACCURACY = .000001;
 
     @Test
+    /**
+     * Unit test for add method in {@link Point3D}
+     */
     public void testAdd() {
  
        
@@ -36,6 +40,9 @@ public class Point3DTests {
     }
     
     @Test
+    /**
+     * Unit test for distance method in {@link Point3D}
+     */
     public void testDistance() {
 
         assertEquals("distance() didn't return 0 between the origin and itself", 0, ZERO.distance(ZERO), ACCURACY);
@@ -48,5 +55,25 @@ public class Point3DTests {
         Point3D p2 = new Point3D(6, 7, 0);
         Point3D p3 = new Point3D(3, 3, 0);
         assertEquals("distance() didn't return the correct distance between two non-zero points.", 5, p2.distance(p3), ACCURACY);
+    }
+
+    @Test
+    /**
+     * Unit test for subtract method in {@link Point3D}
+     */
+    public void testSubtract() {
+
+        Point3D p1 = new Point3D(1, 2, 3);
+        Point3D p2 = new Point3D(9, 7, 5);
+
+        //=========== Equivalence Partition Tests ===========
+        assertEquals("subtract() didn't return the correct Vector", new Vector(-8, -5, -2) , p1.subtract(p2));
+
+        //=========== Boundary Tests =================
+        //subtracting a point from itself - should construct the zero vector
+        try {
+            p1.subtract(p1);
+            fail("no exception thrown for subtracting identical points");
+        } catch (Exception e) {}
     }
 }
