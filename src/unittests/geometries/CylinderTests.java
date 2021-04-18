@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import geometries.Cylinder;
 import primitives.Point3D;
 import primitives.Ray;
@@ -38,9 +38,7 @@ public class CylinderTests {
             c.getNormal(p0);
             fail("getNormal() didn't attempt to create Zero vector");
         }
-        catch (Exception e) {
-            assertTrue(true);
-        }
+        catch (Exception e) {}
 
         // passing a point on end of cylinder's inner ray
         assertEquals("getNormal() didn't recognize point as on the end of cylinder", c.getNormal(Point3D.ZERO), new Vector(1, 0, 0));

@@ -2,7 +2,7 @@ package unittests.geometries;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import geometries.Tube;
@@ -34,8 +34,6 @@ public class TubeTests {
             testTube.getNormal(p0);
             fail("getNormal() didn't attempt to create Zero vector");
         }
-        catch (Exception e) {
-            assertTrue(true);
-        }
+        catch (Exception e) {}
     }
 }
