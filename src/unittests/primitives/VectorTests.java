@@ -18,7 +18,10 @@ public class VectorTests {
     
     final double ACCURACY = .0000001;
 
-    @Test   
+    @Test  
+    /**
+     * Unit test for the crossProduct method for {@link Vector}s
+     */ 
     public void testCrossProduct() {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(-2, -4, -6);
@@ -43,7 +46,10 @@ public class VectorTests {
 
     }
 
-    @Test    
+    @Test  
+    /**
+     * Unit test for the dotProduct method for {@link Vector}s
+     */  
     public void testDotProduct() {
         
         Vector v1 = new Vector(0, 0, 1);
@@ -64,6 +70,9 @@ public class VectorTests {
     }
 
     @Test 
+    /**
+     * Unit test for the length method for {@link Vector}s
+     */
     public void testLength() {
         // ============ Equivalence Partitions Tests ==============
         // length of a vector in each octant - should all be equal to each other
@@ -79,24 +88,40 @@ public class VectorTests {
     }
 
     @Test
+    /**
+     * Unit test for the Subtract method for {@link Vector}s
+     */
     public void testSubtract() {
         // =============Equivalence Partitions Tests ==============
         // vector and itself - return error
-        // vector and its complement - return error
+        Vector v1 = new Vector (1, 2, 3);
+        try {
+            v1.subtract(v1);
+            fail("subtract() for a vector and itself does not throw an exception");
+        } catch (Exception e) {}
+        // vector and its complement         
+        assertEquals("subtract() didn't return the correct Vector when subtracting its complement", v1.subtract(v1.scale(-1)), new Vector(2, 4, 6));        
         // two regular vectors
-        fail("unimplemented");
+        Vector v2 = new Vector(7, 3, 4);
+        assertEquals("subtract() didn't return the correct Vector for regular vector subtraction", v1.subtract(v2), new Vector(-6, -1, -1));
     }
 
     @Test
+    /**
+     * Unit test for the normalize method for {@link Vector}s
+     */
     public void testNormalize() {
         // ============Equivalence Partitions Tests ==============
-        
+        Vector v1 = new Vector(0, 3, 4);
         // a positive vector // return normalized version
+        assertEquals("normalize() did not return the correct positive vector", v1.normalize() , new Vector(0, 0.6, 0.8));
         // a negative vector - returns a negative normalized vector
-
+        v1 = v1.scale(-5);
+        assertEquals("normalize() did not return the correct negative vector", v1.normalize(), new Vector(0, -.6, -.8));
         // ============== Boundary Value Tests ==============
         // unit vector - return itself
-        fail("unimplemented");
+        Vector v2 = new Vector(0, 0, 1);
+        assertEquals("normalize() did not correcty compute a unit vector", v2.normalize(), new Vector(0, 0, 1));
     
     }
 

@@ -17,7 +17,7 @@ public class PlaneTests {
      public void testGetNormal() {
          Plane p = new Plane(new Vector(0,0,1), new Point3D(0,0,0));
          assertEquals(new Vector(0, 0, 1), p.getNormal(new Point3D(5, 7, 3)));
-         // does this method need to account for the fact that the point passed might not be on the plane?
+         
      }
     
 }
