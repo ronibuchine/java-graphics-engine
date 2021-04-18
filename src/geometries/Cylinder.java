@@ -40,7 +40,7 @@ public class Cylinder extends Tube {
      */
     public Vector getNormal(Point3D p0){
         Vector tubeNorm = super.getNormal(p0);
-        if (norm.length() == height) return tubeNorm;
+        if (tubeNorm.length() == height) return tubeNorm;
         else return dir.getDir();
     }
     
