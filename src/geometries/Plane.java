@@ -46,7 +46,7 @@ public class Plane implements Geometry {
     }
 
     /**
-     * passes a {@link Point3D} as a paramter and returns the normalized normal {@link Vector} of the {@link Plane}
+     * Passes a {@link Point3D} as a paramter and returns the normalized normal {@link Vector} of the {@link Plane}
      * @param p
      * @return normalized normal {@link Vector} that defines the {@link Plane}
      */
@@ -55,6 +55,11 @@ public class Plane implements Geometry {
     }
 
     @Override
+    /**
+     * Overrides the {@link Geometry} interface getNormal and implements it for a plane object
+     * @param {@link Point3D} p as an intersection point on the plane
+     * @return Normal vector for the plane
+     */
     public Vector getNormal(Point3D p) {
         return getNormal();
     }

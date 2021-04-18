@@ -28,6 +28,7 @@ public class Cylinder extends Tube {
 
     /**
      * getter for the field height
+     * @return the height of the cylinder
      */
     public double getHeight() {
         return height;
@@ -35,7 +36,7 @@ public class Cylinder extends Tube {
     
     @Override
     /**
-     * overrides {@link Geometry} getNormal
+     * Overrides {@link Geometry} getNormal
      */
     public Vector getNormal(Point3D p0){
         Vector tubeNorm = super.getNormal(p0);

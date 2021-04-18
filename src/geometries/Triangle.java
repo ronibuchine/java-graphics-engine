@@ -21,7 +21,7 @@ public class Triangle extends Polygon {
 
     @Override
     /**
-     * overrides getNormal from {@link Geometry} interface
+     * Overrides getNormal from {@link Geometry} interface
      */
     public Vector getNormal(Point3D p0) {
         return super.getNormal(p0);

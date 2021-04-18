@@ -6,13 +6,16 @@ import org.junit.Test;
 import geometries.Tube;
 
 /**
- * unit testing class for {@link Tube} methods
+ * Unit testing class for {@link Tube} methods
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */
 public class TubeTests {
     
     @Test
+    /**
+     * Tests the functionality of the getNormal method for a {@link Tube}
+     */
     public void testGetNormal() {
         fail("unimplemented");
     }

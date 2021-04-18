@@ -10,7 +10,7 @@ import primitives.Vector;
 public interface Geometry {
 
     /**
-     * abstract method used to get the normal vector for a given geometry.
+     * Abstract method used to get the normal vector for a given geometry.
      * @param p the point used to calculate the normal vector
      * @return The normal vector at the point p
      */
