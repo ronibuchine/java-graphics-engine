@@ -37,6 +37,9 @@ public class Cylinder extends Tube {
     @Override
     /**
      * Overrides {@link Geometry} getNormal
+     * @param p0 a point that intersects with the Cylinder
+     * @return tubeNorm the normal vector inherited from {@link Tube}
+     * @return dir.getDir() the direction vector of the cylinder
      */
     public Vector getNormal(Point3D p0) {
         if (p0 == dir.getStartPoint()) return dir.getDir();

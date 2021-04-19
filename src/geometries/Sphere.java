@@ -16,7 +16,7 @@ public class Sphere implements Geometry {
     private Point3D center;
 
     /**
-     * radius of the sphere
+     * Radius of the sphere
      */
     private double radius;
 
@@ -31,7 +31,7 @@ public class Sphere implements Geometry {
     }
 
     /**
-     * getter for the center of the sphere
+     * Getter for the center of the sphere
      * @return the center field of the sphere
      */
     public Point3D getCenter() {
@@ -39,7 +39,7 @@ public class Sphere implements Geometry {
     }
 
     /**
-     * getter for the radius of the sphere
+     * Getter for the radius of the sphere
      * @return radius field of the sphere
      */
     public double getRadius() {

@@ -7,7 +7,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * unit testing class for {@link Plane} methods.
+ * Unit testing class for {@link Plane} methods.
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */

@@ -17,6 +17,9 @@ import primitives.Vector;
 public class CylinderTests {
     
     @Test
+    /**
+     * Unit test for getNormal method implemented in a {@link Cylinder}
+     */
     public void testGetNormal() {
         //============ Equivalence Partitions Tests ==============
         // tests for a point p0 on side of cylinder
