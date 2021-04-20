@@ -35,7 +35,7 @@ public class Plane implements Geometry {
     }
 
     /**
-     * Constructs a {@Link Plane} with the passed normal {@link vector} and {@link Point3D} p0
+     * Constructs a {@link Plane} with the passed normal {@link Vector} and {@link Point3D} p0
      * @param normal
      * @param p0
      */
@@ -47,7 +47,6 @@ public class Plane implements Geometry {
 
     /**
      * Passes a {@link Point3D} as a paramter and returns the normalized normal {@link Vector} of the {@link Plane}
-     * @param p
      * @return normalized normal {@link Vector} that defines the {@link Plane}
      */
     public Vector getNormal() {

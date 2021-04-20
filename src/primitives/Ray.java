@@ -4,7 +4,8 @@ import java.util.StringJoiner;
 
 /**
  * Class Ray is the basic ray class to represent a camera ray in a scene in 3-dimensional space
- * @see Point3D.java, Vector.java
+ * @see Point3D
+ * @see Vector
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */
