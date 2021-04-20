@@ -1,4 +1,4 @@
-package unittests.primitives;
+package unittests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
