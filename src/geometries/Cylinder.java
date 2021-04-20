@@ -12,9 +12,9 @@ import primitives.Point3D;
 public class Cylinder extends Tube {
     
     /**
-     * height paramter for the cylinder
+     * height paramter for the {@link Cylinder}
      */
-    double height;
+    private double height;
 
     /**
      * Uses Tube constructor to initialize inherited radius and dir fields
@@ -26,13 +26,28 @@ public class Cylinder extends Tube {
         super(radius, dir);
         this.height = height;
     }
+
+    /**
+     * getter for the field height
+     * @return the height of the cylinder
+     */
+    public double getHeight() {
+        return height;
+    }
     
     @Override
     /**
-     * overrides Geometry getNormal
+     * Overrides {@link Geometry} getNormal
+     * @param p0 a point that intersects with the Cylinder
+     * @return tubeNorm the normal vector inherited from {@link Tube}
+     * @return dir.getDir() the direction vector of the cylinder
      */
-    public Vector getNormal(Point3D p0){
-        return null;
+    public Vector getNormal(Point3D p0) {
+        if (p0 == dir.getStartPoint()) return dir.getDir();
+        double t = dir.getDir().dotProduct(p0.subtract(dir.getStartPoint()));
+        if (t == 0 || t == height) return dir.getDir();
+        Vector tubeNorm = super.getNormal(p0);
+        return tubeNorm;
     }
     
 }

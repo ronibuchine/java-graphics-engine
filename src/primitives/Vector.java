@@ -3,7 +3,8 @@ package primitives;
 /**
  * Class Vector is the basic class representing a vector in a 3-dimensional Cartesian 
  * coordinate system
- * @see Point3D.java, Coordinate.java
+ * @see Point3D
+ * @see Coordinate
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */
@@ -12,7 +13,7 @@ public class Vector {
     Point3D head;
 
     /**
-     * A constructor for Vector that takes a Point3D parameter
+     * A constructor for Vector that takes a {@link Point3D} parameter
      * throws an exception if the Vector is initialized to the zero Vector
      * @param head
      */
@@ -24,7 +25,7 @@ public class Vector {
     }
 
     /**
-     * Vector ctor that takes in 3 coordinates as parameters and throws exception if they are the 0 Vector
+     * Vector ctor that takes in 3 {@link Coordinate}s as parameters and throws exception if they are the 0 Vector
      * @param x 
      * @param y
      * @param z

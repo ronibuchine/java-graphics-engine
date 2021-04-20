@@ -8,7 +8,7 @@ import primitives.Point3D;
 import static primitives.Util.*;
 
 /**
- * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
+ * {@link Polygon} class represents two-dimensional polygon in 3D Cartesian coordinate
  * system
  * 
  * @author Dan
@@ -17,11 +17,11 @@ import static primitives.Util.*;
  */
 public class Polygon extends java.awt.Polygon implements Geometry {
 	/**
-	 * List of polygon's vertices
+	 * List of {@link Polygon}'s vertices
 	 */
 	protected List<Point3D> vertices;
 	/**
-	 * Associated plane in which the polygon lays
+	 * Associated {@link Plane} in which the polygon lays
 	 */
 	protected Plane plane;
 
@@ -55,12 +55,12 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 		// The plane holds the invariant normal (orthogonal unit) vector to the polygon
 		plane = new Plane(vertices[0], vertices[1], vertices[2]);
 		if (vertices.length == 3)
-			return; // no need for more tests for a Triangle
+			return; // no need for more tests for a {@link Triangle}
 
 		Vector n = plane.getNormal();
 
-		// Subtracting any subsequent points will throw an IllegalArgumentException
-		// because of Zero Vector if they are in the same point
+		// Subtracting any subsequent {@link Point3D}s will throw an IllegalArgumentException
+		// because of Zero {@link Vector} if they are in the same {@link Point3D}
 		Vector edge1 = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]);
 		Vector edge2 = vertices[0].subtract(vertices[vertices.length - 1]);
 
