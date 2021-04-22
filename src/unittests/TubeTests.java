@@ -1,10 +1,13 @@
 package unittests;
 
+import geometries.Tube;
+import org.junit.Test;
+import primitives.Point3D;
+import primitives.Ray;
+import primitives.Vector;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import org.junit.Test;
-import geometries.Tube;
-import primitives.*;
 
 /**
  * Unit testing class for {@link Tube} methods

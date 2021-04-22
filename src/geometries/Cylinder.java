@@ -3,6 +3,7 @@ package geometries;
 import primitives.Ray;
 import primitives.Vector;
 import primitives.Point3D;
+import static primitives.Util.*;
 
 /**
  * Class used to represent a cylinder in 3-dimensional space

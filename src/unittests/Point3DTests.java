@@ -1,11 +1,12 @@
 package unittests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 import primitives.Point3D;
-import static primitives.Point3D.ZERO;
 import primitives.Vector;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static primitives.Point3D.ZERO;
 
 
 /**

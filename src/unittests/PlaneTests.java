@@ -1,10 +1,11 @@
 package unittests;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 import geometries.Plane;
+import org.junit.Test;
 import primitives.Point3D;
 import primitives.Vector;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit testing class for {@link Plane} methods.

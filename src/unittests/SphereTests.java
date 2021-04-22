@@ -1,11 +1,12 @@
 package unittests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import org.junit.Test;
 import geometries.Sphere;
+import org.junit.Test;
 import primitives.Point3D;
 import primitives.Vector;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Unit testing class for {@link Sphere} methods.
