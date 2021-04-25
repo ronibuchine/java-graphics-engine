@@ -42,6 +42,24 @@ public class Point3D {
     }
 
     /**
+     * getter function for x-coordinate
+     * @return x coordinate
+     */
+    public Coordinate getX() {return x;}
+
+    /**
+     * getter function for y-coordinates
+     * @return y coordinate
+     */
+    public Coordinate getY() {return y;}
+
+    /**
+     * getter function for z coordinates
+     * @return z coordinate
+     */
+    public Coordinate getZ() {return z;}
+
+    /**
      * Constructor that takes three double values and initializes the {@link Coordinate}s with those values
      * @param x double value
      * @param y double value
