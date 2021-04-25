@@ -2,10 +2,13 @@ package geometries;
 
 import primitives.Vector;
 
+import java.util.Arrays;
 import java.util.List;
 
 import primitives.Point3D;
 import primitives.Ray;
+
+import static primitives.Util.*;
 
 /**
  * A class that represents a 2-dimensional plane in 3-dimensional coordinate system
@@ -70,7 +73,11 @@ public class Plane implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray r) {
-        // TODO Auto-generated method stub
-        return null;
+        Vector rayToPlane = p0.subtract(r.getStartPoint()); //a vector from the ray start point to some point on the plane
+        double numerator = alignZero(normal.dotProduct(rayToPlane));
+        double denominator = alignZero(normal.dotProduct(r.getDir()));
+        if (isZero(denominator)) return null;               //Ray is perpendicular to plane
+        if (isZero(numerator)) return null;                 //Ray starts on plane
+        return Arrays.asList(r.getPoint(numerator/denominator));
     }
 }

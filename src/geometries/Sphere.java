@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,11 +66,8 @@ public class Sphere implements Geometry {
         double projLength = alignZero(r.getDir().dotProduct(u));    //length of projection of u on r
         double distToCenter = alignZero(Math.sqrt(u.lengthSquared() - projLength*projLength)); //distance of projected point from center of sphere
         if (distToCenter > radius) return null;                     //projected point is further than sphere's radius
-        List<Point3D> list = new LinkedList<>();
         double distToSide = alignZero(Math.sqrt(radius*radius - distToCenter*distToCenter));  //distance from projected point to side of sphere
-        list.add(r.getPoint(projLength + distToSide));
-        if (isZero(distToSide)) return list;
-        list.add(r.getPoint(projLength - distToSide));
-        return list;
+        if (isZero(distToSide)) return null;                        //ignore tangent point 
+        return Arrays.asList(r.getPoint(projLength + distToSide),r.getPoint(projLength - distToSide));
     }
 }
