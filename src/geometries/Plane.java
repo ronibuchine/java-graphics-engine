@@ -34,8 +34,7 @@ public class Plane implements Geometry {
     public Plane(Point3D p1, Point3D p2, Point3D p3) {
         Vector vec1 = p1.subtract(p2);
         Vector vec2 = p2.subtract(p3);
-        this.normal = vec1.crossProduct(vec2);
-        this.normal.normalize();
+        this.normal = vec1.crossProduct(vec2).normalized();        
         this.p0 = p1;
     }
 
