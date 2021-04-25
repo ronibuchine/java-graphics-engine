@@ -28,8 +28,11 @@ public class Geometries implements Intersectable {
 
     @Override
     public List<Point3D> findIntersections(Ray r) {
-        // TODO Auto-generated method stub
-        return null;
+        List<Point3D> list = new LinkedList<>();
+        for (Intersectable intersectable : geometries) {
+            list.addAll(intersectable.findIntersections(r));
+        }
+        return list;
     } 
 
 
