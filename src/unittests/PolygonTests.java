@@ -3,10 +3,14 @@ package unittests;
 import geometries.Polygon;
 import org.junit.Test;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * unit testing class for {@link Polygon} methods.
@@ -87,6 +91,28 @@ public class PolygonTests {
                 new Point3D(-1, 1, 1));
         double sqrt3 = Math.sqrt(1d / 3);
         assertEquals("Bad normal to trinagle", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
+    }
+
+    /**
+     * Test method for {@link geometries.Polygon#findIntersections(primitives.Ray)}
+     */
+    @Test
+    public void testFindIntersections() {
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // Intersection point inside polygon         
+        Polygon p1 = new Polygon(new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
+        Ray r = new Ray(new Point3D(0.5, 0.5, 1), new Vector(0, 0, -1));
+        assertEquals("Value returned for findIntersection() was incorrect", List.of(new Point3D(.5, .5, 0)) ,p1.findIntersections(r));
+
+        // Point outside polygon 
+        // Point outside against vertex
+
+        // ============= Boundary Tests =================
+        // Point on edge
+        // point on vertex
+        // point on edges continuation
     }
     
 }
