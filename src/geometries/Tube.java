@@ -2,6 +2,9 @@ package geometries;
 
 import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
+
 import primitives.Point3D;
 
 /**
@@ -17,7 +20,7 @@ public class Tube implements Geometry {
     protected double radius;
 
     /**
-     * direction {@link Vector} to show where the {@link Tube} is facing in 3-dimensional space
+     * direction {@link Vector} representing the direction that the {@link Tube} is facing in 3-dimensional space
      */
     protected Ray dir;
 
@@ -42,6 +45,11 @@ public class Tube implements Geometry {
         Point3D o = dir.getStartPoint().add(dir.getDir().scale(t));
         return p0.subtract(o).normalize();
     }
-    
 
+    @Override
+    public List<Point3D> findIntersections(Ray r) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
 }

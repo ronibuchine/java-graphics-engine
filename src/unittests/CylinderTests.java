@@ -23,7 +23,7 @@ public class CylinderTests {
     public void testGetNormal() {
         //============ Equivalence Partitions Tests ==============
         // tests for a point p0 on side of cylinder
-        Ray r = new Ray(new Vector(1, 0, 0), Point3D.ZERO);
+        Ray r = new Ray(Point3D.ZERO, new Vector(1, 0, 0));
         Cylinder c= new Cylinder(3, r, 10);
         Point3D p0 = new Point3D(8, 0, 3);
         assertEquals("getNormal() didn't return the correct Vector", c.getNormal(p0), new Vector(0, 0, 1));

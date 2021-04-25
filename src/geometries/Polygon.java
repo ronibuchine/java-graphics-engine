@@ -5,6 +5,8 @@ import java.util.StringJoiner;
 
 import primitives.Vector;
 import primitives.Point3D;
+import primitives.Ray;
+
 import static primitives.Util.*;
 
 /**
@@ -12,7 +14,7 @@ import static primitives.Util.*;
  * system
  * 
  * @author Dan
- * @author Roni Buchines
+ * @author Roni Buchine
  * @author Eliezer Jacobs
  */
 public class Polygon extends java.awt.Polygon implements Geometry {
@@ -87,6 +89,11 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 	}
 
 	@Override
+	/**
+	 * Getter for the normal {@list Vector} of the Polygon
+	 * @param p A {@link Point3D}
+	 * @return The normal {@link Vector}
+	 */
 	public Vector getNormal(Point3D point) {
 		return plane.getNormal();
 	}
@@ -99,5 +106,11 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 			allVertices.add(a.toString());
 		}
 		return allVertices.toString();
+	}
+
+	@Override
+	public List<Point3D> findIntersections(Ray r) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

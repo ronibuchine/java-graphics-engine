@@ -1,7 +1,11 @@
 package geometries;
 
 import primitives.Vector;
+
+import java.util.List;
+
 import primitives.Point3D;
+import primitives.Ray;
 
 /**
  * A class that represents a 2-dimensional plane in 3-dimensional coordinate system
@@ -22,7 +26,7 @@ public class Plane implements Geometry {
     
     /**
      * Ctor which takes 3 {@link Point3D}s, calculates {@link Vector}s in the {@link Plane} and assigns the normal to be 
-     * the cross product of the 2 {@link Vector}s and choose p0 to be the first input parameter
+     * the cross product of the 2 {@link Vector}s and assigns p0 to be the first input parameter
      * @param p1
      * @param p2
      * @param p3
@@ -47,7 +51,7 @@ public class Plane implements Geometry {
     }
 
     /**
-     * Passes a {@link Point3D} as a paramter and returns the normalized normal {@link Vector} of the {@link Plane}
+     * Getter for the normal {@link Vector} of the {@link Plane}
      * @return normalized normal {@link Vector} that defines the {@link Plane}
      */
     public Vector getNormal() {
@@ -57,10 +61,16 @@ public class Plane implements Geometry {
     @Override
     /**
      * Overrides the {@link Geometry} interface getNormal and implements it for a plane object
-     * @param {@link Point3D} p as an intersection point on the plane
+     * @param p {@link Point3D} as an intersection point on the plane
      * @return Normal vector for the plane
      */
     public Vector getNormal(Point3D p) {
         return getNormal();
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray r) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

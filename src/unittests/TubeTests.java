@@ -23,7 +23,7 @@ public class TubeTests {
     public void testGetNormal() {
         //============ Equivalence Partitions Tests ==============
         // tests for a point p0 on side of testTube
-        Ray r = new Ray(new Vector(1, 0, 0), Point3D.ZERO);
+        Ray r = new Ray(Point3D.ZERO, new Vector(1, 0, 0));
         Tube testTube = new Tube(5, r);
         Point3D p0 = new Point3D(1, 1, 0);
         assertEquals("getNormal() didn't return the correct Vector", testTube.getNormal(p0), new Vector(0, 1, 0));

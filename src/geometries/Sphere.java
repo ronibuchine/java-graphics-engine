@@ -1,6 +1,9 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -49,11 +52,17 @@ public class Sphere implements Geometry {
     @Override
     /**
      * calculates normal {@link Vector} from a given {@link Point3D} on the sphere
-     * @param p0 point passed to get the normal from
+     * @param p0 intersection point to get the normal from
      * @return the normal {@link Vector} from the given {@link Point3D} on the sphere
      */
     public Vector getNormal(Point3D p0) {        
         return p0.subtract(center).normalize();
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray r) {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }

@@ -23,10 +23,10 @@ public class Ray {
 
     /**
      * ctor normalizes the {@link Vector} and creates the object with that {@link Vector} and {@link Point3D}
-     * @param dir
-     * @param p0
+     * @param dir {@link Vector} representing {@link Ray}'s direction
+     * @param p0 {@link Point3D} representing {@link Ray}'s start point
      */
-    public Ray(Vector dir, Point3D p0) {
+    public Ray(Point3D p0, Vector dir) {
         this.dir = dir.normalized();
         this.p0 = p0;
     }
