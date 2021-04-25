@@ -1,6 +1,6 @@
 package geometries;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import primitives.Point3D;
 import primitives.Ray;
@@ -19,7 +19,7 @@ public class Geometries implements Intersectable {
     }
 
     public Geometries() {
-        this.geometries = new ArrayList<>();        // we need to have a reasoning for choosing an arraylist over a linked list
+        this.geometries = new LinkedList<>();   //efficient for adding elements. no need for random element access, only iteration
     }
 
     public void add(Intersectable geometry) {

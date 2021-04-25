@@ -44,8 +44,7 @@ public class Plane implements Geometry {
      * @param p0
      */
     public Plane(Vector normal, Point3D p0) {
-        this.normal = normal;
-        this.normal.normalize();
+        this.normal = normal.normalized();
         this.p0 = p0;
     }
 
