@@ -61,16 +61,15 @@ public class Sphere implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray r) {
-        Vector u = center.subtract(r.getStartPoint()); //vector from ray start to center of sphere
-        double t = alignZero(r.getDir().dotProduct(u));
-        double d = alignZero(Math.sqrt(u.lengthSquared() - t*t));
-        if (d > radius) return null;
+        Vector u = center.subtract(r.getStartPoint());              //vector from ray start to center of sphere
+        double projLength = alignZero(r.getDir().dotProduct(u));    //length of projection of u on r
+        double distToCenter = alignZero(Math.sqrt(u.lengthSquared() - projLength*projLength)); //distance of projected point from center of sphere
+        if (distToCenter > radius) return null;                     //projected point is further than sphere's radius
         List<Point3D> list = new LinkedList<>();
-        double length = alignZero(Math.sqrt(radius*radius - d*d));
-        list.add(r.getPoint(t + length));
-        if (isZero(length)) return list;
-        list.add(r.getPoint(t - length));
+        double distToSide = alignZero(Math.sqrt(radius*radius - distToCenter*distToCenter));  //distance from projected point to side of sphere
+        list.add(r.getPoint(projLength + distToSide));
+        if (isZero(distToSide)) return list;
+        list.add(r.getPoint(projLength - distToSide));
         return list;
     }
-    
 }
