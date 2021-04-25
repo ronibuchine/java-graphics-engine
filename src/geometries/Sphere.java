@@ -1,11 +1,9 @@
 package geometries;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 import primitives.*;
 import static primitives.Util.*;
+
+import java.util.List;
 
 /**
  * Class implements a {@link Sphere} in 3-dimensional coordinate space.
@@ -73,6 +71,6 @@ public class Sphere implements Geometry {
         if (distToCenter > radius) return null;                     //projected point is further than sphere's radius
         double distToSide = alignZero(Math.sqrt(radius*radius - distToCenter*distToCenter));  //distance from projected point to side of sphere
         if (isZero(distToSide)) return null;                        //ignore tangent point 
-        return Arrays.asList(r.getPoint(projLength + distToSide),r.getPoint(projLength - distToSide));
+        return List.of(r.getPoint(projLength + distToSide),r.getPoint(projLength - distToSide));
     }
 }
