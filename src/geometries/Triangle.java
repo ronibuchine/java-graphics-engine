@@ -1,7 +1,6 @@
 package geometries;
 
 import primitives.Point3D;
-import primitives.Vector;
 
 /**
  * A class that represents a 2-dimensional triangle in a 3-dimensional coordinate system
@@ -18,15 +17,6 @@ public class Triangle extends Polygon {
      */
     public Triangle(Point3D p0, Point3D p1, Point3D p2) {
         super(p0, p1, p2); 
-    }
-
-    @Override
-    /**
-     * Overrides getNormal from {@link Geometry} interface
-     * @return normal vector for the Triangle
-     */
-    public Vector getNormal(Point3D p0) {
-        return super.getNormal(p0);
-    }
+    }   
 
 }
