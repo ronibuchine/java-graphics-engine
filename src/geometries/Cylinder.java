@@ -3,7 +3,10 @@ package geometries;
 import primitives.Ray;
 import primitives.Vector;
 import primitives.Point3D;
+import geometries.Plane;
 import static primitives.Util.*;
+
+import java.util.List;
 
 /**
  * Class used to represent a cylinder in 3-dimensional space
@@ -50,5 +53,27 @@ public class Cylinder extends Tube {
         Vector tubeNorm = super.getNormal(p0);
         return tubeNorm;
     }
-    
+
+    /**
+     * private helper function to determine if a {@link Point3D} is inside the cylinder
+     * @return {@link boolean}
+     */
+    private boolean isInside(Point3D p) {
+        //checks that angle between center ray and vector from start to p is acute and that angle between center ray and vector from end to p is obtuse
+        return (dir.getDir().dotProduct(p.subtract(dir.getStartPoint())) > 0 && dir.getDir().dotProduct(p.subtract(dir.getPoint(height))) < 0);
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray r) {
+        List<Point3D> list = findIntersections(r);
+        for (Point3D p : list) {
+            if (!isInside(p)) list.remove(p);
+        }
+        if (list.size() == 2) return list;
+        List<Point3D> cap1 = new Plane(dir.getDir(), dir.getStartPoint()).findIntersections(r);
+        List<Point3D> cap2 = new Plane(dir.getDir(), dir.getPoint(height)).findIntersections(r);
+        if (cap1 != null) list.add(cap1.get(0));
+        if (cap2 != null) list.add(cap2.get(0));
+        return list;
+    }
 }

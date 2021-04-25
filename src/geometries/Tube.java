@@ -1,11 +1,13 @@
 package geometries;
 
+import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import static primitives.Util.*;
+
 import java.util.List;
 
-import primitives.Point3D;
 
 /**
  * Class representing a Tube in a 3-dimensional coordinate system
@@ -48,8 +50,13 @@ public class Tube implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray r) {
-        // TODO Auto-generated method stub
-        return null;
+        double a = alignZero(r.getDir().getHead().getX()*r.getDir().getHead().getX() + r.getDir().getHead().getY()*r.getDir().getHead().getY());
+        double b = alignZero(2*(r.getStartPoint().getX()*r.getDir().getHead().getX() + r.getStartPoint().getY()*r.getDir().getHead().getY()));
+        double c = alignZero(r.getStartPoint().getX()*r.getStartPoint().getX() + r.getStartPoint().getY()*r.getStartPoint().getY() - radius*radius);
+        if (b*b - 4*a*c <= 0) return null;                      //check discriminant
+        double scalar1 = alignZero((-b + b*b - 4*a*c) / 2*a);   //positive answer
+        double scalar2 = alignZero((-b - b*b - 4*a*c) / 2*a);   //negative answer
+        if (scalar1 <= 0 || scalar2 <= 0) return null;          //check if scalar is negative (point is behind ray) or zero (point is at start of ray)
+        return List.of(r.getPoint(scalar1), r.getPoint(scalar2));
     }
-    
 }
