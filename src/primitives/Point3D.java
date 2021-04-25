@@ -45,19 +45,19 @@ public class Point3D {
      * getter function for x-coordinate
      * @return x coordinate
      */
-    public Coordinate getX() {return x;}
+    public double getX() {return x.coord;}
 
     /**
      * getter function for y-coordinates
      * @return y coordinate
      */
-    public Coordinate getY() {return y;}
+    public double getY() {return y.coord;}
 
     /**
      * getter function for z coordinates
      * @return z coordinate
      */
-    public Coordinate getZ() {return z;}
+    public double getZ() {return z.coord;}
 
     /**
      * Constructor that takes three double values and initializes the {@link Coordinate}s with those values
