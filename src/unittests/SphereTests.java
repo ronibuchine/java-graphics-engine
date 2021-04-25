@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class SphereTests {
         assertEquals("getNormal() didn't return the correct normal Vector", s1.getNormal(p0), new Vector(0, 0, 5).normalized());
 
         // =========== Boundary Tests =================
-        // passing the center of the sphere as P0
+        // passing the center of the sphere as P0    
         try{
             s1.getNormal(s1.getCenter());
             fail("getNormal() didn't attempt to construct the zero Vector");
@@ -60,9 +61,9 @@ public class SphereTests {
         assertEquals("Ray crosses sphere", List.of(p1, p2), result);
 
         // TC03: Ray starts inside the sphere (1 point)
-        ...
+        //...
         // TC04: Ray starts after the sphere (0 points)
-        ...
+        //...
 
         // =============== Boundary Values Tests ==================
 
