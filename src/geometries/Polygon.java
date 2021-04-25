@@ -1,13 +1,13 @@
 package geometries;
 
-import java.util.List;
-import java.util.StringJoiner;
-
 import primitives.Vector;
 import primitives.Point3D;
 import primitives.Ray;
 
 import static primitives.Util.*;
+
+import java.util.List;
+import java.util.StringJoiner;
 
 /**
  * {@link Polygon} class represents two-dimensional polygon in 3D Cartesian coordinate
@@ -110,7 +110,18 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 
 	@Override
 	public List<Point3D> findIntersections(Ray r) {
-		// TODO Auto-generated method stub
-		return null;
+		Point3D p = plane.findIntersections(r).get(0); 					//gets point where ray intersects the polygon of the plane
+		try {	
+			Vector edge1 = vertices.get(vertices.size() - 1).subtract(p);
+			Vector edge2 = vertices.get(0).subtract(p);
+			boolean sign = (r.getDir().dotProduct(edge1.crossProduct(edge2)) > 0);
+			for (int i = 1; i < vertices.size(); ++i) {
+				edge2 = edge1;
+				edge1 = vertices.get(i).subtract(p);
+				if (sign != r.getDir().dotProduct(edge1.crossProduct(edge2)) > 0) return null; //point is outside of polygon
+			}
+		}
+		catch (IllegalArgumentException e) { return null; } //intersection point is on edge of polygon
+		return List.of(p); //point is inside polygon
 	}
 }
