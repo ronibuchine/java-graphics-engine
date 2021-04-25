@@ -31,12 +31,25 @@ public class Ray {
         this.p0 = p0;
     }
 
+    /**
+     * Getter for {@link Ray}'s direction vector
+     * @return normal vector pointing in {@link Ray}'s direction
+     */
     public Vector getDir() {
         return dir;
     }
 
     public Point3D getStartPoint() {
         return p0;
+    }
+
+    /**
+     * Calculates {@link Point3D} a given length away from {@link Ray}'s starting point
+     * @param t length of point from beggining of {@link Ray}
+     * @return {@link Point3D} that is given length from {@link Ray}'s start point
+     */
+    public Point3D getPoint(double t) {
+        return p0.add(dir.scale(t));
     }
     
 

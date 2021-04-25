@@ -1,10 +1,10 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
+import static primitives.Util.*;
 
 /**
  * Class implements a {@link Sphere} in 3-dimensional coordinate space.
@@ -61,8 +61,16 @@ public class Sphere implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray r) {
-        // TODO Auto-generated method stub
-        return null;
+        Vector u = center.subtract(r.getStartPoint()); //vector from ray start to center of sphere
+        double t = alignZero(r.getDir().dotProduct(u));
+        double d = alignZero(Math.sqrt(u.lengthSquared() - t*t));
+        if (d > radius) return null;
+        List<Point3D> list = new LinkedList<>();
+        double length = alignZero(Math.sqrt(radius*radius - d*d));
+        list.add(r.getPoint(t + length));
+        if (isZero(length)) return list;
+        list.add(r.getPoint(t - length));
+        return list;
     }
     
 }
