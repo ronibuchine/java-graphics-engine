@@ -115,7 +115,9 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 	 */
 	@Override
 	public List<Point3D> findIntersections(Ray r) {
-		Point3D p = plane.findIntersections(r).get(0); 					//gets point where ray intersects the polygon of the plane
+		List <Point3D> list = plane.findIntersections(r); 	//gets point where ray intersects the polygon of the plane
+		if (list == null) return null;						//if ray doesn't intersect plane at all, then no intersection point
+		Point3D p = list.get(0);
 		try {	
 			Vector edge1 = vertices.get(vertices.size() - 1).subtract(p);
 			Vector edge2 = vertices.get(0).subtract(p);

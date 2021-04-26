@@ -5,6 +5,7 @@ import primitives.Vector;
 import primitives.Point3D;
 import static primitives.Util.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -64,7 +65,8 @@ public class Cylinder extends Tube {
 
     @Override
     public List<Point3D> findIntersections(Ray r) {
-        List<Point3D> list = findIntersections(r);
+        List<Point3D> list = super.findIntersections(r);
+        if (list == null) return null;
         for (Point3D p : list) {
             if (!isInside(p)) list.remove(p);
         }
