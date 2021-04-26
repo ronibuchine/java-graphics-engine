@@ -23,7 +23,8 @@ public class GeometriesTests {
 
     geoms.add(new Cylinder(1, new Ray(new Point3D(3, 0, 0), new Vector(0, 5, 0)), 5), 
               new Sphere(new Point3D(0, 5, 0), 2),
-              new Polygon(new Point3D(0, 10, 0), new Point3D(-2, 12, 0), new Point3D(-5, 5, 0), new Point3D(-3, 4, 0), new Point3D(-1, 5, 0))
+              new Polygon(new Point3D(0, 10, 0), new Point3D(-2, 12, 0), new Point3D(-5, 5, 0), new Point3D(-3, 4, 0), new Point3D(-1, 5, 0)),
+              new Triangle(new Point3D(0, 5, 8), new Point3D(3, 2, 5), new Point3D(0, 0, 3))
     );
     assertEquals("Ray doesn't intersect any geometries", Collections.emptyList(), geoms.findIntersections(new Ray(new Point3D(0, 0, 10), new Vector(0, 1, 0))));
 
