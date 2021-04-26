@@ -108,13 +108,13 @@ public class PolygonTests {
         assertEquals("findIntersections() returned incorrect value for TC01", List.of(new Point3D(.5, .5, 0)) , p1.findIntersections(r1));
 
         // TC02: Point outside polygon 
-        Ray r2 = new Ray(new Point3D(2, 1, 2), new Vector(0, 0, -1));
+        Ray r2 = new Ray(new Point3D(2, 1, 1), new Vector(0, 0, -1));
         assertNull(p1.findIntersections(r2), "findIntersections() did not return the correct value for TC02");
 
         // TC03: Point outside against vertex
-        Ray r3 = new Ray(new Point3D(2, 2, 2), new Vector(0, 0, -1));
+        Ray r3 = new Ray(new Point3D(2, 2, 1), new Vector(0, 0, -1));
         assertNull(p1.findIntersections(r3), "findIntersections() did not return the correct value for TC03");
-        
+
         // ============= Boundary Tests =================
 
         // TC04: Point on edge
