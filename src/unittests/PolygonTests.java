@@ -127,6 +127,14 @@ public class PolygonTests {
         // TC06: point on edges continuation
         Ray r6 = new Ray(new Point3D(2, 0, 1), new Vector(0, 0, -1));
         assertNull(p1.findIntersections(r6), "findIntersections() did not return the correct value for TC06");
+
+        // TC07: ray parallel to polygon
+        Ray r7 = new Ray(new Point3D(1, 1, 1), new Vector(1, 0, 0));
+        assertNull(p1.findIntersections(r7), "findIntersections did not return the correct value for TC07");
+
+        // TC08: ray is on same plane as polygon and goes through it
+        Ray r8 = new Ray(new Point3D(-1, .5, 0), new Vector(1, 0, 0));
+        assertNull(p1.findIntersections(r8), "findIntersections() did not return the correct value for TC08");
     }
     
 }
