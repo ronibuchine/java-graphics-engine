@@ -63,7 +63,7 @@ public class SphereTests {
         // TC03: Ray starts inside the sphere (1 point)
         assertEquals("Ray starts in sphere", sphere.findIntersections(new Ray(new Point3D(1, 0, .5), new Vector(0, 0, 3))), List.of(new Point3D(1, 0, 1)));
         // TC04: Ray starts after the sphere (0 points)
-        //...
+        assertNull("Ray starts after sphere", sphere.findIntersections(new Ray(new Point3D(2, 1, 1), new Vector(1, 1, 1))));
 
         // =============== Boundary Values Tests ==================
 
