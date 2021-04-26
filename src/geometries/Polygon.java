@@ -108,6 +108,11 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 		return allVertices.toString();
 	}
 
+	/**
+	 * Implementation of findIntersections for {@link Polygon}
+	 * @param r The {@link Ray}
+	 * @return {@link List} of {@link Point3D}'s
+	 */
 	@Override
 	public List<Point3D> findIntersections(Ray r) {
 		Point3D p = plane.findIntersections(r).get(0); 					//gets point where ray intersects the polygon of the plane
