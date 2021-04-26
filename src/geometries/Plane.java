@@ -66,6 +66,11 @@ public class Plane implements Geometry {
         return getNormal();
     }
 
+    /**
+     * Implements findIntersections for Intersectable {@link Plane}
+     * @param r The Ray
+     * @return {@link List} containing {@link Point3D} if intersection exists (returns null if not)
+     */
     @Override
     public List<Point3D> findIntersections(Ray r) {
         Vector rayToPlane;

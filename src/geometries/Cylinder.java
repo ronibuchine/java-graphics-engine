@@ -5,7 +5,6 @@ import primitives.Vector;
 import primitives.Point3D;
 import static primitives.Util.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -50,8 +49,7 @@ public class Cylinder extends Tube {
         if (p0 == dir.getStartPoint()) return dir.getDir();
         double t = alignZero(dir.getDir().dotProduct(p0.subtract(dir.getStartPoint())));
         if (t == 0 || isZero(t - height)) return dir.getDir();
-        Vector tubeNorm = super.getNormal(p0);
-        return tubeNorm;
+        return super.getNormal(p0);
     }
 
     /**
@@ -63,6 +61,11 @@ public class Cylinder extends Tube {
         return (dir.getDir().dotProduct(p.subtract(dir.getStartPoint())) > 0 && dir.getDir().dotProduct(p.subtract(dir.getPoint(height))) < 0);
     }
 
+    /**
+     * Implements findIntersections for Intersectable {@link Cylinder}
+     * @param r The Ray
+     * @return {@link List} of {@link Point3D}s where the {@link Ray} intersects
+     */
     @Override
     public List<Point3D> findIntersections(Ray r) {
         List<Point3D> list = super.findIntersections(r);

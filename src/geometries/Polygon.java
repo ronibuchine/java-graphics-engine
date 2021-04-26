@@ -111,7 +111,7 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 	/**
 	 * Implementation of findIntersections for {@link Polygon}
 	 * @param r The {@link Ray}
-	 * @return {@link List} of {@link Point3D}'s
+	 * @return {@link List} of {@link Point3D}s
 	 */
 	@Override
 	public List<Point3D> findIntersections(Ray r) {
@@ -122,7 +122,7 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 			Vector edge1 = vertices.get(vertices.size() - 1).subtract(p);
 			Vector edge2 = vertices.get(0).subtract(p);
 			boolean sign = (r.getDir().dotProduct(edge1.crossProduct(edge2)) > 0);
-			for (int i = 1; i < vertices.size(); ++i) {
+			for (int i = 1; i < vertices.size(); ++i) {		//calculate normal vectors from point to pair of consecutive points on polygon and make sure they are facing same direction
 				edge1 = edge2;
 				edge2 = vertices.get(i).subtract(p);
 				if (sign != r.getDir().dotProduct(edge1.crossProduct(edge2)) > 0) return null; //point is outside of polygon

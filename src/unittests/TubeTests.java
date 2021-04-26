@@ -55,7 +55,7 @@ public class TubeTests {
         assertNull("Ray's line out of tube", tube.findIntersections(new Ray(new Point3D(0, 5, 0), new Vector(0, 2, 0))));
 
         // TC02: Ray starts before and crosses the tube (2 points)
-        List<Point3D> result = tube.findIntersections(new Ray(new Point3D(3, 0, 2), new Vector(0, 0, -1)));
+        List<Point3D> result = tube.findIntersections(new Ray(new Point3D(3, 0, 5), new Vector(0, 0, -1)));
         if (result.get(0).getZ() < result.get(1).getZ())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Ray crosses sphere", List.of(new Point3D(3, 0, 1), new Point3D(3, 0, -1)), result);

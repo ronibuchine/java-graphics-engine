@@ -59,12 +59,12 @@ public class Sphere implements Geometry {
         return p0.subtract(center).normalize();
     }
 
-    @Override
     /**
      * Method that finds all the points of intersection on the sphere
      * @param r a Ray that intersects with the Sphere
-     * @return a list of all the points of intersection
+     * @return a {@link List} of all {@link Point3D}s of intersection
      */
+    @Override
     public List<Point3D> findIntersections(Ray r) {
         Vector u = center.subtract(r.getStartPoint());              //vector from ray start to center of sphere
         double projLength = alignZero(r.getDir().dotProduct(u));    //length of projection of u on r

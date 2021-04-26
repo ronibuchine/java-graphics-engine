@@ -50,6 +50,11 @@ public class Tube implements Geometry {
         return p0.subtract(o).normalize();
     }
 
+    /**
+     * Implementation of findIntersections for Intersectable {@link Tube}
+     * @param r The Ray
+     * @return {@link List} of {@link Point3D}s
+     */
     @Override
     public List<Point3D> findIntersections(Ray r) {
         Vector AOxAB;
