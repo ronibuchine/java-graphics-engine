@@ -6,7 +6,9 @@ import primitives.Vector;
 
 import static primitives.Util.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import static java.lang.Math.sqrt;
 
 
 /**
@@ -50,13 +52,33 @@ public class Tube implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray r) {
-        double a = alignZero(r.getDir().getHead().getX()*r.getDir().getHead().getX() + r.getDir().getHead().getY()*r.getDir().getHead().getY());
-        double b = alignZero(2*(r.getStartPoint().getX()*r.getDir().getHead().getX() + r.getStartPoint().getY()*r.getDir().getHead().getY()));
-        double c = alignZero(r.getStartPoint().getX()*r.getStartPoint().getX() + r.getStartPoint().getY()*r.getStartPoint().getY() - radius*radius);
+        Vector AOxAB;
+        Vector VxAB;
+        try {
+            VxAB = r.getDir().crossProduct(dir.getDir());
+        }
+        catch (IllegalArgumentException e) {
+            return null;                        //ray is parallel to tube
+        }
+        double a = alignZero(VxAB.dotProduct(VxAB));
+        double b;
+        double c;
+        try {
+            AOxAB = r.getStartPoint().subtract(dir.getStartPoint()).crossProduct(dir.getDir());
+            b = alignZero(2 * (VxAB.dotProduct(AOxAB)));
+            c = alignZero(AOxAB.dotProduct(AOxAB) - radius*radius*dir.getDir().dotProduct(dir.getDir()));
+        }
+        catch (IllegalArgumentException e) {
+            b = 0;
+            c = -(radius*radius*dir.getDir().dotProduct(dir.getDir()));
+        }
         if (b*b - 4*a*c <= 0) return null;                      //check discriminant
-        double scalar1 = alignZero((-b + b*b - 4*a*c) / 2*a);   //positive answer
-        double scalar2 = alignZero((-b - b*b - 4*a*c) / 2*a);   //negative answer
-        if (scalar1 <= 0 || scalar2 <= 0) return null;          //check if scalar is negative (point is behind ray) or zero (point is at start of ray)
-        return List.of(r.getPoint(scalar1), r.getPoint(scalar2));
+        double scalar1 = alignZero((-b + sqrt(b*b - 4*a*c)) / 2*a);   //positive answer
+        double scalar2 = alignZero((-b - sqrt(b*b - 4*a*c)) / 2*a);   //negative answer
+        if (scalar1 <= 0 && scalar2 <= 0) return null;          //check if scalars are negative (point is behind ray) or zero (point is at start of ray)
+        List<Point3D> list = new ArrayList<>();
+        if (scalar1 > 0) list.add(r.getPoint(scalar1));
+        if (scalar2 > 0) list.add(r.getPoint(scalar2));
+        return list;
     }
 }
