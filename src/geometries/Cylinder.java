@@ -5,6 +5,7 @@ import primitives.Vector;
 import primitives.Point3D;
 import static primitives.Util.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,15 +70,17 @@ public class Cylinder extends Tube {
     @Override
     public List<Point3D> findIntersections(Ray r) {
         List<Point3D> list = super.findIntersections(r);
-        if (list == null) return null;
-        for (Point3D p : list) {
-            if (!isInside(p)) list.remove(p);
+        if (list != null) {
+            for (Point3D p : list) {
+                if (!isInside(p)) list.remove(p);
+            }
+            if (list.size() == 2) return list;
         }
-        if (list.size() == 2) return list;
+        if (list == null) list = new ArrayList<>();
         List<Point3D> cap1 = new Plane(dir.getDir(), dir.getStartPoint()).findIntersections(r);
         List<Point3D> cap2 = new Plane(dir.getDir(), dir.getPoint(height)).findIntersections(r);
-        if (cap1 != null) list.add(cap1.get(0));
-        if (cap2 != null) list.add(cap2.get(0));
+        if (cap1 != null && cap1.get(0).distance(dir.getStartPoint()) <= radius) list.add(cap1.get(0));
+        if (cap2 != null && cap2.get(0).distance(dir.getPoint(height)) <= radius) list.add(cap2.get(0));
         return list;
     }
 }
