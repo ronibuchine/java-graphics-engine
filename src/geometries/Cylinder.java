@@ -3,7 +3,6 @@ package geometries;
 import primitives.Ray;
 import primitives.Vector;
 import primitives.Point3D;
-import geometries.Plane;
 import static primitives.Util.*;
 
 import java.util.List;

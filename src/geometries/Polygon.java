@@ -116,8 +116,8 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 			Vector edge2 = vertices.get(0).subtract(p);
 			boolean sign = (r.getDir().dotProduct(edge1.crossProduct(edge2)) > 0);
 			for (int i = 1; i < vertices.size(); ++i) {
-				edge2 = edge1;
-				edge1 = vertices.get(i).subtract(p);
+				edge1 = edge2;
+				edge2 = vertices.get(i).subtract(p);
 				if (sign != r.getDir().dotProduct(edge1.crossProduct(edge2)) > 0) return null; //point is outside of polygon
 			}
 		}
