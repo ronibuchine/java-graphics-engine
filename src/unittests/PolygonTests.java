@@ -121,7 +121,7 @@ public class PolygonTests {
         assertNull(p1.findIntersections(r4), "findIntersections() did not return the correct value for TC04");
 
         // TC05: point on vertex
-        Ray r5 = new Ray(new Point3D(.5, 0, 1), new Vector(0, 0, -1));
+        Ray r5 = new Ray(new Point3D(1, 0, 1), new Vector(0, 0, -1));
         assertNull(p1.findIntersections(r5), "findIntersections() did not return the correct value for TC05");
 
         // TC06: point on edges continuation
