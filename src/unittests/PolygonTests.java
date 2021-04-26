@@ -8,6 +8,7 @@ import primitives.Vector;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,18 +102,32 @@ public class PolygonTests {
 
         // ============ Equivalence Partitions Tests ==============
 
-        // Intersection point inside polygon         
-        Polygon p1 = new Polygon(new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
-        Ray r = new Ray(new Point3D(0.5, 0.5, 1), new Vector(0, 0, -1));
-        assertEquals("Value returned for findIntersection() was incorrect", List.of(new Point3D(.5, .5, 0)) ,p1.findIntersections(r));
+        // TC01: Intersection point inside polygon         
+        Polygon p1 = new Polygon(new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(1, 1, 0), new Point3D(0, 1, 0));   // square with side length of 1, vertex at origin
+        Ray r1 = new Ray(new Point3D(0.5, 0.5, 1), new Vector(0, 0, -1));
+        assertEquals("findIntersections() returned incorrect value for TC01", List.of(new Point3D(.5, .5, 0)) , p1.findIntersections(r1));
 
-        // Point outside polygon 
-        // Point outside against vertex
+        // TC02: Point outside polygon 
+        Ray r2 = new Ray(new Point3D(2, 1, 2), new Vector(0, 0, -1));
+        assertNull(p1.findIntersections(r2), "findIntersections() did not return the correct value for TC02");
 
+        // TC03: Point outside against vertex
+        Ray r3 = new Ray(new Point3D(2, 2, 2), new Vector(0, 0, -1));
+        assertNull(p1.findIntersections(r3), "findIntersections() did not return the correct value for TC03");
+        
         // ============= Boundary Tests =================
-        // Point on edge
-        // point on vertex
-        // point on edges continuation
+
+        // TC04: Point on edge
+        Ray r4 = new Ray(new Point3D(.5, 0, 1), new Vector(0, 0, -1));
+        assertNull(p1.findIntersections(r4), "findIntersections() did not return the correct value for TC04");
+
+        // TC05: point on vertex
+        Ray r5 = new Ray(new Point3D(.5, 0, 1), new Vector(0, 0, -1));
+        assertNull(p1.findIntersections(r5), "findIntersections() did not return the correct value for TC05");
+
+        // TC06: point on edges continuation
+        Ray r6 = new Ray(new Point3D(2, 0, 1), new Vector(0, 0, -1));
+        assertNull(p1.findIntersections(r6), "findIntersections() did not return the correct value for TC06");
     }
     
 }
