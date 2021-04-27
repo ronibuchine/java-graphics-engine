@@ -26,12 +26,22 @@ public class Camera {
     private Vector vRight;
 
     /**
+     * The width of the {@link Camera}'s view plane
+     */
+    private double width;
+    /**
+     * The height of the {@link Camera}'s view plane
+     */
+    private double height;
+    /**
+     * The distance of the view plane from the {@link Camera}
+     */
+    private double distance;
+
+    /**
      * Getter for the location of the {@link Camera}
      * @return {@link Point3D}
      */
-
-     
-
     public Point3D getLocation() {
         return location;
     }
@@ -76,5 +86,61 @@ public class Camera {
         this.vTO = to.normalized();
         this.vUP = up.normalized();
         this.vRight = to.crossProduct(up); //cross product of orthogonal unit vectors is already normal
+    }
+
+
+
+    /**
+     * Setter method for the {@link Camera}'s view plane dimensions
+     * @param width
+     * @param height
+     * @return The {@link Camera}
+     */
+    public Camera setViewPlaneSize(double width, double height) {
+        this.width = width;
+        this.height = height;
+        return this;
+    }
+
+    /**
+     * Setter method for the distance of the view plane from the {@link Camera}
+     * @param distance
+     * @return The {@link Camera}
+     */
+    public Camera setDistance(double distance) {
+        this.distance = distance;
+        return this;
+    }
+
+    /**
+     * Constructs a {@link Ray} that goes from the {@link Camera} to a pixel on its view plane
+     * @param nX Number of columns in view plane
+     * @param nY Number of rows in the view plane
+     * @param j Column index on view plane
+     * @param i Row index on view plane
+     * @return A {@link Ray} that goes through given pixel in the view plane
+     */
+    public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
+        Point3D pIJ = location.add(vTO.scale(distance));    //initialize pixel at center of view plane
+        double xJ;
+        double yI;
+
+        if (nX % 2 == 0) {
+            xJ = (width/nX) * (j - nX/2 + .5);
+        }
+        else {
+            xJ = (width/nX) * (j - (nX-1) / 2);         //number of pixels to move horizontally * the height of pixel
+        } 
+
+        if (nY % 2 == 0) {
+            yI = (height/nY) * (i - nY/2 + .5);
+        }
+        else {
+            yI = (height/nY) * (i - (nY-1) / 2);
+        }
+
+        if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
+        if (!isZero(yI)) pIJ = pIJ.add(vUP.scale(-yI));     //when i is above center of view plane, yI will be negative
+        return new Ray(location, pIJ.subtract(location));   //Ray's constructor will normalize the direction vector
     }
 }

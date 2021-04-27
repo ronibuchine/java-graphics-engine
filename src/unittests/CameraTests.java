@@ -13,7 +13,7 @@ import primitives.*;
  * @author Dan
  *
  */
-public class CameraTest {
+public class CameraTests {
 
 	/**
 	 * Test method for
