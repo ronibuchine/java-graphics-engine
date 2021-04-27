@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -61,10 +62,12 @@ public class TubeTests {
         assertEquals("Ray crosses tube", List.of(new Point3D(3, 0, 1), new Point3D(3, 0, -1)), result);
 
         // TC03: Ray starts inside the tube (and parallel to it) (0 points)
-        assertNull("Ray's line inside and parallel to tube", tube.findIntersections(new Ray(new Point3D(-1, .2, .2), new Vector(-1, 0, 0))));
+        assertNull("Ray's line inside and parallel to tube", tube.findIntersections(new Ray(new Point3D(-2, .2, .2), new Vector(-1, 0, 0))));
         // TC04: Ray starts inside the tube (1 point)
-        assertEquals("Ray starts inside tube", new Point3D(-3, 0, 1), tube.findIntersections(new Ray(new Point3D(-3, 0, 0), new Vector(0, 0, 1))).get(0));
+        assertEquals("Ray starts inside tube", List.of(new Point3D(-3, 0, 1)), tube.findIntersections(new Ray(new Point3D(-3, 0, 0), new Vector(0, 0, 1))));
 
+        Tube tube1 = new Tube(1, new Ray(new Point3D(0, 0, -5), new Vector(0, 0, 1)));
+        assertEquals("Ray starts outside tube", List.of(new Point3D(-1, 0, -4), new Point3D(1, 0, -2)), tube1.findIntersections(new Ray(new Point3D(3, 0, 0), new Vector(-1, 0, -1))));
         // =============== Boundary Values Tests ==================
 
         // **** Group: Ray's line crosses the tube (but not the center)

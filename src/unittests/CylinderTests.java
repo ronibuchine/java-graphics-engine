@@ -9,6 +9,8 @@ import primitives.Vector;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.List;
+
 /**
  * Unit testing class for {@link Cylinder} methods.
  * @author Roni Buchine
@@ -46,4 +48,14 @@ public class CylinderTests {
         assertEquals("getNormal() didn't recognize point as on the end of cylinder", c.getNormal(Point3D.ZERO), new Vector(1, 0, 0));
     }
 
+    @Test
+    public void testFindIntersections(){
+        Cylinder c = new Cylinder(5, new Ray(new Point3D(0, 0, 5), new Vector(0, 7, 0)), 30);
+        assertEquals("ray inside tube, hitting cap", List.of(new Point3D(1, 0, 1)), c.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(0, -1, 0))));
+        assertEquals("ray inside tube, hitting edge", List.of(new Point3D(-5, 20, 5)), c.findIntersections(new Ray(new Point3D(3, 20, 5), new Vector(-12, 0, 0))));
+        assertEquals("ray outside tube, hitting edge twice", List.of(new Point3D(0, 3, 0), new Point3D(0, 3, 10)), c.findIntersections(new Ray(new Point3D(0, 3, 15), new Vector(0, 0, -1))));
+        assertEquals("ray outside tube, hitting caps twice", List.of(new Point3D(0, 0, 1), new Point3D(0, 30, 1)) , c.findIntersections(new Ray(new Point3D(0, 40, 1), new Vector(0, -1, 0))));
+        c = new Cylinder(3, new Ray(new Point3D(0,0,-1), new Vector(0,0,-1)), 10);
+        assertEquals("ray hits cap and edge", List.of(new Point3D(0,3,-4), new Point3D(0,0,-1)) , c.findIntersections(new Ray(new Point3D(0, -1, 0), new Vector(0, 1, -1))));
+    }
 }

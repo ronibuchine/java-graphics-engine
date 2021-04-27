@@ -6,6 +6,7 @@ import primitives.Point3D;
 import static primitives.Util.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -71,8 +72,9 @@ public class Cylinder extends Tube {
     public List<Point3D> findIntersections(Ray r) {
         List<Point3D> list = super.findIntersections(r);
         if (list != null) {
-            for (Point3D p : list) {
-                if (!isInside(p)) list.remove(p);
+            Iterator<Point3D> i = list.iterator();
+            while (i.hasNext()) {
+                if (!isInside(i.next())) i.remove();
             }
             if (list.size() == 2) return list;
         }
