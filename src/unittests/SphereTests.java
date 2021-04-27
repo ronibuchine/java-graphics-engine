@@ -7,9 +7,8 @@ import primitives.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import java.util.List;
+
 
 /**
  * Unit testing class for {@link Sphere} methods.
@@ -76,8 +75,8 @@ public class SphereTests {
 
         // TC12: Ray starts at sphere and goes outside (0 points)
         Ray r12 = new Ray(new Point3D(Math.sqrt(2)/2+1, Math.sqrt(2)/2, 0), new Vector(0, 1, 0));
-        assertNull(s0.findIntersections(r12), "findIntersections() did not return the correct result for TC12");
-
+        assertNull("findIntersections() did not return the correct result for TC12", s0.findIntersections(r12));
+        
         // **** Group: Ray's line goes through the center
 
         // TC13: Ray starts before the sphere (2 points)
@@ -99,31 +98,31 @@ public class SphereTests {
 
         // TC17: Ray starts at sphere and goes outside (0 points)
         Ray r17 = new Ray(new Point3D(1, 1, 0), new Vector(0, 1, 0));
-        assertNull(s1.findIntersections(r17), "findIntersections() did not return the correct value for TC17");
+        assertNull("findIntersections() did not return the correct value for TC17", s1.findIntersections(r17));
 
         // TC18: Ray starts after sphere (0 points)
         Ray r18 = new Ray(new Point3D(1, 2, 0), new Vector(0, 1, 0));
-        assertNull(s1.findIntersections(r18), "findIntersections() did not return the correct value for TC18");
+        assertNull("findIntersections() did not return the correct value for TC18", s1.findIntersections(r18));
 
         // **** Group: Ray's line is tangent to the sphere (all tests 0 points)
 
         // TC19: Ray starts before the tangent point
         Sphere s2 = new Sphere(Point3D.ZERO, 1);
         Ray r19 = new Ray(new Point3D(1, 2, 0), new Vector(0, 1, 0));
-        assertNull(s2.findIntersections(r19), "findIntersections() did not return the correct value for TC19");       
+        assertNull("findIntersections() did not return the correct value for TC19", s2.findIntersections(r19));       
         
         // TC20: Ray starts at the tangent point
         Ray r20 = new Ray(new Point3D(1, 0, 0), new Vector(0, 1, 0));
-        assertNull(s2.findIntersections(r20), "findIntersections() did not return the correct value for TC20");
+        assertNull("findIntersections() did not return the correct value for TC20", s2.findIntersections(r20));
 
         // TC21: Ray starts after the tangent point
         Ray r21 = new Ray(new Point3D(1, 1, 0), new Vector(0, 1, 0));
-        assertNull(s2.findIntersections(r21), "findIntersections() did not return the correct value for TC21");
+        assertNull("findIntersections() did not return the correct value for TC21", s2.findIntersections(r21));
 
         // **** Group: Special cases
 
         // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
         Ray r22 = new Ray(new Point3D(0, -2, 0), new Vector(-1, 0, 0));
-        assertNull(s2.findIntersections(r22), "findIntersections() did not return the correct value for TC22");
+        assertNull("findIntersections() did not return the correct value for TC22", s2.findIntersections(r22));
     }
 }

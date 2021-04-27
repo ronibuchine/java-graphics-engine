@@ -8,8 +8,6 @@ import primitives.Vector;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import java.util.List;
 
 /**
@@ -44,7 +42,7 @@ public class PlaneTests {
 
          // TC02: ray doesnt intersect the plane
          Ray r2 = new Ray(new Point3D(-1,-1,-1), new Vector(0, 0, -1));
-         assertNull(p1.findIntersections(r2), "findIntersection() did not return correct value for TC02");
+         assertNull("findIntersection() did not return correct value for TC02", p1.findIntersections(r2));
 
          // ============== Boundary Tests =================
 
@@ -62,7 +60,7 @@ public class PlaneTests {
 
          // TC06: ray is orthogonal to plane inside plane
          Ray r6 = new Ray(new Point3D(3, 4, 0), new Vector(0, 0, -1));
-         assertNull(p1.findIntersections(r6), "findIntersection() did not return the correct value for TC06");
+         assertNull("findIntersection() did not return the correct value for TC06", p1.findIntersections(r6));
 
          // TC07: ray isn't orthogonal to plane or parallel but starts in plane
          Ray r7 = new Ray(new Point3D(1, 2, 0), new Vector(1, 2, -3));
@@ -71,7 +69,7 @@ public class PlaneTests {
          // TC08: ray begins at same reference point of plane
          Plane p2 = new Plane(new Vector(1, 1, 1), new Point3D(1, 2, 3));
          Ray r8 = new Ray(new Point3D(1, 2, 3), new Vector(0, 0, 1));
-         assertNull(p2.findIntersections(r8), "Didn't return null when for TC08");
+         assertNull("Didn't return null when for TC08", p2.findIntersections(r8));
      }
     
 }

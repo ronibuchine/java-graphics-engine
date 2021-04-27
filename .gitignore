@@ -25,3 +25,6 @@ hs_err_pid*
 # vscode setup files
 settings.json
 .vscode
+
+#lib folder
+lib/
