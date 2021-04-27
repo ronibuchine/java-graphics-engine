@@ -15,14 +15,24 @@ public class Geometries implements Intersectable {
     
     private List<Intersectable> geometries;
     
+    /**
+     * Default constructor for Geometries which creates an empty list
+     */
     public Geometries() {
         this.geometries = new LinkedList<>();   //efficient for adding elements. no need for random element access, only iteration
     }
 
+    /**
+     * Constructor which takes in a dynamic amount of {@link Intersectable}s and stores them in a list
+     * @param geometries
+     */
     public Geometries(Intersectable... geometries) {
         this.geometries = new LinkedList<>(Arrays.asList(geometries));
     }
 
+    /**
+     * Method that adds lists of geometries to the list of scene geometries
+     */
     public void add(Intersectable... geometry) {
         geometries.addAll(List.of(geometry));
     }
