@@ -1,11 +1,14 @@
 package primitives;
 
+import static primitives.Util.*;
+
 /**
- * Class Vector is the basic class representing a vector in a 3-dimensional Cartesian 
- * coordinate system
+ * Class Vector is the basic class representing a vector in a 3-dimensional
+ * Cartesian coordinate system
+ * 
  * @see Point3D
  * @see Coordinate
- * @author Roni Buchine 
+ * @author Roni Buchine
  * @author Eliezer Jacobs
  */
 public class Vector {
@@ -13,8 +16,9 @@ public class Vector {
     Point3D head;
 
     /**
-     * A constructor for Vector that takes a {@link Point3D} parameter
-     * throws an exception if the Vector is initialized to the zero Vector
+     * A constructor for Vector that takes a {@link Point3D} parameter throws an
+     * exception if the Vector is initialized to the zero Vector
+     * 
      * @param head
      */
     public Vector(Point3D head) {
@@ -25,8 +29,10 @@ public class Vector {
     }
 
     /**
-     * Vector ctor that takes in 3 {@link Coordinate}s as parameters and throws exception if they are the 0 Vector
-     * @param x 
+     * Vector ctor that takes in 3 {@link Coordinate}s as parameters and throws
+     * exception if they are the 0 Vector
+     * 
+     * @param x
      * @param y
      * @param z
      */
@@ -39,7 +45,9 @@ public class Vector {
     }
 
     /**
-     * Vector ctor that takes double type parameters and throws an exception if initialized to the 0 Vector
+     * Vector ctor that takes double type parameters and throws an exception if
+     * initialized to the 0 Vector
+     * 
      * @param x
      * @param y
      * @param z
@@ -54,6 +62,7 @@ public class Vector {
 
     /**
      * getter for the Vector head field
+     * 
      * @return Value of the vectors head
      */
     public Point3D getHead() {
@@ -61,7 +70,7 @@ public class Vector {
     }
 
     /**
-     * @param v 
+     * @param v
      * @return A new Vector whose head is the sum of the two Vectors
      */
     public Vector add(Vector v) {
@@ -74,7 +83,7 @@ public class Vector {
      * @return a new Vector whose head is the difference of the two Vectors
      */
     public Vector subtract(Vector v) {
-        Vector vec = head.subtract(v.head);              
+        Vector vec = head.subtract(v.head);
         return vec;
     }
 
@@ -82,9 +91,9 @@ public class Vector {
      * @param n
      * @return Vector scaled by the parameter n
      */
-    public Vector scale(double n) { 
-        Vector vec = new Vector(head.x.coord*n, head.y.coord*n, head.z.coord*n);        
-        return vec;        
+    public Vector scale(double n) {
+        Vector vec = new Vector(head.x.coord * n, head.y.coord * n, head.z.coord * n);
+        return vec;
     }
 
     /**
@@ -97,7 +106,9 @@ public class Vector {
     }
 
     /**
-     * Calculates the length by taking the square root of the head coordinates squared
+     * Calculates the length by taking the square root of the head coordinates
+     * squared
+     * 
      * @return Length of the Vector
      */
     public double length() {
@@ -106,18 +117,21 @@ public class Vector {
 
     /**
      * normalizes the Vector and actually changes the head coordinate values
-     * @return The new Vector itself so that it can be chained together with other objects
+     * 
+     * @return The new Vector itself so that it can be chained together with other
+     *         objects
      */
     public Vector normalize() {
-        double scalar = 1/length();
+        double scalar = 1 / length();
         Vector vec = this.scale(scalar);
-        head = vec.head;        
+        head = vec.head;
         return this;
     }
 
     /**
      * 
-     * @return a new normalized Vector without changing the actual values of the Vector
+     * @return a new normalized Vector without changing the actual values of the
+     *         Vector
      */
     public Vector normalized() {
         Vector vec = new Vector(head);
@@ -126,38 +140,43 @@ public class Vector {
     }
 
     /**
-     * takes two vectors and calculates the dot product of them
-     * by multiplying each coordinate value individually and then summing them together
+     * takes two vectors and calculates the dot product of them by multiplying each
+     * coordinate value individually and then summing them together
+     * 
      * @param v
      * @return result of the dot product of the two vectors
      */
     public double dotProduct(Vector v) {
-        double xVal = v.head.x.coord*head.x.coord;
-        double yVal = v.head.y.coord*head.y.coord;
-        double zVal = v.head.z.coord*head.z.coord;
-        double result = xVal + yVal + zVal;
-        return result;
+        double xVal = v.head.x.coord * head.x.coord;
+        double yVal = v.head.y.coord * head.y.coord;
+        double zVal = v.head.z.coord * head.z.coord;
+        return alignZero(xVal + yVal + zVal);
+
     }
 
     /**
-     * @param v
-     * cross product takes two vectors with coordinates a, b, and c and calculates the new Vector:
-     *  (V1.b*V2.c-V1.c*V2.b, V1.c*V2.a-V1.a*V2.c, V1.a*V2.b-V1.b*V2.a)
-     * @return new Vector((V1.b*V2.c-V1.c*V2.b, V1.c*V2.a-V1.a*V2.c, V1.a*V2.b-V1.b*V2.a))
+     * @param v cross product takes two vectors with coordinates a, b, and c and
+     *          calculates the new Vector: (V1.b*V2.c-V1.c*V2.b,
+     *          V1.c*V2.a-V1.a*V2.c, V1.a*V2.b-V1.b*V2.a)
+     * @return new Vector((V1.b*V2.c-V1.c*V2.b, V1.c*V2.a-V1.a*V2.c,
+     *         V1.a*V2.b-V1.b*V2.a))
      */
     public Vector crossProduct(Vector v) {
-        double xVal = head.y.coord*v.head.z.coord - head.z.coord*v.head.y.coord;
-        double yVal = head.z.coord*v.head.x.coord - head.x.coord*v.head.z.coord;
-        double zVal = head.x.coord*v.head.y.coord - head.y.coord*v.head.x.coord;
+        double xVal = head.y.coord * v.head.z.coord - head.z.coord * v.head.y.coord;
+        double yVal = head.z.coord * v.head.x.coord - head.x.coord * v.head.z.coord;
+        double zVal = head.x.coord * v.head.y.coord - head.y.coord * v.head.x.coord;
         return new Vector(xVal, yVal, zVal);
-    }    
+    }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof Vector)) return false;
-        Vector other = (Vector)obj;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Vector))
+            return false;
+        Vector other = (Vector) obj;
         return head.equals(other.head);
     }
 
@@ -165,5 +184,5 @@ public class Vector {
     public String toString() {
         return head.toString();
     }
-    
+
 }
