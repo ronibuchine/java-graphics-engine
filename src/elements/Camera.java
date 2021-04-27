@@ -116,8 +116,8 @@ public class Camera {
      * Constructs a {@link Ray} that goes from the {@link Camera} to a pixel on its view plane
      * @param nX Number of columns in view plane
      * @param nY Number of rows in the view plane
-     * @param j Column index on view plane
-     * @param i Row index on view plane
+     * @param j Column index of pixel
+     * @param i Row index of pixel
      * @return A {@link Ray} that goes through given pixel in the view plane
      */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
@@ -142,5 +142,22 @@ public class Camera {
         if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
         if (!isZero(yI)) pIJ = pIJ.add(vUP.scale(-yI));     //when i is above center of view plane, yI will be negative
         return new Ray(location, pIJ.subtract(location));   //Ray's constructor will normalize the direction vector
+    }
+
+    public Camera move(Vector move) {   //physical location movement
+        location.add(move);
+        return this;
+    }
+    public Camera roll(double angle) {   //roll rotation
+        //TODO 3D Vector Rotation
+        return this;
+    }
+    public Camera pitch(double angle) { //up-down rotation
+        //TODO 3D Vector Rotation
+        return this;
+    }
+    public Camera yaw(double angle) {     //side-to-side rotation
+        //TODO 3D Vector Rotation
+        return this;
     }
 }
