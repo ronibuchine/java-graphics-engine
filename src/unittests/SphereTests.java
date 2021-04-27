@@ -68,42 +68,62 @@ public class SphereTests {
         // =============== Boundary Values Tests ==================
 
         // **** Group: Ray's line crosses the sphere (but not the center)
+
         // TC11: Ray starts at sphere and goes inside (1 points)
+        Sphere s0 = new Sphere(new Point3D(1, 0, 0), 1);
+        Ray r11 = new Ray(new Point3D(Math.sqrt(2)/2+1, -Math.sqrt(2)/2, 0 ), new Vector(0, 1, 0));
+        assertEquals("findIntersctions() did not return the correct result for TC11", List.of(new Point3D(Math.sqrt(2)/2+1, Math.sqrt(2)/2, 0)), s0.findIntersections(r11));
+
         // TC12: Ray starts at sphere and goes outside (0 points)
+        Ray r12 = new Ray(new Point3D(Math.sqrt(2)/2+1, Math.sqrt(2)/2, 0), new Vector(0, 1, 0));
+        assertNull(s0.findIntersections(r12), "findIntersections() did not return the correct result for TC12");
 
         // **** Group: Ray's line goes through the center
 
         // TC13: Ray starts before the sphere (2 points)
-        Sphere s = new Sphere(new Point3D(1, 0, 0), 1);
+        Sphere s1 = new Sphere(new Point3D(1, 0, 0), 1);
         Ray r13 = new Ray(new Point3D(1, -2, 0), new Vector(0, 1, 0));
-        assertEquals("findIntersections() did not return the correct value for TC13", List.of(new Point3D(1, -1, 0), new Point3D(1, 1, 0)), s.findIntersections(r13));
+        assertEquals("findIntersections() did not return the correct value for TC13", List.of(new Point3D(1, -1, 0), new Point3D(1, 1, 0)), s1.findIntersections(r13));
 
         // TC14: Ray starts at sphere and goes inside (1 points)
         Ray r14 = new Ray(new Point3D(1, -1, 0), new Vector(0, 1, 0));
-        assertEquals("findIntersections() did not return the correct value for TC14", List.of(new Point3D(1, 1, 0)), s.findIntersections(r14));
+        assertEquals("findIntersections() did not return the correct value for TC14", List.of(new Point3D(1, 1, 0)), s1.findIntersections(r14));
 
         // TC15: Ray starts inside (1 points)
         Ray r15 = new Ray(new Point3D(1, -.5, 0), new Vector(0, 1, 0));
-        assertEquals("findIntersections() did not return the correct value for TC15", List.of(new Point3D(1, 1, 0)), s.findIntersections(r15));
+        assertEquals("findIntersections() did not return the correct value for TC15", List.of(new Point3D(1, 1, 0)), s1.findIntersections(r15));
 
         // TC16: Ray starts at the center (1 points)
         Ray r16 = new Ray(new Point3D(1, 0, 0), new Vector(0, 1, 0));
-        assertEquals("findIntersections() did not return the correct value for TC16", List.of(new Point3D(1, 1, 0)), s.findIntersections(r16));
+        assertEquals("findIntersections() did not return the correct value for TC16", List.of(new Point3D(1, 1, 0)), s1.findIntersections(r16));
 
         // TC17: Ray starts at sphere and goes outside (0 points)
         Ray r17 = new Ray(new Point3D(1, 1, 0), new Vector(0, 1, 0));
-        assertNull(s.findIntersections(r17), "findIntersections() did not return the correct value for TC17");
+        assertNull(s1.findIntersections(r17), "findIntersections() did not return the correct value for TC17");
 
         // TC18: Ray starts after sphere (0 points)
         Ray r18 = new Ray(new Point3D(1, 2, 0), new Vector(0, 1, 0));
-        assertNull(s.findIntersections(r18), "findIntersections() did not return the correct value for TC18");
-        
+        assertNull(s1.findIntersections(r18), "findIntersections() did not return the correct value for TC18");
+
         // **** Group: Ray's line is tangent to the sphere (all tests 0 points)
+
         // TC19: Ray starts before the tangent point
+        Sphere s2 = new Sphere(Point3D.ZERO, 1);
+        Ray r19 = new Ray(new Point3D(1, 2, 0), new Vector(0, 1, 0));
+        assertNull(s2.findIntersections(r19), "findIntersections() did not return the correct value for TC19");       
+        
         // TC20: Ray starts at the tangent point
+        Ray r20 = new Ray(new Point3D(1, 0, 0), new Vector(0, 1, 0));
+        assertNull(s2.findIntersections(r20), "findIntersections() did not return the correct value for TC20");
+
         // TC21: Ray starts after the tangent point
+        Ray r21 = new Ray(new Point3D(1, 1, 0), new Vector(0, 1, 0));
+        assertNull(s2.findIntersections(r21), "findIntersections() did not return the correct value for TC21");
 
         // **** Group: Special cases
-        // TC19: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
+
+        // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
+        Ray r22 = new Ray(new Point3D(0, -2, 0), new Vector(-1, 0, 0));
+        assertNull(s2.findIntersections(r22), "findIntersections() did not return the correct value for TC22");
     }
 }
