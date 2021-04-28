@@ -3,6 +3,8 @@ package elements;
 import primitives.*;
 
 import static primitives.Util.*;
+import static java.lang.Math.sin;
+import static java.lang.Math.cos;
 
 public class Camera {
     /**
@@ -28,15 +30,15 @@ public class Camera {
     /**
      * The width of the {@link Camera}'s view plane
      */
-    private double width;
+    private double width = 1;       //default value
     /**
      * The height of the {@link Camera}'s view plane
      */
-    private double height;
+    private double height = 1;      //default value
     /**
      * The distance of the view plane from the {@link Camera}
      */
-    private double distance;
+    private double distance = 1;    //default value
 
     /**
      * Getter for the location of the {@link Camera}
@@ -75,11 +77,11 @@ public class Camera {
      * First it makes sure that up and to are orthogonal.
      * The {@link Vector} vRight is calculated as the {@link Vector#crossProduct()} of {@link Vector}'s up and to
      * @param location
-     * @param up
      * @param to The direction the {@link Camera} is facing
+     * @param up
      */
-    public Camera(Point3D location, Vector up, Vector to) {
-        if (isZero(up.dotProduct(to))) {
+    public Camera(Point3D location, Vector to, Vector up) {
+        if (!isZero(up.dotProduct(to))) {
             throw new IllegalArgumentException("Vectors must be orthogonal");
         }
         this.location = location;
@@ -101,7 +103,6 @@ public class Camera {
         this.height = height;
         return this;
     }
-
     /**
      * Setter method for the distance of the view plane from the {@link Camera}
      * @param distance
@@ -122,25 +123,23 @@ public class Camera {
      */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
         Point3D pIJ = location.add(vTO.scale(distance));    //initialize pixel at center of view plane
-        double xJ;
-        double yI;
 
         if (nX % 2 == 0) {
-            xJ = (width/nX) * (j - nX/2 + .5);
+            pIJ = pIJ.add(vRight.scale((width/nX) * (j - nX/2 + .5)));    //number of pixels to move horizontally * height of pixel
         }
         else {
-            xJ = (width/nX) * (j - (nX-1) / 2);         //number of pixels to move horizontally * the height of pixel
+            double xJ = (width/nX) * (j - (nX-1) / 2);         
+            if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
         } 
 
         if (nY % 2 == 0) {
-            yI = (height/nY) * (i - nY/2 + .5);
+            pIJ = pIJ.add(vUP.scale(-(height/nY) * (i - nY/2 + .5)));      //number of pixels to move vertically * height of pixel
         }
         else {
-            yI = (height/nY) * (i - (nY-1) / 2);
+            double yI = (height/nY) * (i - (nY-1) / 2);
+            if (!isZero(yI)) pIJ = pIJ.add(vUP.scale(-yI));     //when i is above center of view plane, yI will be negative
         }
 
-        if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
-        if (!isZero(yI)) pIJ = pIJ.add(vUP.scale(-yI));     //when i is above center of view plane, yI will be negative
         return new Ray(location, pIJ.subtract(location));   //Ray's constructor will normalize the direction vector
     }
 
@@ -148,16 +147,51 @@ public class Camera {
         location.add(move);
         return this;
     }
-    public Camera roll(double angle) {   //roll rotation
-        //TODO 3D Vector Rotation
+    /**
+     * Helper method to rotate v along an axis
+     * @param v The {@link Vector} to rotate
+     * @param axis The unit {@link Vector} representing the axis. (Must be orthogonal to v)
+     * @param angle The degrees of rotation
+     * @return The {@link Vector} v rotated along the axis
+     */
+    public Vector rotate(Vector v, Vector axis, double angle) {
+        angle = angle * Math.PI / 180;
+        if (isZero(cos(angle))) {
+            return axis.crossProduct(v).scale(sin(angle));
+        }
+        else if (isZero(sin(angle))) {
+            return v.scale(cos(angle));
+        }
+        return v.scale(cos(angle)).add(axis.crossProduct(v).scale(sin(angle)));
+    }
+    /**
+     * Roll camera
+     * @param angle Degrees to rotate (to the right)
+     * @return
+     */
+    public Camera roll(double angle) {   //roll rotation (to the right)
+        vRight = rotate(vRight, vTO, angle);
+        vUP = vRight.crossProduct(vTO);
         return this;
     }
-    public Camera pitch(double angle) { //up-down rotation
-        //TODO 3D Vector Rotation
+    /**
+     * Rotate camera upwards
+     * @param angle Degrees to rotate (upwards)
+     * @return
+     */
+    public Camera pitch(double angle) { //up-down rotation (upwards)
+        vUP = rotate(vUP, vRight, angle);
+        vTO = vUP.crossProduct(vRight);
         return this;
     }
-    public Camera yaw(double angle) {     //side-to-side rotation
-        //TODO 3D Vector Rotation
+    /**
+     * Turn camera (to the right)
+     * @param angle Degrees to turn (to the right)
+     * @return
+     */
+    public Camera yaw(double angle) {     //side-to-side rotation (to the left)
+        vTO = rotate(vTO, vUP, angle);
+        vRight = vTO.crossProduct(vUP);
         return this;
     }
 }

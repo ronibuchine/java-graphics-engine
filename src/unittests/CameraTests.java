@@ -21,38 +21,49 @@ public class CameraTests {
 	 */
 	@Test
 	public void testConstructRayThroughPixel() {
-		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)).setVpDistance(10);
+		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)).setDistance(10);
 
 		// ============ Equivalence Partitions Tests ==============
 		// TC01: 3X3 Corner (0,0)
 		assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(-2, -2, 10)),
-				camera.setVpSize(6, 6).constructRayThroughPixel(3, 3, 0, 0));
+				camera.setViewPlaneSize(6, 6).constructRayThroughPixel(3, 3, 0, 0));
 
 		// TC02: 4X4 Corner (0,0)
 		assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(-3, -3, 10)),
-				camera.setVpSize(8, 8).constructRayThroughPixel(4, 4, 0, 0));
+				camera.setViewPlaneSize(8, 8).constructRayThroughPixel(4, 4, 0, 0));
 
 		// TC03: 4X4 Side (0,1)
 		assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(-1, -3, 10)),
-				camera.setVpSize(8, 8).constructRayThroughPixel(4, 4, 1, 0));
+				camera.setViewPlaneSize(8, 8).constructRayThroughPixel(4, 4, 1, 0));
 
 		// TC04: 4X4 Inside (1,1)
 		assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(-1, -1, 10)),
-				camera.setVpSize(8, 8).constructRayThroughPixel(4, 4, 1, 1));
+				camera.setViewPlaneSize(8, 8).constructRayThroughPixel(4, 4, 1, 1));
 
 		// =============== Boundary Values Tests ==================
 		// TC11: 3X3 Center (1,1)
 		assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(0, 0, 10)),
-				camera.setVpSize(6, 6).constructRayThroughPixel(3, 3, 1, 1));
+				camera.setViewPlaneSize(6, 6).constructRayThroughPixel(3, 3, 1, 1));
 
 		// TC12: 3X3 Center of Upper Side (0,1)
 		assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(0, -2, 10)),
-				camera.setVpSize(6, 6).constructRayThroughPixel(3, 3, 1, 0));
+				camera.setViewPlaneSize(6, 6).constructRayThroughPixel(3, 3, 1, 0));
 
 		// TC13: 3X3 Center of Left Side (1,0)
 		assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(-2, 0, 10)),
-				camera.setVpSize(6, 6).constructRayThroughPixel(3, 3, 0, 1));
+				camera.setViewPlaneSize(6, 6).constructRayThroughPixel(3, 3, 0, 1));
 
+	}
+
+	@Test
+	public void testRotations() {
+		Camera c = new Camera(new Point3D(1,1,1), new Vector(0,1,0), new Vector(0,0,1));
+		assertEquals("roll: 90 degrees", new Vector(1, 0, 0), c.roll(90).getUP());
+		assertEquals("pitch: -90 degrees", new Vector(-1, 0, 0), c.pitch(-90).getTO());
+		assertEquals("yaw: -90 degrees", new Vector(0, 0, -1), c.yaw(-90).getTO());
+		assertEquals("pitch: 180 degrees", new Vector(0, 0, 1), c.pitch(180).getTO());
+		assertEquals("roll: -90", new Vector(-1, 0, 0), c.roll(-90).getUP());
+		assertEquals("pitch: 45", new Vector(-Math.sqrt(2)/2, 0, Math.sqrt(2)/2), c.pitch(45).getTO());
 	}
 
 }
