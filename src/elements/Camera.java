@@ -3,8 +3,6 @@ package elements;
 import primitives.*;
 
 import static primitives.Util.*;
-import static java.lang.Math.sin;
-import static java.lang.Math.cos;
 
 public class Camera {
     /**
@@ -148,29 +146,12 @@ public class Camera {
         return this;
     }
     /**
-     * Helper method to rotate v along an axis
-     * @param v The {@link Vector} to rotate
-     * @param axis The unit {@link Vector} representing the axis. (Must be orthogonal to v)
-     * @param angle The degrees of rotation
-     * @return The {@link Vector} v rotated along the axis
-     */
-    public Vector rotate(Vector v, Vector axis, double angle) {
-        angle = angle * Math.PI / 180;
-        if (isZero(cos(angle))) {
-            return axis.crossProduct(v).scale(sin(angle));
-        }
-        else if (isZero(sin(angle))) {
-            return v.scale(cos(angle));
-        }
-        return v.scale(cos(angle)).add(axis.crossProduct(v).scale(sin(angle)));
-    }
-    /**
      * Roll camera
      * @param angle Degrees to rotate (to the right)
      * @return
      */
     public Camera roll(double angle) {   //roll rotation (to the right)
-        vRight = rotate(vRight, vTO, angle);
+        vRight = vRight.rotate(vTO, angle);
         vUP = vRight.crossProduct(vTO);
         return this;
     }
@@ -180,17 +161,17 @@ public class Camera {
      * @return
      */
     public Camera pitch(double angle) { //up-down rotation (upwards)
-        vUP = rotate(vUP, vRight, angle);
+        vUP = vUP.rotate(vRight, angle);
         vTO = vUP.crossProduct(vRight);
         return this;
     }
     /**
-     * Turn camera (to the right)
-     * @param angle Degrees to turn (to the right)
+     * Turn camera (to the left)
+     * @param angle Degrees to turn (to the left)
      * @return
      */
     public Camera yaw(double angle) {     //side-to-side rotation (to the left)
-        vTO = rotate(vTO, vUP, angle);
+        vTO = vTO.rotate(vUP, angle);
         vRight = vTO.crossProduct(vUP);
         return this;
     }

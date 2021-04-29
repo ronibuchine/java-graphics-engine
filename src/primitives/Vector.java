@@ -1,6 +1,8 @@
 package primitives;
 
 import static primitives.Util.*;
+import static java.lang.Math.sin;
+import static java.lang.Math.cos;
 
 /**
  * Class Vector is the basic class representing a vector in a 3-dimensional
@@ -84,6 +86,33 @@ public class Vector {
      */
     public Vector subtract(Vector v) {
         Vector vec = head.subtract(v.head);
+        return vec;
+    }
+
+    /**
+     * Helper method to rotate v along an axis
+     * @param axis The unit {@link Vector} representing the axis. (Must be orthogonal to v)
+     * @param angle The degrees of rotation
+     * @return The {@link Vector} v rotated along the axis
+     */
+    public Vector rotate(Vector axis, double angle) {
+        angle = angle * Math.PI / 180;                 //convert to radians
+        Vector vec;
+        try { vec = axis.crossProduct(this); }   
+        catch (IllegalArgumentException e) { return new Vector(this.head); }    //axis of rotation is parallel to rotating vector
+        if (isZero(sin(angle))) {
+            vec = scale(cos(angle));
+        }
+        else if (isZero(cos(angle))) {
+            vec = vec.scale(sin(angle));
+        }
+        else {
+            vec = vec.scale(sin(angle)).add(scale(cos(angle)));
+        }
+        try {
+            vec = vec.add(axis.scale(dotProduct(axis)*(1-cos(angle))));
+        }
+        catch (IllegalArgumentException e) {}
         return vec;
     }
 
