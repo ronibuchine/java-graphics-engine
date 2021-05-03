@@ -76,8 +76,7 @@ public class Vector {
      * @return A new Vector whose head is the sum of the two Vectors
      */
     public Vector add(Vector v) {
-        Vector vec = new Vector(head.add(v));
-        return vec;
+        return new Vector(head.add(v));
     }
 
     /**
@@ -85,34 +84,37 @@ public class Vector {
      * @return a new Vector whose head is the difference of the two Vectors
      */
     public Vector subtract(Vector v) {
-        Vector vec = head.subtract(v.head);
-        return vec;
+        return head.subtract(v.head);
+
     }
 
     /**
      * Helper method to rotate v along an axis
-     * @param axis The unit {@link Vector} representing the axis. (Must be orthogonal to v)
+     * 
+     * @param axis  The unit {@link Vector} representing the axis. (Must be
+     *              orthogonal to v)
      * @param angle The degrees of rotation
      * @return The {@link Vector} v rotated along the axis
      */
     public Vector rotate(Vector axis, double angle) {
-        angle = angle * Math.PI / 180;                 //convert to radians
+        angle = angle * Math.PI / 180; // convert to radians
         Vector vec;
-        try { vec = axis.crossProduct(this); }   
-        catch (IllegalArgumentException e) { return new Vector(this.head); }    //axis of rotation is parallel to rotating vector
+        try {
+            vec = axis.crossProduct(this);
+        } catch (IllegalArgumentException e) {
+            return new Vector(this.head);
+        } // axis of rotation is parallel to rotating vector
         if (isZero(sin(angle))) {
             vec = scale(cos(angle));
-        }
-        else if (isZero(cos(angle))) {
+        } else if (isZero(cos(angle))) {
             vec = vec.scale(sin(angle));
-        }
-        else {
+        } else {
             vec = vec.scale(sin(angle)).add(scale(cos(angle)));
         }
         try {
-            vec = vec.add(axis.scale(dotProduct(axis)*(1-cos(angle))));
+            vec = vec.add(axis.scale(dotProduct(axis) * (1 - cos(angle))));
+        } catch (IllegalArgumentException e) {
         }
-        catch (IllegalArgumentException e) {}
         return vec;
     }
 
@@ -121,8 +123,8 @@ public class Vector {
      * @return Vector scaled by the parameter n
      */
     public Vector scale(double n) {
-        Vector vec = new Vector(head.x.coord * n, head.y.coord * n, head.z.coord * n);
-        return vec;
+        return new Vector(head.x.coord * n, head.y.coord * n, head.z.coord * n);
+
     }
 
     /**
@@ -130,8 +132,7 @@ public class Vector {
      * @return Squared length of the vector
      */
     public double lengthSquared() {
-        double squaredLength = head.distanceSquared(Point3D.ZERO);
-        return squaredLength;
+        return head.distanceSquared(Point3D.ZERO);
     }
 
     /**
