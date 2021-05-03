@@ -134,7 +134,7 @@ public class CameraIntegrationTests {
                 list.addAll(new Geometries(t2).findIntersections(cam.constructRayThroughPixel(3, 3, j, i)));
             }
         }
-        assertEquals("Some of Camera's rays hit plane", 2, list.size());
+        assertEquals("Camera's middle and top-center rays hit triangle", 2, list.size());
     }
 
 }
