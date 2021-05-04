@@ -38,12 +38,12 @@ public class Tube implements Geometry {
         this.dir = dir;
     }
 
-    @Override
     /**
      * Overrides the getNormal in Geometry interface to calculate the normal for a given intersection point on a Tube
      * @param p0 the intersection point
      * @return normal {@link Vector} from the intersection point p0 on the {@link Tube}
      */
+    @Override
     public Vector getNormal(Point3D p0){
         double t = dir.getDir().dotProduct(p0.subtract(dir.getStartPoint()));
         Point3D o = dir.getStartPoint().add(dir.getDir().scale(t));

@@ -9,7 +9,7 @@ import primitives.Ray;
 /**
  * @author Roni Buchine
  * @author Eliezer Jacobs
- * Compiosite class which contains all of our scenes geometries
+ * Composite class which contains all of the scene's {@link Geometry Geometries}
  */
 public class Geometries implements Intersectable {
     
@@ -31,7 +31,7 @@ public class Geometries implements Intersectable {
     }
 
     /**
-     * Method that adds lists of geometries to the list of scene geometries
+     * Method that adds lists of {@link Geometry Geometries} to the list of scene geometries
      */
     public void add(Intersectable... geometry) {
         geometries.addAll(List.of(geometry));

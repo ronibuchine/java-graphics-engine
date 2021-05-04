@@ -89,4 +89,11 @@ public class TubeTests {
         // **** Group: Special cases
         // TC19: Ray's line is outside, ray is orthogonal to ray start to tube's center line
     }
+
+    @Test
+    public void tubeFindIntersections() {
+        Tube t = new Tube(1, new Ray(new Point3D(1,0,0), new Vector(1,0,0)));
+        Ray r = new Ray(new Point3D(3,-3,-3), new Vector(0,1,1));
+        assertEquals("Didn't find any intersections", t.findIntersections(r).size(), 2);
+    }
 }
