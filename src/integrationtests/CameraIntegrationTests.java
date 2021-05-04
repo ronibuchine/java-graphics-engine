@@ -1,11 +1,8 @@
 package integrationtests;
 
 import static org.junit.Assert.assertEquals;
-
 import java.util.LinkedList;
-
 import org.junit.Test;
-
 import elements.Camera;
 import geometries.Sphere;
 import geometries.Triangle;
@@ -14,8 +11,20 @@ import geometries.Geometry;
 import geometries.Plane;
 import primitives.*;
 
+/**
+ * Itegration Test class for {@link Camera} tests, specifically testing
+ * findIntersections() and constructRayThroughPixel()
+ */
 public class CameraIntegrationTests {
 
+    /**
+     * Method which constructs the list of all intersections through the scene
+     * geometries
+     * 
+     * @param List to construct
+     * @param geo  geometry of the scene
+     * @param cam  the Camera being used
+     */
     private void constructList(LinkedList<Point3D> list, Geometry geo, Camera cam) {
         for (int j = 0; j < 3; ++j) {
             for (int i = 0; i < 3; i++) {
@@ -28,6 +37,10 @@ public class CameraIntegrationTests {
             .setDistance(1);
     LinkedList<Point3D> list = new LinkedList<>();
 
+    /**
+     * Integration test cases to test for how many intersections are generated for a
+     * sphere in a scene with the camera
+     */
     @Test
     public void testConstructRayThroughPixelSphere() {
 
@@ -71,6 +84,10 @@ public class CameraIntegrationTests {
         assertEquals("None of Camera's rays intersect sphere", 0, list.size());
     }
 
+    /**
+     * Integration test cases to test for how many intersections are generated for a
+     * plane in a scene with the camera
+     */
     @Test
     public void testConstructRayThroughPixelPlane() {
 
@@ -95,6 +112,10 @@ public class CameraIntegrationTests {
         assertEquals("Some of Camera's rays hit plane", 6, list.size());
     }
 
+    /**
+     * Integration test cases to test for how many intersections are generated for a
+     * triangle in a scene with the camera
+     */
     @Test
     public void testConstructRayThroughPixelTriangle() {
 
