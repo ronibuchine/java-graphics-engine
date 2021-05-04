@@ -21,11 +21,9 @@ public class CameraIntegrationTests {
      * Method which constructs the list of all intersections through the scene
      * geometries
      * 
-     * @param List to construct
-     * @param geo  geometry of the scene
-     * @param cam  the Camera being used
+     * @param geo list of {@link Geometry Geometries} of the scene
      */
-    private void constructList(LinkedList<Point3D> list, Geometry geo, Camera cam) {
+    private void constructList(Geometry... geo) {
         for (int j = 0; j < 3; ++j) {
             for (int i = 0; i < 3; i++) {
                 list.addAll(new Geometries(geo).findIntersections(cam.constructRayThroughPixel(3, 3, j, i)));
@@ -47,7 +45,7 @@ public class CameraIntegrationTests {
         // TC01: sphere of r=1 centered before a 3x3 viewplane
 
         Sphere s1 = new Sphere(new Point3D(1.5, 2, 1.5), 1);
-        constructList(list, s1, cam);
+        constructList(s1);
 
         assertEquals("One Camera ray intersects sphere", 2, list.size());
 
@@ -55,7 +53,7 @@ public class CameraIntegrationTests {
         Sphere s2 = new Sphere(new Point3D(1.5, 2, 1.5), 2.5);
 
         list.clear();
-        constructList(list, s2, cam);
+        constructList(s2);
 
         assertEquals("All of Camera's rays intersect sphere", 18, list.size());
 
@@ -63,7 +61,7 @@ public class CameraIntegrationTests {
         Sphere s3 = new Sphere(new Point3D(1.5, 1.5, 1.5), 2);
 
         list.clear();
-        constructList(list, s3, cam);
+        constructList(s3);
 
         assertEquals("Most of Camera's rays intersect sphere", 10, list.size());
 
@@ -71,7 +69,7 @@ public class CameraIntegrationTests {
         Sphere s4 = new Sphere(new Point3D(1.5, 0, 1.5), 4);
 
         list.clear();
-        constructList(list, s4, cam);
+        constructList(s4);
 
         assertEquals("All of Camera's rays intersect sphere once", 9, list.size());
 
@@ -79,7 +77,7 @@ public class CameraIntegrationTests {
         Sphere s5 = new Sphere(new Point3D(1.5, -2, 1.5), .5);
 
         list.clear();
-        constructList(list, s5, cam);
+        constructList(s5);
 
         assertEquals("None of Camera's rays intersect sphere", 0, list.size());
     }
@@ -94,21 +92,21 @@ public class CameraIntegrationTests {
         // TC01: plane is parallel to view plane
         Plane p1 = new Plane(new Point3D(0, 3, 0), new Point3D(-3, 3, 5), new Point3D(5, 3, -1));
 
-        constructList(list, p1, cam);
+        constructList(p1);
         assertEquals("All of Camera's rays hit plane", 9, list.size());
 
         // TC02: plane slopes slightly away from view plane
         Plane p2 = new Plane(new Point3D(0, 2, 0), new Point3D(3, 2, 0), new Point3D(1.5, 0, 4));
 
         list.clear();
-        constructList(list, p2, cam);
+        constructList(p2);
         assertEquals("All of Camera's rays hit plane", 9, list.size());
 
         // TC02: plane slopes strongly away from view plane
         Plane p3 = new Plane(new Point3D(0, 5, 0), new Point3D(3, 5, 0), new Point3D(1.5, -1, 4));
 
         list.clear();
-        constructList(list, p3, cam);
+        constructList(p3);
         assertEquals("Some of Camera's rays hit plane", 6, list.size());
     }
 
@@ -121,13 +119,13 @@ public class CameraIntegrationTests {
 
         // TC01: middle ray hits Triangle
         Triangle t1 = new Triangle(new Point3D(1, 0, 1), new Point3D(2, 0, 1), new Point3D(1.5, 0, 2));
-        constructList(list, t1, cam);
+        constructList(t1);
         assertEquals("Camera's middle ray hits triangle", 1, list.size());
 
         // TC02: middle and top-center ray hit Triangle
         list.clear();
         Triangle t2 = new Triangle(new Point3D(1, 0, 1), new Point3D(2, 0, 1), new Point3D(1.5, 0, 3));
-        constructList(list, t2, cam);
+        constructList(t2);
         assertEquals("Camera's middle and top-center rays hit triangle", 2, list.size());
     }
 
