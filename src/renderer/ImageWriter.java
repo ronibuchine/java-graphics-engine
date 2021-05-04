@@ -89,4 +89,19 @@ public class ImageWriter {
 		image.setRGB(xIndex, yIndex, color.getColor().getRGB());
 	}
 
+	public void printGrid(int interval, Color color) {
+		//draw vertical lines
+		for (int x = interval; x < nX; x += interval) {
+			for (int y = 0; y < nY; ++y) {
+				image.setRGB(x, y, color.getColor().getRGB());
+			}
+		}
+		//draw horizontal lines
+		for (int y = interval; y < nY; y += interval) {
+			for (int x = 0; x < nX; ++x) {
+				image.setRGB(x, y, color.getColor().getRGB());
+			}
+		}
+	}
+
 }

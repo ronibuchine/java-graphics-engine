@@ -8,6 +8,11 @@ import org.junit.Test;
 import geometries.*;
 import primitives.*;
 
+/**
+ * Unit testing class for the {@link Geometries} class.
+ * @author Roni Buchine
+ * @author Eliezer Jacobs
+ */
 public class GeometriesTests {
 
     /**
