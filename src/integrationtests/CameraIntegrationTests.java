@@ -66,7 +66,7 @@ public class CameraIntegrationTests {
         }
         assertEquals("All of Camera's rays intersect sphere once", 9, list.size());
 
-        //TC05: sphere behing Camera; no intersections
+        //TC05: sphere behind Camera; no intersections
         Sphere s5 = new Sphere(new Point3D(1.5, -2, 1.5), .5);
 
         list.clear();

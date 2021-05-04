@@ -73,7 +73,7 @@ public class Camera {
     /**
      * Simple constructor initializes all instance variables.
      * First it makes sure that up and to are orthogonal.
-     * The {@link Vector} vRight is calculated as the {@link Vector#crossProduct()} of {@link Vector}'s up and to
+     * The {@link Vector} vRight is calculated as the {@link Vector#crossProduct} of {@link Vector}'s up and to
      * @param location
      * @param to The direction the {@link Camera} is facing
      * @param up
