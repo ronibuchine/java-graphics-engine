@@ -8,7 +8,7 @@ import elements.Camera;
 import primitives.*;
 
 /**
- * Testing Camera Class
+ * Unit Testing for {@link Camera} Class
  * 
  * @author Dan
  *
@@ -55,15 +55,18 @@ public class CameraTests {
 
 	}
 
+	/**
+	 * Unit tests for {@link Camera} rotations
+	 */
 	@Test
 	public void testRotations() {
-		Camera c = new Camera(new Point3D(1,1,1), new Vector(0,1,0), new Vector(0,0,1));
+		Camera c = new Camera(new Point3D(1, 1, 1), new Vector(0, 1, 0), new Vector(0, 0, 1));
 		assertEquals("roll: 90 degrees", new Vector(1, 0, 0), c.roll(90).getUP());
 		assertEquals("pitch: -90 degrees", new Vector(-1, 0, 0), c.pitch(-90).getTO());
 		assertEquals("yaw: -90 degrees", new Vector(0, 0, -1), c.yaw(-90).getTO());
 		assertEquals("pitch: 180 degrees", new Vector(0, 0, 1), c.pitch(180).getTO());
 		assertEquals("roll: -90", new Vector(-1, 0, 0), c.roll(-90).getUP());
-		assertEquals("pitch: 45", new Vector(-Math.sqrt(2)/2, 0, Math.sqrt(2)/2), c.pitch(45).getTO());
+		assertEquals("pitch: 45", new Vector(-Math.sqrt(2) / 2, 0, Math.sqrt(2) / 2), c.pitch(45).getTO());
 	}
 
 }
