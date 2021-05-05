@@ -1,6 +1,7 @@
 package unittests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -30,13 +31,15 @@ public class RayTests {
         Point3D p5 = new Point3D(5, 5, 5);
 
         List<Point3D> list = new LinkedList<>(Arrays.asList(p4, p3, p1, p5));
-        assertEquals("Point in middle of list", p1, r.findClosestPoint(list));
+        assertEquals("Closest point is in middle of list", p1, r.findClosestPoint(list));
 
         list = new LinkedList<>(Arrays.asList(p1, p3, p4, p5));
         assertEquals("Closest point is first in list", p1, r.findClosestPoint(list));
 
+        list = new LinkedList<>(Arrays.asList(p3, p4, p5, p1));
+        assertEquals("Closest point is last in list", p1, r.findClosestPoint(list));
         
         list = new LinkedList<>();
-        assertEquals("Empty list", List.of(), r.findClosestPoint(list));
+        assertNull("Empty list", r.findClosestPoint(list));
     }
 }

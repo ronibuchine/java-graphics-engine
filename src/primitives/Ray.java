@@ -61,6 +61,7 @@ public class Ray {
      * @return {@link Point3D} closest to {@link Ray}'s origin point
      */
     public Point3D findClosestPoint(List<Point3D> list) {
+        if (list.isEmpty()) return null;
         Comparator<Point3D> byDistance  = (p1, p2) -> p1.distanceSquared(p0) > p2.distanceSquared(p0) ? 1 : -1;
         return Collections.min(list, byDistance);
     }
