@@ -11,6 +11,9 @@ import org.xml.sax.SAXException;
 import primitives.*;
 import scene.*;
 
+/**
+ * Unit testing class for {@link SceneBuilder}
+ */
 public class SceneBuilderTests {
     @Test
     public void testLoadSceneFromFile() throws SAXException, FileNotFoundException {

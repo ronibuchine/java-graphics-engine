@@ -8,6 +8,9 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+/**
+ * Class to parse XML
+ */
 public class SceneXMLParser {
     public static SceneDescriptor parse(InputSource f) throws SAXException {
         try {
