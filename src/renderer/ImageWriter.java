@@ -89,6 +89,18 @@ public class ImageWriter {
 		image.setRGB(xIndex, yIndex, color.getColor().getRGB());
 	}
 
+	/**
+	 * Default printGrid prints black grid
+	 * @param interval
+	 */
+	public void printGrid(int interval) {
+		printGrid(interval, Color.BLACK);
+	}
+	/**
+	 * Prints grid over the rendered image
+	 * @param interval interval between grid lines (in pixels)
+	 * @param color {@link Color} of grid
+	 */
 	public void printGrid(int interval, Color color) {
 		//draw vertical lines
 		for (int x = interval; x < nX; x += interval) {
