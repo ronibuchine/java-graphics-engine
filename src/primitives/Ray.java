@@ -1,5 +1,8 @@
 package primitives;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.StringJoiner;
 
 /**
@@ -50,6 +53,16 @@ public class Ray {
      */
     public Point3D getPoint(double t) {
         return p0.add(dir.scale(t));
+    }
+
+    /**
+     * Given a {@link List} of {@link Point3D}s, finds the closest point to the ray's {@link Ray#p0 origin} point
+     * @param list list of {@link Point3D}s
+     * @return {@link Point3D} closest to {@link Ray}'s origin point
+     */
+    public Point3D findClosestPoint(List<Point3D> list) {
+        Comparator<Point3D> byDistance  = (p1, p2) -> p1.distanceSquared(p0) < p2.distanceSquared(p0) ? 1 : -1;
+        return Collections.min(list, byDistance);
     }
     
 
