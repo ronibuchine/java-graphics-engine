@@ -1,4 +1,4 @@
-package unittests;
+package unittests.primitives;
 
 import org.junit.Test;
 import primitives.Vector;
@@ -6,20 +6,20 @@ import primitives.Vector;
 import static org.junit.Assert.*;
 import static primitives.Util.isZero;
 
-
 /**
  * Unit testing class made to test the functionality {@link Vector} methods
+ * 
  * @author Roni Buchine
- * @author Eliezer Jacobs * 
+ * @author Eliezer Jacobs *
  */
 public class VectorTests {
-    
+
     final double ACCURACY = .0000001;
 
-    @Test  
+    @Test
     /**
      * Unit test for the crossProduct method for {@link Vector}s
-     */ 
+     */
     public void testCrossProduct() {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(-2, -4, -6);
@@ -28,7 +28,8 @@ public class VectorTests {
         Vector v3 = new Vector(0, 3, -2);
         Vector vr = v1.crossProduct(v3);
 
-        // Test that length of cross-product is proper (orthogonal vectors taken for simplicity)
+        // Test that length of cross-product is proper (orthogonal vectors taken for
+        // simplicity)
         assertEquals("crossProduct() wrong result length", v1.length() * v3.length(), vr.length(), ACCURACY);
 
         // Test cross-product result orthogonality to its operands
@@ -40,22 +41,23 @@ public class VectorTests {
         try {
             v1.crossProduct(v2);
             fail("crossProduct() for parallel vectors does not throw an exception");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
     }
 
-    @Test  
+    @Test
     /**
      * Unit test for the dotProduct method for {@link Vector}s
-     */  
+     */
     public void testDotProduct() {
-        
+
         Vector v1 = new Vector(0, 0, 1);
         Vector v2 = new Vector(1, 0, 0);
         Vector v3 = new Vector(0, 1, 5);
         Vector v4 = new Vector(0, 0, -1);
 
-        // ============ Equivalence Partitions Tests ==============    
+        // ============ Equivalence Partitions Tests ==============
         // acute angle vector - returns poitive
         assertEquals(5, v1.dotProduct(v3), ACCURACY);
 
@@ -63,11 +65,11 @@ public class VectorTests {
         assertEquals(-1, v1.dotProduct(v4), ACCURACY);
 
         // ============== Boundary Tests =================
-        // perpendicular vectors - returns 0         
-        assertEquals(0, v1.dotProduct(v2), ACCURACY);        
+        // perpendicular vectors - returns 0
+        assertEquals(0, v1.dotProduct(v2), ACCURACY);
     }
 
-    @Test 
+    @Test
     /**
      * Unit test for the length method for {@link Vector}s
      */
@@ -82,7 +84,7 @@ public class VectorTests {
         assertEquals(Math.sqrt(3), new Vector(1, -1, -1).length(), ACCURACY);
         assertEquals(Math.sqrt(3), new Vector(-1, 1, -1).length(), ACCURACY);
         assertEquals(Math.sqrt(3), new Vector(-1, -1, -1).length(), ACCURACY);
-        
+
     }
 
     @Test
@@ -92,16 +94,19 @@ public class VectorTests {
     public void testSubtract() {
         // =============Equivalence Partitions Tests ==============
         // vector and itself - return error
-        Vector v1 = new Vector (1, 2, 3);
+        Vector v1 = new Vector(1, 2, 3);
         try {
             v1.subtract(v1);
             fail("subtract() for a vector and itself does not throw an exception");
-        } catch (Exception e) {}
-        // vector and its complement         
-        assertEquals("subtract() didn't return the correct Vector when subtracting its complement", v1.subtract(v1.scale(-1)), new Vector(2, 4, 6));        
+        } catch (Exception e) {
+        }
+        // vector and its complement
+        assertEquals("subtract() didn't return the correct Vector when subtracting its complement",
+                v1.subtract(v1.scale(-1)), new Vector(2, 4, 6));
         // two regular vectors
         Vector v2 = new Vector(7, 3, 4);
-        assertEquals("subtract() didn't return the correct Vector for regular vector subtraction", v1.subtract(v2), new Vector(-6, -1, -1));
+        assertEquals("subtract() didn't return the correct Vector for regular vector subtraction", v1.subtract(v2),
+                new Vector(-6, -1, -1));
     }
 
     @Test
@@ -112,7 +117,7 @@ public class VectorTests {
         // ============Equivalence Partitions Tests ==============
         Vector v1 = new Vector(0, 3, 4);
         // a positive vector // return normalized version
-        assertEquals("normalize() did not return the correct positive vector", v1.normalize() , new Vector(0, 0.6, 0.8));
+        assertEquals("normalize() did not return the correct positive vector", v1.normalize(), new Vector(0, 0.6, 0.8));
         // a negative vector - returns a negative normalized vector
         v1 = v1.scale(-5);
         assertEquals("normalize() did not return the correct negative vector", v1.normalize(), new Vector(0, -.6, -.8));
@@ -120,7 +125,7 @@ public class VectorTests {
         // unit vector - return itself
         Vector v2 = new Vector(0, 0, 1);
         assertEquals("normalize() did not correcty compute a unit vector", v2.normalize(), new Vector(0, 0, 1));
-    
+
     }
 
 }

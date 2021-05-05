@@ -1,4 +1,4 @@
-package unittests;
+package unittests.geometries;
 
 import geometries.Tube;
 import org.junit.Test;
@@ -14,17 +14,18 @@ import java.util.List;
 
 /**
  * Unit testing class for {@link Tube} methods
+ * 
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */
 public class TubeTests {
-    
+
     @Test
     /**
      * Tests the functionality of the getNormal method for a {@link Tube}
      */
     public void testGetNormal() {
-        //============ Equivalence Partitions Tests ==============
+        // ============ Equivalence Partitions Tests ==============
         // tests for a point p0 on side of testTube
         Ray r = new Ray(Point3D.ZERO, new Vector(1, 0, 0));
         Tube testTube = new Tube(5, r);
@@ -37,10 +38,9 @@ public class TubeTests {
         try {
             testTube.getNormal(p0);
             fail("getNormal() didn't attempt to create Zero vector");
+        } catch (Exception e) {
         }
-        catch (Exception e) {}
     }
-
 
     /**
      * Test method for {@link geometries.Tube#findIntersections(primitives.Ray)}.
@@ -52,7 +52,8 @@ public class TubeTests {
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: Ray's line is outside the tube (0 points)
-        assertNull("Ray's line out of tube", tube.findIntersections(new Ray(new Point3D(0, 5, 0), new Vector(0, 2, 0))));
+        assertNull("Ray's line out of tube",
+                tube.findIntersections(new Ray(new Point3D(0, 5, 0), new Vector(0, 2, 0))));
 
         // TC02: Ray starts before and crosses the tube (2 points)
         List<Point3D> result = tube.findIntersections(new Ray(new Point3D(3, 0, 5), new Vector(0, 0, -1)));
@@ -61,12 +62,15 @@ public class TubeTests {
         assertEquals("Ray crosses tube", List.of(new Point3D(3, 0, 1), new Point3D(3, 0, -1)), result);
 
         // TC03: Ray starts inside the tube (and parallel to it) (0 points)
-        assertNull("Ray's line inside and parallel to tube", tube.findIntersections(new Ray(new Point3D(-2, .2, .2), new Vector(-1, 0, 0))));
+        assertNull("Ray's line inside and parallel to tube",
+                tube.findIntersections(new Ray(new Point3D(-2, .2, .2), new Vector(-1, 0, 0))));
         // TC04: Ray starts inside the tube (1 point)
-        assertEquals("Ray starts inside tube", List.of(new Point3D(-3, 0, 1)), tube.findIntersections(new Ray(new Point3D(-3, 0, 0), new Vector(0, 0, 1))));
+        assertEquals("Ray starts inside tube", List.of(new Point3D(-3, 0, 1)),
+                tube.findIntersections(new Ray(new Point3D(-3, 0, 0), new Vector(0, 0, 1))));
 
         Tube tube1 = new Tube(1, new Ray(new Point3D(0, 0, -5), new Vector(0, 0, 1)));
-        assertEquals("Ray starts outside tube", List.of(new Point3D(-1, 0, -4), new Point3D(1, 0, -2)), tube1.findIntersections(new Ray(new Point3D(3, 0, 0), new Vector(-1, 0, -1))));
+        assertEquals("Ray starts outside tube", List.of(new Point3D(-1, 0, -4), new Point3D(1, 0, -2)),
+                tube1.findIntersections(new Ray(new Point3D(3, 0, 0), new Vector(-1, 0, -1))));
         // =============== Boundary Values Tests ==================
 
         // **** Group: Ray's line crosses the tube (but not the center)
@@ -87,13 +91,14 @@ public class TubeTests {
         // TC21: Ray starts after the tangent point
 
         // **** Group: Special cases
-        // TC19: Ray's line is outside, ray is orthogonal to ray start to tube's center line
+        // TC19: Ray's line is outside, ray is orthogonal to ray start to tube's center
+        // line
     }
 
     @Test
     public void tubeFindIntersections() {
-        Tube t = new Tube(1, new Ray(new Point3D(1,0,0), new Vector(1,0,0)));
-        Ray r = new Ray(new Point3D(3,-3,-3), new Vector(0,1,1));
+        Tube t = new Tube(1, new Ray(new Point3D(1, 0, 0), new Vector(1, 0, 0)));
+        Ray r = new Ray(new Point3D(3, -3, -3), new Vector(0, 1, 1));
         assertEquals("Didn't find any intersections", t.findIntersections(r).size(), 2);
     }
 }

@@ -1,4 +1,4 @@
-package unittests;
+package unittests.geometries;
 
 import geometries.Polygon;
 import org.junit.Test;
@@ -14,13 +14,13 @@ import java.util.List;
 
 /**
  * unit testing class for {@link Polygon} methods.
+ * 
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */
 public class PolygonTests {
     /**
-     * Test method for
-     * {@link Polygon}.
+     * Test method for {@link Polygon}.
      */
     @Test
     public void testConstructor() {
@@ -28,55 +28,54 @@ public class PolygonTests {
 
         // TC01: Correct concave quadrangular with vertices in correct order
         try {
-            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
-                    new Point3D(0, 1, 0), new Point3D(-1, 1, 1));
+            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(-1, 1, 1));
         } catch (IllegalArgumentException e) {
             fail("Failed constructing a correct polygon");
         }
 
         // TC02: Wrong vertices order
         try {
-            new Polygon(new Point3D(0, 0, 1), new Point3D(0, 1, 0),
-                    new Point3D(1, 0, 0), new Point3D(-1, 1, 1));
+            new Polygon(new Point3D(0, 0, 1), new Point3D(0, 1, 0), new Point3D(1, 0, 0), new Point3D(-1, 1, 1));
             fail("Constructed a polygon with wrong order of vertices");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // TC03: Not in the same {@link Plane}
         try {
-            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
-                    new Point3D(0, 1, 0), new Point3D(0, 2, 2));
+            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 2, 2));
             fail("Constructed a polygon with vertices that are not in the same plane");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // TC04: Concave quadrangular
         try {
-            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
-                    new Point3D(0, 1, 0), new Point3D(0.5, 0.25, 0.5));
+            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0.5, 0.25, 0.5));
             fail("Constructed a concave polygon");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // =============== Boundary Values Tests ==================
 
         // TC10: Vertex on a side of a quadrangular
         try {
-            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
-                    new Point3D(0, 1, 0), new Point3D(0, 0.5, 0.5));
+            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 0.5, 0.5));
             fail("Constructed a polygon with vertix on a side");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // TC11: Last point = first point
         try {
-            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
-                    new Point3D(0, 1, 0), new Point3D(0, 0, 1));
+            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 0, 1));
             fail("Constructed a polygon with vertice on a side");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // TC12: Colocated points
         try {
-            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
-                    new Point3D(0, 1, 0), new Point3D(0, 1, 0));
+            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 1, 0));
             fail("Constructed a polygon with vertice on a side");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
     }
 
@@ -101,12 +100,14 @@ public class PolygonTests {
 
         // ============ Equivalence Partitions Tests ==============
 
-        // TC01: Intersection point inside polygon         
-        Polygon p1 = new Polygon(new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(1, 1, 0), new Point3D(0, 1, 0));   // square with side length of 1, vertex at origin
+        // TC01: Intersection point inside polygon
+        Polygon p1 = new Polygon(new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(1, 1, 0),
+                new Point3D(0, 1, 0)); // square with side length of 1, vertex at origin
         Ray r1 = new Ray(new Point3D(0.5, 0.5, 1), new Vector(0, 0, -1));
-        assertEquals("findIntersections() returned incorrect value for TC01", List.of(new Point3D(.5, .5, 0)) , p1.findIntersections(r1));
+        assertEquals("findIntersections() returned incorrect value for TC01", List.of(new Point3D(.5, .5, 0)),
+                p1.findIntersections(r1));
 
-        // TC02: Point outside polygon 
+        // TC02: Point outside polygon
         Ray r2 = new Ray(new Point3D(2, 1, 1), new Vector(0, 0, -1));
         assertNull("findIntersections() did not return the correct value for TC02", p1.findIntersections(r2));
 
@@ -136,5 +137,5 @@ public class PolygonTests {
         Ray r8 = new Ray(new Point3D(-1, .5, 0), new Vector(1, 0, 0));
         assertNull("findIntersections() did not return the correct value for TC08", p1.findIntersections(r8));
     }
-    
+
 }

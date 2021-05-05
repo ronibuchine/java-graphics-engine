@@ -1,4 +1,4 @@
-package unittests;
+package unittests.renderer;
 
 import static org.junit.Assert.fail;
 
@@ -9,6 +9,7 @@ import renderer.ImageWriter;
 
 /**
  * Unit testing class for {@link ImageWriter} methods.
+ * 
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */
@@ -30,8 +31,7 @@ public class ImageWriterTests {
             }
             im.printGrid(50, Color.BLACK);
             im.writeToImage();
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("Image was not created");
         }
     }
