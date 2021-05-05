@@ -5,9 +5,13 @@ import geometries.Geometries;
 import primitives.Color;
 
 public class Scene {
+
     public String name;
+
     public Color background = Color.BLACK;
+
     public AmbientLight ambientLight = new AmbientLight(Color.BLACK, 0);
+
     public Geometries geometries;
 
     public Scene(String name) {

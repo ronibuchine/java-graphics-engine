@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.StringJoiner;
 
 /**
- * Class Ray is the basic ray class to represent a camera ray in a scene in 3-dimensional space
+ * Class Ray is the basic ray class to represent a camera ray in a scene in
+ * 3-dimensional space
+ * 
  * @see Point3D
  * @see Vector
- * @author Roni Buchine 
+ * @author Roni Buchine
  * @author Eliezer Jacobs
  */
 public class Ray {
@@ -25,9 +27,11 @@ public class Ray {
     Point3D p0;
 
     /**
-     * ctor normalizes the {@link Vector} and creates the object with that {@link Vector} and {@link Point3D}
+     * ctor normalizes the {@link Vector} and creates the object with that
+     * {@link Vector} and {@link Point3D}
+     * 
      * @param dir {@link Vector} representing {@link Ray}'s direction
-     * @param p0 {@link Point3D} representing {@link Ray}'s start point
+     * @param p0  {@link Point3D} representing {@link Ray}'s start point
      */
     public Ray(Point3D p0, Vector dir) {
         this.dir = dir.normalized();
@@ -36,6 +40,7 @@ public class Ray {
 
     /**
      * Getter for {@link Ray}'s direction vector
+     * 
      * @return normal vector pointing in {@link Ray}'s direction
      */
     public Vector getDir() {
@@ -47,7 +52,9 @@ public class Ray {
     }
 
     /**
-     * Calculates {@link Point3D} a given length away from {@link Ray}'s starting point
+     * Calculates {@link Point3D} a given length away from {@link Ray}'s starting
+     * point
+     * 
      * @param t length of point from beggining of {@link Ray}
      * @return {@link Point3D} that is given length from {@link Ray}'s start point
      */
@@ -56,22 +63,30 @@ public class Ray {
     }
 
     /**
-     * Given a {@link List} of {@link Point3D}s, finds the closest point to the ray's {@link Ray#p0 origin} point
+     * Given a {@link List} of {@link Point3D}s, finds the closest point to the
+     * ray's {@link Ray#p0 origin} point
+     * 
      * @param list list of {@link Point3D}s
-     * @return {@link Point3D} closest to {@link Ray}'s origin point
+     * @return {@link Point3D} closest to {@link Ray}'s origin point or returns null
+     *         if the list is empty
      */
     public Point3D findClosestPoint(List<Point3D> list) {
-        Comparator<Point3D> byDistance  = (p1, p2) -> p1.distanceSquared(p0) > p2.distanceSquared(p0) ? 1 : -1;
-        return Collections.min(list, byDistance);
+        if (!list.isEmpty()) {
+            Comparator<Point3D> byDistance = (p1, p2) -> p1.distanceSquared(p0) > p2.distanceSquared(p0) ? 1 : -1;
+            return Collections.min(list, byDistance);
+        }
+        return null; // is an empty list meant to return null?
     }
-    
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof Ray)) return false;
-        Ray other = (Ray)obj;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Ray))
+            return false;
+        Ray other = (Ray) obj;
         return dir.equals(other.dir) && p0.equals(other.p0);
     }
 
@@ -81,5 +96,5 @@ public class Ray {
         ray.add(p0.toString()).add(dir.toString());
         return ray.toString();
     }
-    
+
 }
