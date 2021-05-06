@@ -6,7 +6,7 @@ import scene.Scene;
 
 public class RayTracerBasic extends RayTraceBase {
 
-    protected RayTracerBasic(Scene scene) {
+    public RayTracerBasic(Scene scene) {
         super(scene);
     }
 

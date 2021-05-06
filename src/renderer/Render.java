@@ -19,40 +19,53 @@ public class Render {
 
     RayTracerBasic rayTracer;
 
+    public Render() {
+        // no implementation
+        return this;
+    }
+
     /**
      * sets the image writer field
      * 
      * @param imageWriter
+     * @return this The object itself
      */
-    public void setImageWriter(ImageWriter imageWriter) {
+    public Render setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
+        return this;
     }
 
     /**
      * Sets the scene field
      * 
      * @param scene
+     * @return this The object itself
      */
-    public void setScene(Scene scene) {
+    public Render setScene(Scene scene) {
         this.scene = scene;
+        return this;
     }
 
     /**
      * Sets the camera field
      * 
      * @param camera
+     * @return this The object itself
      */
-    public void setCamera(Camera camera) {
+    public Render setCamera(Camera camera) {
         this.camera = camera;
+        return this;
     }
 
     /**
      * Sets the ray tracer field
      * 
      * @param rayTracer
+     * @return this The object itself
      */
-    public void setRayTracer(RayTracerBasic rayTracer) {
+    public Render setRayTracer(RayTracerBasic rayTracer) {
         this.rayTracer = rayTracer;
+        return this;
     }
 
     /**
