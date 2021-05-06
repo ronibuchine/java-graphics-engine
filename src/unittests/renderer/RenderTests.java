@@ -86,7 +86,7 @@ public class RenderTests {
 		Scene scene = builder.build();
 
 		// TC02: xml test with tubes and cylinders
-		Camera cam = new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0))
+		Camera cam = new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0));
 		Render render = new Render().setImageWriter(new ImageWriter("XML_TC02", 1000, 1000))
 				.setRayTracer(new BasicRayTracer(scene))
 				.setCamera(cam)
