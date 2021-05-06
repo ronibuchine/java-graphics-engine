@@ -97,7 +97,7 @@ public class RenderTests {
 
 		// TC03: xml test with rotation and movement
 		render.setCamera(cam.yaw(40).move(20, 0, 0));
-		render.setImageWriter(new ImageWriter("tubes_rotated1_pitch(-30)_XML_TC03", 1000, 1000));
+		render.setImageWriter(new ImageWriter("XML_TC03", 1000, 1000));
 		render.renderImage();
 		render.writeToImage();
 	}
