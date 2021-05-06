@@ -81,20 +81,21 @@ public class RenderTests {
 
 	@Test
 	public void testTubeRender() {
-		SceneBuilder builder = new SceneBuilder("XML Tube test scene", new File("src/unittests/xml/tubes.xml").getPath());
+		SceneBuilder builder = new SceneBuilder("XML Tube test scene",
+				new File("src/unittests/xml/tubes.xml").getPath());
 		Scene scene = builder.build();
 
-		Camera cam = new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0));
-
-		Render render = new Render()
-		.setImageWriter(new ImageWriter("tubes_XML_TC02", 1000, 1000))
-		.setRayTracer(new BasicRayTracer(scene))
-		.setCamera(cam)
-		.setScene(scene);
+		// TC02: xml test with tubes and cylinders
+		Camera cam = new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0))
+		Render render = new Render().setImageWriter(new ImageWriter("XML_TC02", 1000, 1000))
+				.setRayTracer(new BasicRayTracer(scene))
+				.setCamera(cam)
+				.setScene(scene);
 
 		render.renderImage();
 		render.writeToImage();
 
+		// TC03: xml test with rotation and movement
 		render.setCamera(cam.yaw(40).move(20, 0, 0));
 		render.setImageWriter(new ImageWriter("tubes_rotated1_pitch(-30)_XML_TC03", 1000, 1000));
 		render.renderImage();
