@@ -33,12 +33,17 @@ public class RenderTests {
 				.setBackground(new Color(75, 127, 90));
 
 		scene.geometries.add(new Sphere(new Point3D(0, 0, -100), 50),
-				new Triangle(new Point3D(-100, 0, -100), new Point3D(0, 100, -100), new Point3D(-100, 100, -100)), // up left
-				new Triangle(new Point3D(100, 0, -100), new Point3D(0, 100, -100), new Point3D(100, 100, -100)), // up right
-				new Triangle(new Point3D(-100, 0, -100), new Point3D(0, -100, -100), new Point3D(-100, -100, -100)), // down left
-				new Triangle(new Point3D(100, 0, -100), new Point3D(0, -100, -100), new Point3D(100, -100, -100))); // down right
+				new Triangle(new Point3D(-100, 0, -100), new Point3D(0, 100, -100), new Point3D(-100, 100, -100)), // up
+																													// left
+				new Triangle(new Point3D(100, 0, -100), new Point3D(0, 100, -100), new Point3D(100, 100, -100)), // up
+																													// right
+				new Triangle(new Point3D(-100, 0, -100), new Point3D(0, -100, -100), new Point3D(-100, -100, -100)), // down
+																														// left
+				new Triangle(new Point3D(100, 0, -100), new Point3D(0, -100, -100), new Point3D(100, -100, -100))); // down
+																													// right
 
-		ImageWriter imageWriter = new ImageWriter("base render test", 1000, 1000);
+		// TC01: first rendering test (non XML)
+		ImageWriter imageWriter = new ImageWriter("render_TC01", 1000, 1000);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setScene(scene) //
@@ -49,7 +54,7 @@ public class RenderTests {
 		render.printGrid(100, new Color(java.awt.Color.YELLOW));
 		render.writeToImage();
 	}
-	
+
 	/**
 	 * Test for XML based scene - for bonus
 	 */
@@ -57,10 +62,12 @@ public class RenderTests {
 	public void basicRenderXml() {
 		Scene scene = new Scene("XML Test scene");
 		// enter XML file name and parse from XML file into scene object
-		SceneBuilder sceneBuilder = new SceneBuilder("XML Test scene", new File("src/unittests/xml/basicRenderTestTwoColors.xml").getPath());
+		SceneBuilder sceneBuilder = new SceneBuilder("XML Test scene",
+				new File("src/unittests/xml/basicRenderTestTwoColors.xml").getPath());
 		scene = sceneBuilder.loadScene();
-		
-		ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
+
+		// XML_TC01: parse from XML file
+		ImageWriter imageWriter = new ImageWriter("render_XML_TC01", 1000, 1000);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setScene(scene) //
@@ -72,5 +79,4 @@ public class RenderTests {
 		render.writeToImage();
 	}
 
-	
 }

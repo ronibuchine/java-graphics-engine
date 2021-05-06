@@ -20,8 +20,10 @@ public class ImageWriterTests {
      */
     @Test
     public void testWriteToImage() {
+
+        // TC01 image writing test, printing a colored grid
         try {
-            ImageWriter im = new ImageWriter("test", 800, 500);
+            ImageWriter im = new ImageWriter("image_writer_TC01", 800, 500);
             Color green = new Color(52, 165, 111);
 
             for (int x = 0; x < 800; ++x) {
