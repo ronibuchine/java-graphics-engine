@@ -79,7 +79,7 @@ public class Render {
      * @param color    color of the grid lines
      */
     public void printGrid(int interval, Color color) {
-        // TODO: implementation
+        // TODO: optional implementation
     }
 
     /**
@@ -89,7 +89,7 @@ public class Render {
     public void writeToImage() {
         if (imageWriter != null) {
             imageWriter.writeToImage();
-        }
-        throw new MissingResourceException(null, null, null);
+        } else
+            throw new MissingResourceException(null, null, null);
     }
 }
