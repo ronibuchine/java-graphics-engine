@@ -4,17 +4,16 @@
 	<geometries>
         <tube point="0 0 0" direction="1 0 0" radius="1" />
 		<tube point="0 5 0" direction="1 0 0" radius="1" />
-		<tube point="0 10 0" direction="1 0 5" radius="1" />
-        <tube point="0 15 0" direction="1 0 1" radius="1" />
+		<tube point="0 10 0" direction="1 0 1" radius="1" />
         <tube point="0 20 0" direction="1 0 10" radius="1" />
-        <tube point="0 25 0" direction="1 0 -1" radius="1" />
+        <tube point="0 25 0" direction="1 -.25 -1" radius="1" />
         <cylinder point="-27.5 30 0" direction="1 0 0" radius="2" height="5" />
         <cylinder point="-15 30 0" direction="1 0 0" radius="2" height="5" />
         <cylinder point="0 30 5" direction="0 0 -1" radius="2" height="3" />
+        <cylinder point="5 30 0" direction="1 0 0" radius="2" height=".1" />
         <cylinder point="10 30 0" direction="1 0 0" radius="2" height="5" />
         <cylinder point="22.5 30 0" direction="1 0 0" radius="2" height="5" />
         <tube point="0 35 0" direction="1 0 0" radius="1" />
-        <tube point="0 40 0" direction="1 0 0" radius="1" />
         <tube point="0 45 0" direction="1 0 0" radius="1" />
 	</geometries>
 </scene>

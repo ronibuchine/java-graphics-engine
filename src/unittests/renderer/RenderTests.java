@@ -87,7 +87,10 @@ public class RenderTests {
 
 		// TC02: xml test with tubes and cylinders
 		Camera cam = new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0)).setViewPlaneSize(1.08, .72);
-		Render render = new Render().setImageWriter(new ImageWriter("XML_TC02", 1080, 720))
+		ImageWriter writer = new ImageWriter("XML_TC02", 1080, 720);
+
+		Render render = new Render()
+				.setImageWriter(writer)
 				.setRayTracer(new BasicRayTracer(scene))
 				.setCamera(cam)
 				.setScene(scene);
@@ -96,8 +99,14 @@ public class RenderTests {
 		render.writeToImage();
 
 		// TC03: xml test with rotation and movement
-		render.setCamera(cam.yaw(40).move(20, 0, 0));
-		render.setImageWriter(new ImageWriter("XML_TC03", 1080, 720));
+		writer.setImageName("XML_TC03");
+		cam.yaw(40).move(20, 0, 0);
+		render.renderImage();
+		render.writeToImage();
+
+		// TC04: for fun
+		writer.setImageName("XML_TC04");
+		cam.move(10, 15, 10).pitch(-20);
 		render.renderImage();
 		render.writeToImage();
 	}
