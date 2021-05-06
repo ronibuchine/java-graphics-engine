@@ -60,11 +60,11 @@ public class RenderTests {
 	 */
 	@Test
 	public void basicRenderXml() {
-		Scene scene = new Scene("XML Test scene");
+
 		// enter XML file name and parse from XML file into scene object
 		SceneBuilder sceneBuilder = new SceneBuilder("XML Test scene",
 				new File("src/unittests/xml/basicRenderTestTwoColors.xml").getPath());
-		scene = sceneBuilder.build();
+		Scene scene = sceneBuilder.build();
 
 		// XML_TC01: parse from XML file
 		ImageWriter imageWriter = new ImageWriter("XML_TC01", 1000, 1000);
@@ -84,12 +84,19 @@ public class RenderTests {
 		SceneBuilder builder = new SceneBuilder("XML Tube test scene", new File("src/unittests/xml/tubes.xml").getPath());
 		Scene scene = builder.build();
 
+		Camera cam = new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0));
+
 		Render render = new Render()
 		.setImageWriter(new ImageWriter("tubes_XML_TC02", 1000, 1000))
 		.setRayTracer(new BasicRayTracer(scene))
-		.setCamera(new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0)))
+		.setCamera(cam)
 		.setScene(scene);
 
+		render.renderImage();
+		render.writeToImage();
+
+		render.setCamera(cam.yaw(40).move(20, 0, 0));
+		render.setImageWriter(new ImageWriter("tubes_rotated1_pitch(-30)_XML_TC03", 1000, 1000));
 		render.renderImage();
 		render.writeToImage();
 	}

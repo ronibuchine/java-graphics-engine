@@ -166,8 +166,23 @@ public class Camera {
         return new Ray(location, pIJ.subtract(location)); // Ray's constructor will normalize the direction vector
     }
 
-    public Camera move(Vector move) { // physical location movement
-        location.add(move);
+    /**
+     * Moves camera location
+     * @param right number of pixels to move rightward
+     * @param forward number of pixels to move forward
+     * @param up number of pixels to move upward
+     * @return
+     */
+    public Camera move(double right, double forward, double up) { // physical location movement
+        if (right != 0) {
+            location = location.add(vRight.scale(right));
+        }
+        if (forward != 0) {
+            location = location.add(vTO.scale(forward));
+        }
+        if (up != 0) {
+            location = location.add(vUP.scale(up));
+        }
         return this;
     }
 
