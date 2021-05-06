@@ -115,7 +115,7 @@ public class Camera {
      * @param height
      * @return The {@link Camera}
      */
-    public Camera setViewPlaneSize(int width, int height) {
+    public Camera setViewPlaneSize(double width, double height) {
         this.width = width;
         this.height = height;
         return this;
