@@ -1,4 +1,4 @@
-# java-graphics-engine
+# Graphics Engine Project
 
 The Main branch is for assignment that are to be submmitted for each due date 
 
