@@ -2,7 +2,6 @@ package renderer;
 
 import java.util.MissingResourceException;
 import elements.Camera;
-import primitives.Color;
 import scene.Scene;
 
 /**
@@ -78,8 +77,8 @@ public class Render {
      * @param interval to make the lines
      * @param color    color of the grid lines
      */
-    public void printGrid(int interval, Color color) {
-        // TODO: optional implementation
+    public void printGrid(int interval) {
+        imageWriter.printGrid(interval);
     }
 
     /**
