@@ -3,6 +3,7 @@ package renderer;
 import java.util.MissingResourceException;
 import elements.Camera;
 import primitives.Color;
+import primitives.Ray;
 import scene.Scene;
 
 /**
@@ -67,9 +68,15 @@ public class Render {
      * currently only checks if Render fields are null or not
      */
     public void renderImage() {
+
         if (imageWriter == null || scene == null || camera == null || rayTracer == null)
             throw new MissingResourceException("One of the Rendering components is null", null, null);
-        throw new UnsupportedOperationException();
+        for (int j = 0; j < camera.getWidth(); j++) {
+            for (int i = 0; i < camera.getHeight(); i++) {
+                Ray pixelRay = camera.constructRayThroughPixel(camera.getWidth(), camera.getHeight(), j, i);
+                imageWriter.writePixel(j, i, rayTracer.traceRay(pixelRay));
+            }
+        }
     }
 
     /**
@@ -90,6 +97,6 @@ public class Render {
         if (imageWriter != null) {
             imageWriter.writeToImage();
         } else
-            throw new MissingResourceException(null, null, null);
+            throw new MissingResourceException("imageWriter has a null value", null, null);
     }
 }
