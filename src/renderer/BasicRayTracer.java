@@ -7,9 +7,9 @@ import primitives.Point3D;
 import primitives.Ray;
 import scene.Scene;
 
-public class RayTracerBasic extends RayTraceBase {
+public class BasicRayTracer extends RayTraceBase {
 
-    public RayTracerBasic(Scene scene) {
+    public BasicRayTracer(Scene scene) {
         super(scene);
     }
 

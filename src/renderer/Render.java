@@ -17,12 +17,7 @@ public class Render {
 
     Camera camera;
 
-    RayTracerBasic rayTracer;
-
-    public Render() {
-        // no implementation
-        return this;
-    }
+    BasicRayTracer rayTracer;
 
     /**
      * sets the image writer field
@@ -63,7 +58,7 @@ public class Render {
      * @param rayTracer
      * @return this The object itself
      */
-    public Render setRayTracer(RayTracerBasic rayTracer) {
+    public Render setRayTracer(BasicRayTracer rayTracer) {
         this.rayTracer = rayTracer;
         return this;
     }
@@ -71,9 +66,9 @@ public class Render {
     /**
      * currently only checks if Render fields are null or not
      */
-    public void renderImage() throws MissingResourceException, UnsupportedOperationException {
+    public void renderImage() {
         if (imageWriter == null || scene == null || camera == null || rayTracer == null)
-            throw new MissingResourceException(null, null, null);
+            throw new MissingResourceException("One of the Rendering components is null", null, null);
         throw new UnsupportedOperationException();
     }
 
@@ -91,7 +86,7 @@ public class Render {
      * Method calls {@link ImageWriter} method of writeToImage() assuming that it is
      * not a null value
      */
-    public void writeToImage() throws MissingResourceException {
+    public void writeToImage() {
         if (imageWriter != null) {
             imageWriter.writeToImage();
         }

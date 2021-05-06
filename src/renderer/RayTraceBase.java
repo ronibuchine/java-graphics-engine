@@ -5,9 +5,10 @@ import primitives.Ray;
 import scene.Scene;
 
 /**
+ * Abstract class for implementing the core ray tracing
+ * method in our graphics engine
  * @author Roni Buchine
- * @author Eliezer Jacobs Abstract class for implementing the core ray tracing
- *         method in our graphics engine
+ * @author Eliezer Jacobs 
  */
 public abstract class RayTraceBase {
 
