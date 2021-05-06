@@ -22,6 +22,11 @@ public class BasicRayTracer extends RayTraceBase {
         return calcColor(closestPoint);
     }
 
+    /**
+     * Calculates the color of a given point
+     * @param point
+     * @return The {@link Color} of the point
+     */
     private Color calcColor(Point3D point) {
         return scene.ambientLight.getIntensity();
     }

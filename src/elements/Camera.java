@@ -28,11 +28,11 @@ public class Camera {
     /**
      * The width of the {@link Camera}'s view plane
      */
-    private int width = 1; // default value
+    private double width = 1; // default value
     /**
      * The height of the {@link Camera}'s view plane
      */
-    private int height = 1; // default value
+    private double height = 1; // default value
     /**
      * The distance of the view plane from the {@link Camera}
      */
@@ -78,14 +78,14 @@ public class Camera {
     /**
      * Getter for View Plane width
      */
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 
     /**
      * Getter for view plane height
      */
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 

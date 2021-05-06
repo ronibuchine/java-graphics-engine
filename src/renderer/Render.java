@@ -71,9 +71,12 @@ public class Render {
 
         if (imageWriter == null || scene == null || camera == null || rayTracer == null)
             throw new MissingResourceException("One of the Rendering components is null", null, null);
+
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
         for (int j = 0; j < camera.getWidth(); j++) {
             for (int i = 0; i < camera.getHeight(); i++) {
-                Ray pixelRay = camera.constructRayThroughPixel(camera.getWidth(), camera.getHeight(), j, i);
+                Ray pixelRay = camera.constructRayThroughPixel(nX, nY, j, i);
                 imageWriter.writePixel(j, i, rayTracer.traceRay(pixelRay));
             }
         }
