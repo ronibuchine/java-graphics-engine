@@ -19,12 +19,12 @@ import parser.SceneDescriptor;
 public class ParserTests {
 
     @Test
-    public void testInitializeFromXMLString() throws SAXException, IOException {
-        File file = new File(System.getProperty("user.dir") + "/images/basicRenderTestTwoColors.xml");
+    public void testInitializeFromXMLString() throws IOException{
+        File file = new File("src/unittests/xml/basicRenderTestTwoColors.xml");
 
         String xml = Files.readString(Path.of(file.getPath()));
         SceneDescriptor sd = SceneDescriptor.InitializeFromXMLstring(xml);
-        assertEquals("SceneDescriptor parse from xlm", 4, sd.polygons.size());
+        assertEquals("SceneDescriptor parse from xml", 4, sd.polygons.size());
     }
     
 }

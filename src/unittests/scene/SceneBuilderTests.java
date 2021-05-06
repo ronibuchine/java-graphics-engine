@@ -1,7 +1,8 @@
-package unittests;
+package unittests.scene;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import org.junit.Test;
@@ -16,8 +17,8 @@ import scene.*;
  */
 public class SceneBuilderTests {
     @Test
-    public void testLoadSceneFromFile() throws SAXException, FileNotFoundException {
-        SceneBuilder sb = new SceneBuilder("test", System.getProperty("user.dir") + "/images/basicRenderTestTwoColors.xml");
+    public void testLoadSceneFromFile() {
+        SceneBuilder sb = new SceneBuilder("test", new File("src/unittests/xml/basicRenderTestTwoColors.xml").getPath());
         Scene scene1 = sb.loadScene();
         Geometries geometries = new Geometries(
             new Sphere(new Point3D(0,0,-100), 50),

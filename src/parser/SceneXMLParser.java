@@ -2,26 +2,25 @@ package parser;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 /**
  * Class to parse XML
  */
 public class SceneXMLParser {
-    public static SceneDescriptor parse(InputSource f) throws SAXException {
+    public static SceneDescriptor parse(InputSource f) {
         try {
             SAXhandler handler = new SAXhandler();
-            XMLReader reader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
-            reader.setContentHandler(handler);
-            reader.parse(f);
+            SAXParser reader = SAXParserFactory.newInstance().newSAXParser();
+            reader.parse(f, handler);
             return handler.getSceneDescriptor();
 
-        } catch (ParserConfigurationException | IOException e) {
-            return null;
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            throw new RuntimeException("SAX error. See cause...", e);
         }
     }
 }

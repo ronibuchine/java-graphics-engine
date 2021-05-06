@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
  * Class to hold scene information
@@ -25,9 +24,8 @@ public class SceneDescriptor {
      * Creates a {@link SceneDescriptor} from XML text
      * @param xmlText
      * @return {@link SceneDescriptor}
-     * @throws SAXException
      */
-    public static SceneDescriptor InitializeFromXMLstring(String xmlText) throws SAXException {
+    public static SceneDescriptor InitializeFromXMLstring(String xmlText) {
         return SceneXMLParser.parse(new InputSource(new StringReader(xmlText)));
     }
 }

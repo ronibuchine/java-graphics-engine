@@ -43,22 +43,22 @@ public class SceneBuilder {
 
     /**
      * Loads Scene from path initialized in constructor
-     * @return
-     * @throws SAXException
-     * @throws FileNotFoundException
+     * @return {@link Scene}
      */
-    public Scene loadScene() throws SAXException, FileNotFoundException {
+    public Scene loadScene() {
         return loadSceneFromFile(new File(filePath));
     }
     /**
      * Loads Scene from File passed as paramter
      * @param f XML {@link File}
-     * @return
-     * @throws SAXException
-     * @throws FileNotFoundException
+     * @return {@link Scene}
      */
-    public Scene loadSceneFromFile(File f) throws SAXException, FileNotFoundException {
-        sceneDesc = SceneXMLParser.parse(new InputSource(new FileInputStream(f)));
+    public Scene loadSceneFromFile(File f) {
+        try {
+            sceneDesc = SceneXMLParser.parse(new InputSource(new FileInputStream(f)));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("FileNotFound", e);
+        }
         if (sceneDesc == null) {
             return null;
         }
