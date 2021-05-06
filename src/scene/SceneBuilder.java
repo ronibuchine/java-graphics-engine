@@ -1,17 +1,12 @@
 package scene;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.xml.sax.InputSource;
-
 import elements.AmbientLight;
 import geometries.*;
-import org.xml.sax.SAXException;
 import parser.*;
 import primitives.*;
 
@@ -38,6 +33,7 @@ public class SceneBuilder {
     public SceneBuilder(String name, String filePath) {
         scene = new Scene(name);
         this.filePath = filePath;
+        sceneDesc = SceneDescriptor.InitializeFromXMLfile(new File(filePath));
     }
 
 
@@ -46,22 +42,21 @@ public class SceneBuilder {
      * @return {@link Scene}
      */
     public Scene loadScene() {
-        return loadSceneFromFile(new File(filePath));
+
+        loadSceneAttributes();
+        loadAmbientLight();
+        loadGeometries();
+
+        return scene;
     }
+    
     /**
      * Loads Scene from File passed as paramter
      * @param f XML {@link File}
      * @return {@link Scene}
      */
     public Scene loadSceneFromFile(File f) {
-        try {
-            sceneDesc = SceneXMLParser.parse(new InputSource(new FileInputStream(f)));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("FileNotFound", e);
-        }
-        if (sceneDesc == null) {
-            return null;
-        }
+        sceneDesc = SceneDescriptor.InitializeFromXMLfile(f);
 
         loadSceneAttributes();
         loadAmbientLight();

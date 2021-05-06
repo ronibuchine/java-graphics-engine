@@ -3,12 +3,10 @@ package unittests.scene;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import org.junit.Test;
 
 import geometries.*;
-import org.xml.sax.SAXException;
 import primitives.*;
 import scene.*;
 

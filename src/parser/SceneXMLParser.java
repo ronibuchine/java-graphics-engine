@@ -9,7 +9,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * Class to parse XML
+ * Class to parse XML document
  */
 public class SceneXMLParser {
     public static SceneDescriptor parse(InputSource f) {
@@ -20,7 +20,7 @@ public class SceneXMLParser {
             return handler.getSceneDescriptor();
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new RuntimeException("SAX error. See cause...", e);
+            throw new RuntimeException("XML Parsing Exception. See cause...", e);
         }
     }
 }

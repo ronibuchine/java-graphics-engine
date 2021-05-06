@@ -1,5 +1,8 @@
 package parser;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -27,5 +30,12 @@ public class SceneDescriptor {
      */
     public static SceneDescriptor InitializeFromXMLstring(String xmlText) {
         return SceneXMLParser.parse(new InputSource(new StringReader(xmlText)));
+    }
+    public static SceneDescriptor InitializeFromXMLfile(File f) {
+        try {
+            return SceneXMLParser.parse(new InputSource(new FileInputStream(f)));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found", e);
+        }
     }
 }

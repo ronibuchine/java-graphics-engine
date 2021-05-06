@@ -1,7 +1,6 @@
 package unittests.parser;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import org.xml.sax.SAXException;
 import parser.SceneDescriptor;
 
 /**
