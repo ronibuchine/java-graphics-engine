@@ -74,8 +74,8 @@ public class Render {
 
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
-        for (int j = 0; j < camera.getWidth(); j++) {
-            for (int i = 0; i < camera.getHeight(); i++) {
+        for (int j = 0; j < nX; j++) {
+            for (int i = 0; i < nY; i++) {
                 Ray pixelRay = camera.constructRayThroughPixel(nX, nY, j, i);
                 imageWriter.writePixel(j, i, rayTracer.traceRay(pixelRay));
             }
@@ -84,6 +84,7 @@ public class Render {
 
     /**
      * method that prints grid lines to be rendered
+     * RUN THIS AFTER {@link Render#renderImage()}
      * 
      * @param interval to make the lines
      * @param color    color of the grid lines

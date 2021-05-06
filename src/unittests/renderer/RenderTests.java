@@ -57,7 +57,7 @@ public class RenderTests {
 	public void basicRenderXml() {
 		Scene scene = new Scene("XML Test scene");
 		// enter XML file name and parse from XML file into scene object
-		SceneBuilder sceneBuilder = new SceneBuilder("XML Test scene", new File("src/unittests/xml").getPath());
+		SceneBuilder sceneBuilder = new SceneBuilder("XML Test scene", new File("src/unittests/xml/basicRenderTestTwoColors.xml").getPath());
 		scene = sceneBuilder.loadScene();
 		
 		ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
