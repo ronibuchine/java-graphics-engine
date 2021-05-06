@@ -81,14 +81,15 @@ public class RenderTests {
 
 	@Test
 	public void testTubeRender() {
-		SceneBuilder builder = new SceneBuilder("XML Tube test scene", new File("src/unittests/xml/tubes.xml").getPath());
+		SceneBuilder builder = new SceneBuilder("XML Tube test scene",
+				new File("src/unittests/xml/tubes.xml").getPath());
 		Scene scene = builder.build();
 
-		Render render = new Render()
-		.setImageWriter(new ImageWriter("tubes_XML_TC02", 1000, 1000))
-		.setRayTracer(new BasicRayTracer(scene))
-		.setCamera(new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0)))
-		.setScene(scene);
+		// TC02: xml test with tubes and cylinders
+		Render render = new Render().setImageWriter(new ImageWriter("XML_TC02", 1000, 1000))
+				.setRayTracer(new BasicRayTracer(scene))
+				.setCamera(new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0)))
+				.setScene(scene);
 
 		render.renderImage();
 		render.writeToImage();
