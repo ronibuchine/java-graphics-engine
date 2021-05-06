@@ -64,7 +64,7 @@ public class RenderTests {
 		// enter XML file name and parse from XML file into scene object
 		SceneBuilder sceneBuilder = new SceneBuilder("XML Test scene",
 				new File("src/unittests/xml/basicRenderTestTwoColors.xml").getPath());
-		scene = sceneBuilder.loadScene();
+		scene = sceneBuilder.build();
 
 		// XML_TC01: parse from XML file
 		ImageWriter imageWriter = new ImageWriter("render_XML_TC01", 1000, 1000);
@@ -76,6 +76,21 @@ public class RenderTests {
 
 		render.renderImage();
 		render.printGrid(100, new Color(java.awt.Color.YELLOW));
+		render.writeToImage();
+	}
+
+	@Test
+	public void testTubeRender() {
+		SceneBuilder builder = new SceneBuilder("XML Tube test scene", new File("src/unittests/xml/tubes.xml").getPath());
+		Scene scene = builder.build();
+
+		Render render = new Render()
+		.setImageWriter(new ImageWriter("tubes_XML_TC02", 1000, 1000))
+		.setRayTracer(new BasicRayTracer(scene))
+		.setCamera(new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0)))
+		.setScene(scene);
+
+		render.renderImage();
 		render.writeToImage();
 	}
 

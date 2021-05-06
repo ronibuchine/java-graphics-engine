@@ -41,7 +41,7 @@ public class SceneBuilder {
      * Loads Scene from path initialized in constructor
      * @return {@link Scene}
      */
-    public Scene loadScene() {
+    public Scene build() {
 
         loadSceneAttributes();
         loadAmbientLight();
