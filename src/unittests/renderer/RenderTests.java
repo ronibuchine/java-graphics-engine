@@ -43,7 +43,7 @@ public class RenderTests {
 																													// right
 
 		// TC01: first rendering test (non XML)
-		ImageWriter imageWriter = new ImageWriter("render_TC01", 1000, 1000);
+		ImageWriter imageWriter = new ImageWriter("TC01", 1000, 1000);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setScene(scene) //
@@ -67,7 +67,7 @@ public class RenderTests {
 		scene = sceneBuilder.build();
 
 		// XML_TC01: parse from XML file
-		ImageWriter imageWriter = new ImageWriter("render_XML_TC01", 1000, 1000);
+		ImageWriter imageWriter = new ImageWriter("XML_TC01", 1000, 1000);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setScene(scene) //
