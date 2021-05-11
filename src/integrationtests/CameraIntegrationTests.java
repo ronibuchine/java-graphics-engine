@@ -26,7 +26,9 @@ public class CameraIntegrationTests {
     private void constructList(Geometry... geo) {
         for (int j = 0; j < 3; ++j) {
             for (int i = 0; i < 3; i++) {
-                list.addAll(new Geometries(geo).findIntersections(cam.constructRayThroughPixel(3, 3, j, i)));
+                try {
+                    list.addAll(new Geometries(geo).findIntersections(cam.constructRayThroughPixel(3, 3, j, i)));
+                } catch (NullPointerException e) {}
             }
         }
     }
