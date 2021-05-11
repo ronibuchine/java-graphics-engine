@@ -49,7 +49,7 @@ public class Geometries implements Intersectable {
             List<Point3D> temp = geom.findIntersections(r);
             if (temp != null) list.addAll(temp);
         }
-        if (list.isEmpty()) {
+        if (list.size() == 0) {
             return null;
         }
         return list;

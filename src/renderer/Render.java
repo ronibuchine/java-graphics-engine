@@ -18,7 +18,7 @@ public class Render {
 
     Camera camera;
 
-    RayTraceBase rayTracer;
+    BasicRayTracer rayTracer;
 
     /**
      * sets the image writer field
