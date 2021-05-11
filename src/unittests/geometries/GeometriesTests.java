@@ -1,6 +1,8 @@
 package unittests.geometries;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -26,8 +28,8 @@ public class GeometriesTests {
         // =========== Boundary Tests =================
         // an empty collection (BVA)
         Geometries geoms1 = new Geometries();
-        assertEquals("empty collection", Collections.emptyList(),
-                geoms1.findIntersections(new Ray(new Point3D(1, 0, 0), new Vector(-1, -1, -1))));
+        assertTrue("empty collection",
+                geoms1.findIntersections(new Ray(new Point3D(1, 0, 0), new Vector(-1, -1, -1))) == null);
 
         // no shape intersects with a body (BVA)
         geoms1.add(new Cylinder(1, new Ray(new Point3D(3, 0, 0), new Vector(0, 5, 0)), 5),
@@ -35,8 +37,8 @@ public class GeometriesTests {
                 new Polygon(new Point3D(0, 10, 0), new Point3D(-2, 12, 0), new Point3D(-5, 5, 0), new Point3D(-3, 4, 0),
                         new Point3D(-1, 5, 0)),
                 new Triangle(new Point3D(0, 5, 8), new Point3D(3, 2, 5), new Point3D(0, 0, 3)));
-        assertEquals("Ray doesn't intersect any geometries", Collections.emptyList(),
-                geoms1.findIntersections(new Ray(new Point3D(0, 0, 10), new Vector(0, 1, 0))));
+        assertTrue("Ray doesn't intersect any geometries",
+                geoms1.findIntersections(new Ray(new Point3D(0, 0, 10), new Vector(0, 1, 0))) == null);
 
         // only one shape intersects (BVA)
         geoms1.add(new Polygon(new Point3D(0, 20, 0), new Point3D(5, 20, 5), new Point3D(5, 20, 10),
