@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
 
-import geometries.Triangle;
 import geometries.Tube;
 import geometries.Intersectable.GeoPoint;
 import primitives.Point3D;
