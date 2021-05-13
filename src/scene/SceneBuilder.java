@@ -83,20 +83,22 @@ public class SceneBuilder {
             Vector direction = new Vector(parsePoint(cylinder.get("direction")));
             double radius = Double.parseDouble(cylinder.get("radius"));
             double height = Double.parseDouble(cylinder.get("height"));
-            geometries.add(new Cylinder(radius, new Ray(point, direction), height));
+            Color color = new Color(parseColor(cylinder.get("color")));
+            geometries.add(new Cylinder(radius, new Ray(point, direction), height).setEmission(color));
         }
 
         //add planes to Scene
         for (Map<String,String> plane : sceneDesc.planes) {
+            Color color = new Color(parseColor(plane.get("color")));
             if (plane.containsKey("normal")) {
                 Vector normal = new Vector(parsePoint(plane.get("normal")));
                 Point3D point = parsePoint(plane.get("point"));
-                geometries.add(new Plane(normal, point));
+                geometries.add(new Plane(normal, point).setEmission(color));
             } else {
                 Point3D p0 = parsePoint(plane.get("p0"));
                 Point3D p1 = parsePoint(plane.get("p1"));
                 Point3D p2 = parsePoint(plane.get("p2"));
-                geometries.add(new Plane(p0, p1, p2));
+                geometries.add(new Plane(p0, p1, p2).setEmission(color));
             }
         }
 
@@ -106,14 +108,16 @@ public class SceneBuilder {
             for (String value : polygon.values()) {
                 list.add(parsePoint(value));
             }
-            geometries.add(new Polygon(list.toArray(new Point3D[list.size()])));
+            Color color = new Color(parseColor(polygon.get("color")));
+            geometries.add(new Polygon(list.toArray(new Point3D[list.size()])).setEmission(color));
         }
 
         //add spheres to Scene
         for (Map<String,String> sphere : sceneDesc.spheres) {
             Point3D center = parsePoint(sphere.get("center"));
             double radius = Double.parseDouble(sphere.get("radius"));
-            geometries.add(new Sphere(center, radius));
+            Color color = new Color(parseColor(sphere.get("color")));
+            geometries.add(new Sphere(center, radius).setEmission(color));
         }
 
         //add tubes to Scene
@@ -121,7 +125,8 @@ public class SceneBuilder {
             Point3D point = parsePoint(tube.get("point"));
             Vector direction = new Vector(parsePoint(tube.get("direction")));
             double radius = Double.parseDouble(tube.get("radius"));
-            geometries.add(new Tube(radius, new Ray(point, direction)));
+            Color color = new Color(parseColor(tube.get("color")));
+            geometries.add(new Tube(radius, new Ray(point, direction)).setEmission(color));
         }
 
         scene.setGeometries(geometries);
