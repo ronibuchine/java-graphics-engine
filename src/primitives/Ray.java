@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.StringJoiner;
 
+import geometries.Intersectable.GeoPoint;
+
 /**
  * Class Ray is the basic ray class to represent a camera ray in a scene in
  * 3-dimensional space
@@ -73,6 +75,22 @@ public class Ray {
     public Point3D findClosestPoint(List<Point3D> list) {
         if (!list.isEmpty()) {
             Comparator<Point3D> byDistance = (p1, p2) -> p1.distanceSquared(p0) > p2.distanceSquared(p0) ? 1 : -1;
+            return Collections.min(list, byDistance);
+        }
+        return null; // is an empty list meant to return null?
+    }
+
+    /**
+     * Given a {@link List} of {@link GeoPoint}s, finds the closest point to the
+     * ray's {@link Ray#p0 origin} point
+     * 
+     * @param list list of {@link GeoPoint}s
+     * @return {@link GeoPoint} closest to {@link Ray}'s origin point or returns null
+     *         if the list is empty
+     */
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> list) {
+        if (!list.isEmpty()) {
+            Comparator<GeoPoint> byDistance = (p1, p2) -> p1.point.distanceSquared(p0) > p2.point.distanceSquared(p0) ? 1 : -1;
             return Collections.min(list, byDistance);
         }
         return null; // is an empty list meant to return null?

@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Interface Class to represent "intersectable" {@link Geometry}s
@@ -40,6 +41,11 @@ public interface Intersectable {
      * @param r The ray
      * @return A {@link List} of {@link Point3D}s
      */
-    List<Point3D> findIntersections(Ray r);
+    default List<Point3D> findIntersections(Ray ray) {
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                               : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
+    }
+    
     List<GeoPoint> findGeoIntersections(Ray r);
 }

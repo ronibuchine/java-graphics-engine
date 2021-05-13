@@ -61,6 +61,7 @@ public class Render {
      */
     public Render setRayTracer(BasicRayTracer rayTracer) {
         this.rayTracer = rayTracer;
+        this.scene = rayTracer.scene;
         return this;
     }
 

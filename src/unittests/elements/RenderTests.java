@@ -1,5 +1,7 @@
 package unittests.elements;
 
+import java.io.File;
+
 import org.junit.Test;
 
 import elements.*;
@@ -7,6 +9,7 @@ import geometries.*;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
+import scene.SceneBuilder;
 
 /**
  * Test rendering a basic image
@@ -54,9 +57,9 @@ public class RenderTests {
 	 */
 	@Test
 	public void basicRenderXml() {
-		Scene scene = new Scene("XML Test scene");
 		// enter XML file name and parse from XML file into scene object
-		// ...
+		Scene scene = new SceneBuilder("XML Test scene", 
+			new File("src/unittests/xml/basicRenderTestTwoColors.xml").getPath()).build();
 
 		ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
 		Render render = new Render() //

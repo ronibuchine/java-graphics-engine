@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
+
+import geometries.Triangle;
+import geometries.Tube;
+import geometries.Intersectable.GeoPoint;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -48,5 +52,37 @@ public class RayTests {
         list.clear();
         assertNull("Returned incorrect value for TC04", r.findClosestPoint(list));
 
+    }
+
+    /**
+     * Unit test for findClosestGeoPoint method in {@link Ray}
+     */
+    @Test
+    public void testFindClosestGeoPoint() {
+        Ray r = new Ray(new Point3D(.5, .5, .5), new Vector(1, 1, 1));
+
+        //The following GeoPoints aren't real. Shouldn't matter though...
+        GeoPoint p1 = new GeoPoint(new Tube(3, r), new Point3D(1, 1, 1));
+        GeoPoint p2 = new GeoPoint(new Tube(3, r), new Point3D(2, 2, 2));
+        GeoPoint p3 = new GeoPoint(new Tube(3, r), new Point3D(3, 3, 3));
+        GeoPoint p4 = new GeoPoint(new Tube(3, r), new Point3D(4, 4, 4));
+
+        // ============= Equivalence Tests ==============
+        // TC01: point in middle of list
+        List<GeoPoint> list = new LinkedList<>(Arrays.asList(p3, p2, p1, p4));
+        assertEquals("Returned incorrect value for TC01", p1, r.findClosestGeoPoint(list));
+
+        // ============= Boundary Tests =============
+        // TC02: point at beginning of list
+        list = new LinkedList<>(Arrays.asList(p1, p2, p3, p4));
+        assertEquals("Returned incorrect value for TC02", p1, r.findClosestGeoPoint(list));
+
+        // TC03: point at end of list
+        list = new LinkedList<>(Arrays.asList(p4, p3, p2, p1));
+        assertEquals("Returned incorrect value for TC03", p1, r.findClosestGeoPoint(list));
+
+        // TC04: empty list
+        list.clear();
+        assertNull("Returned incorrect value for TC04", r.findClosestGeoPoint(list));
     }
 }
