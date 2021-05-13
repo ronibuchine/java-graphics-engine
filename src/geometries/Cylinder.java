@@ -85,4 +85,20 @@ public class Cylinder extends Tube {
         if (cap2 != null && cap2.get(0).distance(dir.getPoint(height)) <= radius) list.add(cap2.get(0));
         return list;
     }
+
+    /**
+     * Method that packages the intersections on the Cylinder with the Geometry
+     * @param r a Ray that intersects with the Cylinder
+     * @return a {@link List} of all {@link GeoPoint}s of intersection
+     */
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray r) {
+        List<Point3D> list = findIntersections(r);
+        if (list == null) return null;
+        List<GeoPoint> geoList = new ArrayList<>();
+        for (Point3D p : list) {
+            geoList.add(new GeoPoint(this, p));
+        }
+        return geoList;
+    }
 }

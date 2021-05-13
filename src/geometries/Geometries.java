@@ -40,7 +40,7 @@ public class Geometries implements Intersectable {
     /**
      * Finds all intersection points of a {@link Ray} and the list of {@link Geometries}
      * @param r the intersecting {@link Ray}
-     * @return {@link List} of {@link Point3D}'s that {@link Ray} intersects
+     * @return {@link List} of {@link Point3D}s that {@link Ray} intersects
      */
     @Override
     public List<Point3D> findIntersections(Ray r) {
@@ -55,5 +55,22 @@ public class Geometries implements Intersectable {
         return list;
     } 
 
+    /**
+     * Finds all intersection {@link GeoPoint}s of a {@link Ray} and the list of {@link Geometries}
+     * @param r the intersecting {@link Ray}
+     * @return {@link List} of {@link GeoPoint}s that {@link Ray} intersects
+     */
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray r) {
+        List<GeoPoint> list = new LinkedList<>();
+        for (Intersectable geom : geometries) {
+            List<GeoPoint> temp = geom.findGeoIntersections(r);
+            if (temp != null) list.addAll(temp);
+        }
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list;
+    } 
 
 }

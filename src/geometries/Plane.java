@@ -5,6 +5,7 @@ import primitives.Ray;
 import primitives.Vector;
 import static primitives.Util.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
     /**
      * a {@link Point3D} on the {@link Plane}
@@ -82,5 +83,17 @@ public class Plane implements Geometry {
         double denominator = alignZero(normal.dotProduct(r.getDir()));
         if (!isZero(denominator) && numerator/denominator > 0) return List.of(r.getPoint(numerator/denominator));
         else return null; //Ray starts on plane, is perpendicular to plane, or is behind the plane
+    }
+
+    /**
+     * Implements findGeoIntersections for Intersectable {@link Plane}
+     * @param r The Ray
+     * @return {@link List} containing {@link GeoPoint} if intersection exists (returns null if not)
+     */
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray r) {
+        List<Point3D> list = findIntersections(r);
+        if (list == null) return null;
+        return List.of(new GeoPoint(this, list.get(0)));
     }
 }

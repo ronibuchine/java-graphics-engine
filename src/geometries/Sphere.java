@@ -11,7 +11,7 @@ import java.util.List;
  * @author Roni Buchine 
  * @author Eliezer Jacobs
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
     /**
      * Center of the sphere
@@ -83,5 +83,21 @@ public class Sphere implements Geometry {
         if (projLength - distToSide > 0) list.add(r.getPoint(projLength - distToSide));
         if (projLength + distToSide > 0) list.add(r.getPoint(projLength + distToSide));
         return list;
+    }
+
+    /**
+     * Method that packages the intersection on the sphere with the Geometry
+     * @param r a Ray that intersects with the Sphere
+     * @return a {@link List} of all {@link GeoPoint}s of intersection
+     */
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray r) {
+        List<Point3D> list = findIntersections(r);
+        if (list == null) return null;
+        List<GeoPoint> geoList = new ArrayList<>();
+        for (Point3D p : list) {
+            geoList.add(new GeoPoint(this, p));
+        }
+        return geoList;
     }
 }

@@ -17,7 +17,7 @@ import java.util.StringJoiner;
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */
-public class Polygon extends java.awt.Polygon implements Geometry {
+public class Polygon extends Geometry {
 	/**
 	 * List of {@link Polygon}'s vertices
 	 */
@@ -130,5 +130,17 @@ public class Polygon extends java.awt.Polygon implements Geometry {
 		}
 		catch (IllegalArgumentException e) { return null; } //intersection point is on edge of polygon
 		return List.of(p); //point is inside polygon
+	}
+
+	/**
+	 * Implementation of findGeoIntersections for {@link Polygon}
+	 * @param r The {@link Ray}
+	 * @return {@link List} with {@link GeoPoint}
+	 */
+	@Override
+	public List<GeoPoint> findGeoIntersections(Ray r) {
+		List<Point3D> list = findIntersections(r);
+		if (list == null) return null;
+		return List.of(new GeoPoint(this, list.get(0)));
 	}
 }

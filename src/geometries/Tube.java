@@ -16,7 +16,7 @@ import static java.lang.Math.sqrt;
  * @author Roni Buchine
  * @author Eliezer Jacobs
  */
-public class Tube implements Geometry {
+public class Tube extends Geometry {
     
     /**
      * radius field for the {@link Tube}
@@ -88,5 +88,21 @@ public class Tube implements Geometry {
         if (scalar1 > 0) list.add(r.getPoint(scalar1));
         if (scalar2 > 0) list.add(r.getPoint(scalar2));
         return list;
+    }
+
+    /**
+     * Method that packages the intersections on the tube with the Geometry
+     * @param r a Ray that intersects with the Tube
+     * @return a {@link List} of all {@link GeoPoint}s of intersection
+     */
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray r) {
+        List<Point3D> list = findIntersections(r);
+        if (list == null) return null;
+        List<GeoPoint> geoList = new ArrayList<>();
+        for (Point3D p : list) {
+            geoList.add(new GeoPoint(this, p));
+        }
+        return geoList;
     }
 }
