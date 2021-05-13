@@ -109,38 +109,28 @@ public class Polygon extends Geometry {
 	}
 
 	/**
-	 * Implementation of findIntersections for {@link Polygon}
+	 * Implementation of findGeoIntersections for {@link Polygon}
 	 * @param r The {@link Ray}
-	 * @return {@link List} of {@link Point3D}s
+	 * @return {@link List} of {@link GeoPoint}s
 	 */
 	@Override
-	public List<Point3D> findIntersections(Ray r) {
-		List <Point3D> list = plane.findIntersections(r); 	//gets point where ray intersects the polygon of the plane
+	public List<GeoPoint> findGeoIntersections(Ray r) {
+		List <GeoPoint> list = plane.findGeoIntersections(r); 	//gets point where ray intersects the polygon of the plane
 		if (list == null) return null;						//if ray doesn't intersect plane at all, then no intersection point
-		Point3D p = list.get(0);
+		GeoPoint p = list.get(0);
 		try {	
-			Vector edge1 = vertices.get(vertices.size() - 1).subtract(p);
-			Vector edge2 = vertices.get(0).subtract(p);
+			Vector edge1 = vertices.get(vertices.size() - 1).subtract(p.point);
+			Vector edge2 = vertices.get(0).subtract(p.point);
 			boolean sign = (r.getDir().dotProduct(edge1.crossProduct(edge2)) > 0);
 			for (int i = 1; i < vertices.size(); ++i) {		//calculate normal vectors from point to pair of consecutive points on polygon and make sure they are facing same direction
 				edge1 = edge2;
-				edge2 = vertices.get(i).subtract(p);
+				edge2 = vertices.get(i).subtract(p.point);
 				if (sign != r.getDir().dotProduct(edge1.crossProduct(edge2)) > 0) return null; //point is outside of polygon
 			}
 		}
 		catch (IllegalArgumentException e) { return null; } //intersection point is on edge of polygon
+		p.geometry = this; //change GeoPoint's geometry to Polygon (instead of Plane)
 		return List.of(p); //point is inside polygon
 	}
-
-	/**
-	 * Implementation of findGeoIntersections for {@link Polygon}
-	 * @param r The {@link Ray}
-	 * @return {@link List} with {@link GeoPoint}
-	 */
-	@Override
-	public List<GeoPoint> findGeoIntersections(Ray r) {
-		List<Point3D> list = findIntersections(r);
-		if (list == null) return null;
-		return List.of(new GeoPoint(this, list.get(0)));
-	}
+	
 }

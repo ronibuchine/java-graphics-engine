@@ -5,7 +5,6 @@ import primitives.Ray;
 import primitives.Vector;
 import static primitives.Util.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -70,10 +69,10 @@ public class Plane extends Geometry {
     /**
      * Implements findIntersections for Intersectable {@link Plane}
      * @param r The Ray
-     * @return {@link List} containing {@link Point3D} if intersection exists (returns null if not)
+     * @return {@link List} containing {@link GeoPoint} if intersection exists (returns null if not)
      */
     @Override
-    public List<Point3D> findIntersections(Ray r) {
+    public List<GeoPoint> findGeoIntersections(Ray r) {
         Vector rayToPlane;
         try {
             rayToPlane = p0.subtract(r.getStartPoint()); //a vector from the ray start point to some point on the plane
@@ -81,19 +80,8 @@ public class Plane extends Geometry {
         catch (IllegalArgumentException e) { return null; } //ray starts at plane's representative point
         double numerator = alignZero(normal.dotProduct(rayToPlane));
         double denominator = alignZero(normal.dotProduct(r.getDir()));
-        if (!isZero(denominator) && numerator/denominator > 0) return List.of(r.getPoint(numerator/denominator));
+        if (!isZero(denominator) && numerator/denominator > 0) return List.of(new GeoPoint(this, r.getPoint(numerator/denominator)));
         else return null; //Ray starts on plane, is perpendicular to plane, or is behind the plane
     }
 
-    /**
-     * Implements findGeoIntersections for Intersectable {@link Plane}
-     * @param r The Ray
-     * @return {@link List} containing {@link GeoPoint} if intersection exists (returns null if not)
-     */
-    @Override
-    public List<GeoPoint> findGeoIntersections(Ray r) {
-        List<Point3D> list = findIntersections(r);
-        if (list == null) return null;
-        return List.of(new GeoPoint(this, list.get(0)));
-    }
 }

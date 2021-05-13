@@ -51,12 +51,12 @@ public class Tube extends Geometry {
     }
 
     /**
-     * Implementation of findIntersections for Intersectable {@link Tube}
+     * Implementation of findGeoIntersections for Intersectable {@link Tube}
      * @param r The Ray
-     * @return {@link List} of {@link Point3D}s
+     * @return {@link List} of {@link GeoPoint}s
      */
     @Override
-    public List<Point3D> findIntersections(Ray r) {
+    public List<GeoPoint> findGeoIntersections(Ray r) {
 
         Vector AB = dir.getDir();
         Vector AO = r.getStartPoint().subtract(dir.getStartPoint());
@@ -84,25 +84,10 @@ public class Tube extends Geometry {
         double scalar1 = alignZero((-b + sqrt(b*b - 4*a*c)) / (2*a));   //positive answer
         double scalar2 = alignZero((-b - sqrt(b*b - 4*a*c)) / (2*a));   //negative answer
         if (scalar1 <= 0 && scalar2 <= 0) return null;          //check if scalars are negative (point is behind ray) or zero (point is at start of ray)
-        List<Point3D> list = new ArrayList<>();
-        if (scalar1 > 0) list.add(r.getPoint(scalar1));
-        if (scalar2 > 0) list.add(r.getPoint(scalar2));
+        List<GeoPoint> list = new ArrayList<>();
+        if (scalar1 > 0) list.add(new GeoPoint(this, r.getPoint(scalar1)));
+        if (scalar2 > 0) list.add(new GeoPoint(this, r.getPoint(scalar2)));
         return list;
     }
 
-    /**
-     * Method that packages the intersections on the tube with the Geometry
-     * @param r a Ray that intersects with the Tube
-     * @return a {@link List} of all {@link GeoPoint}s of intersection
-     */
-    @Override
-    public List<GeoPoint> findGeoIntersections(Ray r) {
-        List<Point3D> list = findIntersections(r);
-        if (list == null) return null;
-        List<GeoPoint> geoList = new ArrayList<>();
-        for (Point3D p : list) {
-            geoList.add(new GeoPoint(this, p));
-        }
-        return geoList;
-    }
 }

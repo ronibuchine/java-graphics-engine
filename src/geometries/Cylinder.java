@@ -64,41 +64,26 @@ public class Cylinder extends Tube {
     }
 
     /**
-     * Implements findIntersections for Intersectable {@link Cylinder}
+     * Implements findGeoIntersections for Intersectable {@link Cylinder}
      * @param r The Ray
-     * @return {@link List} of {@link Point3D}s where the {@link Ray} intersects
+     * @return {@link List} of {@link GeoPoint}s where the {@link Ray} intersects
      */
     @Override
-    public List<Point3D> findIntersections(Ray r) {
-        List<Point3D> list = super.findIntersections(r);
+    public List<GeoPoint> findGeoIntersections(Ray r) {
+        List<GeoPoint> list = super.findGeoIntersections(r);
         if (list != null) {
-            Iterator<Point3D> i = list.iterator();
+            Iterator<GeoPoint> i = list.iterator();
             while (i.hasNext()) {
-                if (!isInside(i.next())) i.remove();
+                if (!isInside(i.next().point)) i.remove();  //remove GeoPoints that are outside cylinder
             }
             if (list.size() == 2) return list;
         }
         if (list == null) list = new ArrayList<>();
         List<Point3D> cap1 = new Plane(dir.getDir(), dir.getStartPoint()).findIntersections(r);
         List<Point3D> cap2 = new Plane(dir.getDir(), dir.getPoint(height)).findIntersections(r);
-        if (cap1 != null && cap1.get(0).distance(dir.getStartPoint()) <= radius) list.add(cap1.get(0));
-        if (cap2 != null && cap2.get(0).distance(dir.getPoint(height)) <= radius) list.add(cap2.get(0));
+        if (cap1 != null && cap1.get(0).distance(dir.getStartPoint()) <= radius) list.add(new GeoPoint(this, cap1.get(0)));
+        if (cap2 != null && cap2.get(0).distance(dir.getPoint(height)) <= radius) list.add(new GeoPoint(this, cap2.get(0)));
         return list;
     }
 
-    /**
-     * Method that packages the intersections on the Cylinder with the Geometry
-     * @param r a Ray that intersects with the Cylinder
-     * @return a {@link List} of all {@link GeoPoint}s of intersection
-     */
-    @Override
-    public List<GeoPoint> findGeoIntersections(Ray r) {
-        List<Point3D> list = findIntersections(r);
-        if (list == null) return null;
-        List<GeoPoint> geoList = new ArrayList<>();
-        for (Point3D p : list) {
-            geoList.add(new GeoPoint(this, p));
-        }
-        return geoList;
-    }
 }

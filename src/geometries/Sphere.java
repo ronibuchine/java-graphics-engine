@@ -60,12 +60,12 @@ public class Sphere extends Geometry {
     }
 
     /**
-     * Method that finds all the points of intersection on the sphere
+     * Method that finds all the {@link GeoPoint}s of intersection on the sphere
      * @param r a Ray that intersects with the Sphere
-     * @return a {@link List} of all {@link Point3D}s of intersection
+     * @return a {@link List} of all {@link GeoPoint}s of intersection
      */
     @Override
-    public List<Point3D> findIntersections(Ray r) {
+    public List<GeoPoint> findGeoIntersections(Ray r) {
         Vector u;
         double projLength;
         try {
@@ -79,25 +79,10 @@ public class Sphere extends Geometry {
         if (distToCenter >= radius) return null;                     //projected point is further or on sphere's radius
         double distToSide = alignZero(Math.sqrt(radius*radius - distToCenter*distToCenter));  //distance from projected point to side of sphere
         if (projLength + distToSide <= 0 && projLength - distToSide <= 0) return null;
-        List<Point3D> list = new ArrayList<>();
-        if (projLength - distToSide > 0) list.add(r.getPoint(projLength - distToSide));
-        if (projLength + distToSide > 0) list.add(r.getPoint(projLength + distToSide));
+        List<GeoPoint> list = new ArrayList<>();
+        if (projLength - distToSide > 0) list.add(new GeoPoint(this, r.getPoint(projLength - distToSide)));
+        if (projLength + distToSide > 0) list.add(new GeoPoint(this, r.getPoint(projLength + distToSide)));
         return list;
     }
-
-    /**
-     * Method that packages the intersection on the sphere with the Geometry
-     * @param r a Ray that intersects with the Sphere
-     * @return a {@link List} of all {@link GeoPoint}s of intersection
-     */
-    @Override
-    public List<GeoPoint> findGeoIntersections(Ray r) {
-        List<Point3D> list = findIntersections(r);
-        if (list == null) return null;
-        List<GeoPoint> geoList = new ArrayList<>();
-        for (Point3D p : list) {
-            geoList.add(new GeoPoint(this, p));
-        }
-        return geoList;
-    }
+    
 }
