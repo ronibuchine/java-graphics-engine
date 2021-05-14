@@ -26,7 +26,7 @@ public class Material {
         return this;
     }
     /**
-     * Sets material's shininess
+     * Sets material's shininess (lower is shinier)
      * @param shininess 
      */
     public Material setShininess(int shininess) {
