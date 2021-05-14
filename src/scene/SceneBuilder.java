@@ -134,8 +134,7 @@ public class SceneBuilder {
 
     private double[] parseNumbers(String s) {
         String[] c = s.split(" ");
-        double[] doubleArray = { Double.parseDouble(c[0]), Double.parseDouble(c[1]), Double.parseDouble(c[2]) };
-        return doubleArray;
+        return new double[] { Double.parseDouble(c[0]), Double.parseDouble(c[1]), Double.parseDouble(c[2]) };
     }
     private Color parseColor(String s) {
         double[] d = parseNumbers(s);

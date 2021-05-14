@@ -93,7 +93,7 @@ public class BasicRayTracer extends RayTraceBase {
     private Color calcSpecular(double kS, Vector fromLight, Vector normal, Vector fromCamera, int shininess, Color lightIntensity) {
         Vector reflection;
         try {
-            reflection = fromLight.subtract(normal.scale(normal.dotProduct(fromLight)));
+            reflection = fromLight.subtract(normal.scale(2 * normal.dotProduct(fromLight))).normalized();
         }
         catch (IllegalArgumentException e) {
             return Color.BLACK;
