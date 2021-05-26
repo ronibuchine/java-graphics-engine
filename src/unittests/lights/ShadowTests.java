@@ -24,7 +24,7 @@ public class ShadowTests {
 	@Test
 	public void sphereTriangleInitial() {
 		scene.geometries.add( //
-				new Sphere(60, new Point3D(0, 0, -200)) //
+				new Sphere(new Point3D(0, 0, -200), 60) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)), //
 				new Triangle(new Point3D(-70, -40, 0), new Point3D(-40, -70, 0), new Point3D(-68, -68, -4)) //
@@ -56,7 +56,7 @@ public class ShadowTests {
 						.setMaterial(new Material().setKs(0.8).setShininess(60)), //
 				new Triangle(new Point3D(-150, -150, -115), new Point3D(-70, 70, -140), new Point3D(75, 75, -150)) //
 						.setMaterial(new Material().setKs(0.8).setShininess(60)), //
-				new Sphere(30, new Point3D(0, 0, -115)) //
+				new Sphere(new Point3D(0, 0, -115), 30) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
 		);
