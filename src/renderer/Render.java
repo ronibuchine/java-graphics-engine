@@ -14,8 +14,6 @@ public class Render {
 
     ImageWriter imageWriter;
 
-    Scene scene;
-
     Camera camera;
 
     RayTraceBase rayTracer;
@@ -38,7 +36,7 @@ public class Render {
      * @return this The object itself
      */
     public Render setScene(Scene scene) {
-        this.scene = scene;
+        rayTracer.scene = scene;
         return this;
     }
 
@@ -61,7 +59,6 @@ public class Render {
      */
     public Render setRayTracer(BasicRayTracer rayTracer) {
         this.rayTracer = rayTracer;
-        this.scene = rayTracer.scene;
         return this;
     }
 
@@ -70,7 +67,7 @@ public class Render {
      */
     public void renderImage() {
 
-        if (imageWriter == null || scene == null || camera == null || rayTracer == null)
+        if (imageWriter == null || camera == null || rayTracer == null)
             throw new MissingResourceException("One of the Rendering components is null", null, null);
 
         int nX = imageWriter.getNx();
