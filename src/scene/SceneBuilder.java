@@ -88,7 +88,7 @@ public class SceneBuilder {
             double kC = 1, kL = 0, kQ = 0, beam = 1;
             if (light.get("kc") != null) kC = Double.parseDouble(light.get("kc"));
             if (light.get("kl") != null) kL = Double.parseDouble(light.get("kl"));
-            if (light.get("kq") != null) kQ = Double.parseDouble(light.get("kQ"));
+            if (light.get("kq") != null) kQ = Double.parseDouble(light.get("kq"));
             if (light.get("beam") != null) beam = Double.parseDouble(light.get("beam"));
             
             switch(light.get("type")) {
@@ -121,7 +121,8 @@ public class SceneBuilder {
             double radius = Double.parseDouble(cylinder.get("radius"));
             double height = Double.parseDouble(cylinder.get("height"));
             Color color = parseColor(cylinder.get("color"));
-            geometries.add(new Cylinder(radius, new Ray(point, direction), height).setEmission(color));
+            geometries.add(new Cylinder(radius, new Ray(point, direction), height)
+                .setEmission(color).setMaterial(parseMaterial(cylinder)));
         }
 
         //add planes to Scene
@@ -130,12 +131,14 @@ public class SceneBuilder {
             if (plane.containsKey("normal")) {
                 Vector normal = new Vector(parsePoint(plane.get("normal")));
                 Point3D point = parsePoint(plane.get("point"));
-                geometries.add(new Plane(normal, point).setEmission(color));
+                geometries.add(new Plane(normal, point).setEmission(color)
+                    .setEmission(color).setMaterial(parseMaterial(plane)));
             } else {
                 Point3D p0 = parsePoint(plane.get("p0"));
                 Point3D p1 = parsePoint(plane.get("p1"));
                 Point3D p2 = parsePoint(plane.get("p2"));
-                geometries.add(new Plane(p0, p1, p2).setEmission(color));
+                geometries.add(new Plane(p0, p1, p2).setEmission(color)
+                    .setEmission(color).setMaterial(parseMaterial(plane)));
             }
         }
 
@@ -146,7 +149,8 @@ public class SceneBuilder {
                 list.add(parsePoint(value));
             }
             Color color = parseColor(polygon.get("color"));
-            geometries.add(new Polygon(list.toArray(new Point3D[list.size()])).setEmission(color));
+            geometries.add(new Polygon(list.toArray(new Point3D[list.size()])).setEmission(color)
+                .setEmission(color).setMaterial(parseMaterial(polygon)));
         }
 
         //add spheres to Scene
@@ -154,7 +158,8 @@ public class SceneBuilder {
             Point3D center = parsePoint(sphere.get("center"));
             double radius = Double.parseDouble(sphere.get("radius"));
             Color color = parseColor(sphere.get("color"));
-            geometries.add(new Sphere(center, radius).setEmission(color));
+            geometries.add(new Sphere(center, radius).setEmission(color)
+                .setEmission(color).setMaterial(parseMaterial(sphere)));
         }
 
         //add tubes to Scene
@@ -163,7 +168,8 @@ public class SceneBuilder {
             Vector direction = new Vector(parsePoint(tube.get("direction")));
             double radius = Double.parseDouble(tube.get("radius"));
             Color color = parseColor(tube.get("color"));
-            geometries.add(new Tube(radius, new Ray(point, direction)).setEmission(color));
+            geometries.add(new Tube(radius, new Ray(point, direction)).setEmission(color)
+                .setEmission(color).setMaterial(parseMaterial(tube)));
         }
 
         scene.setGeometries(geometries);
@@ -182,5 +188,14 @@ public class SceneBuilder {
     private Point3D parsePoint(String s) {
         double[] d = parseNumbers(s);
         return new Point3D(d[0], d[1], d[2]);
+    }
+
+    private Material parseMaterial(Map<String,String> geo) {
+        double kD = 0, kS = 0;
+        int shininess = 0;
+        if (geo.get("kd") != null) kD = Double.parseDouble(geo.get("kd"));
+        if (geo.get("ks") != null) kS = Double.parseDouble(geo.get("ks"));
+        if (geo.get("shininess") != null) shininess = Integer.parseInt(geo.get("shininess"));
+        return new Material().setKd(kD).setKs(kS).setShininess(shininess);
     }
 }

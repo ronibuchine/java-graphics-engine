@@ -6,6 +6,6 @@
         <spot-light color="500 0 0" point="50 -50 50" direction="-1 1 -3" beam="30"/>
     </lights>
 	<geometries>
-        <sphere center="0 0 -50" radius="50" color="0 0 255"/>
+        <sphere center="0 0 -50" radius="50" color="0 0 255" kd=".5" ks=".5" shininess="100"/>
 	</geometries>
 </scene>
