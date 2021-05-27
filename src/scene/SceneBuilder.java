@@ -83,23 +83,29 @@ public class SceneBuilder {
         //add point light to Scene
         for (Map<String,String> light : sceneDesc.lights) {
             Color color = parseColor(light.get("color"));
+            Point3D point;
+            Vector direction;
+            double kC = 1, kL = 0, kQ = 0, beam = 1;
+            if (light.get("kc") != null) kC = Double.parseDouble(light.get("kc"));
+            if (light.get("kl") != null) kL = Double.parseDouble(light.get("kl"));
+            if (light.get("kq") != null) kQ = Double.parseDouble(light.get("kQ"));
+            if (light.get("beam") != null) beam = Double.parseDouble(light.get("beam"));
+            
             switch(light.get("type")) {
                 case "point":
-                    Point3D point = parsePoint(light.get("point"));
-                    scene.lights.add(new PointLight(color, point));
+                    point = parsePoint(light.get("point"));
+                    scene.lights.add(new PointLight(color, point).setKc(kC).setKl(kL).setKq(kQ));
                     break;
 
                 case "directional":
-                    Vector direction = new Vector(parsePoint(light.get("direction")));
+                    direction = new Vector(parsePoint(light.get("direction")));
                     scene.lights.add(new DirectionalLight(color, direction));
                     break;
 
                 case "spot":
                     point = parsePoint(light.get("point"));
                     direction = new Vector(parsePoint(light.get("direction")));
-                    Double beam = null;
-                    if (light.get("beam") != null) beam = Double.parseDouble(light.get("beam"));
-                    scene.lights.add(new SpotLight(color, point, direction).setBeam(beam));
+                    scene.lights.add(new SpotLight(color, point, direction).setBeam(beam).setKc(kC).setKl(kL).setKq(kQ));
             }
         }
     }
