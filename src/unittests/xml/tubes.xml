@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scene background-color="95 95 95">
-	<ambient-light color="224 231 34" />
+	<ambient-light color="0 0 0" />
+    <lights>
+        <directional-light color="0 100 100" direction="0 0 -1" />
+        <point-light color="255 255 255" point="5 32 0"/>
+    </lights>
 	<geometries>
         <tube point="0 0 0" direction="1 0 0" radius="1" />
-		<tube point="0 5 0" direction="1 0 0" radius="1" />
+		<tube point="0 5 0" direction="1 0 0" radius="1" color="233 115 141"/>
 		<tube point="0 10 0" direction="1 0 1" radius="1" />
-        <tube point="0 20 0" direction="1 0 10" radius="1" />
-        <tube point="0 25 0" direction="1 -.25 -1" radius="1" />
+        <tube point="0 20 0" direction="1 0 10" radius="1" color="249 87 0" />
+        <tube point="0 25 0" direction="1 -.25 -1" radius="1" color="224 231 34" />
         <cylinder point="-27.5 30 0" direction="1 0 0" radius="2" height="5" />
         <cylinder point="-15 30 0" direction="1 0 0" radius="2" height="5" />
         <cylinder point="0 30 5" direction="0 0 -1" radius="2" height="3" />
         <cylinder point="5 30 0" direction="1 0 0" radius="2" height=".1" />
-        <cylinder point="10 30 0" direction="1 0 0" radius="2" height="5" />
+        <cylinder point="10 30 0" direction="1 0 0" radius="2" height="5" color="78 220 202"/>
         <cylinder point="22.5 30 0" direction="1 0 0" radius="2" height="5" />
         <tube point="0 35 0" direction="1 0 0" radius="1" />
-        <tube point="0 45 0" direction="1 0 0" radius="1" />
+        <tube point="0 38 0" direction="1 0 0" radius="1" />
 	</geometries>
 </scene>

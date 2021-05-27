@@ -66,12 +66,10 @@ public class BasicRayTracer extends RayTraceBase {
         for (LightSource light : scene.lights) {
             Vector l = light.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
-            if (nl * nv > 0) { // camera and light are on same side of geometry
-                if (unshaded(l, intersection)) {
-                    Color intensity = light.getIntensity(intersection.point);
-                    color = color.add(calcDiffusion(kd, l, n, intensity),
-                            calcSpecular(ks, l, n, r.getDir(), nShininess, intensity));
-                }
+            if (nl * nv > 0 && unshaded(l, intersection)) { // camera and light are on same side of geometry and nothing is in between them
+                Color intensity = light.getIntensity(intersection.point);
+                color = color.add(calcDiffusion(kd, l, n, intensity),
+                        calcSpecular(ks, l, n, r.getDir(), nShininess, intensity));
             }
         }
         return color;
@@ -80,20 +78,20 @@ public class BasicRayTracer extends RayTraceBase {
     /**
      * Method which determines if an intersection point is covered by a shadow
      * 
-     * @param l            Vector towards the light source
+     * @param l            Vector from light source
      * @param n            normal vector from object
      * @param intersection the intersection point to be checked
      */
     private boolean unshaded(Vector l, GeoPoint intersection) {
-        Vector lightDirection = l.scale(-1);
+        Vector toLight = l.scale(-1);
         Vector n = intersection.geometry.getNormal(intersection.point);
         // we must check the direction of the light in order to make sure our ray
         // direction is correct
-        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+        Vector delta = n.scale(n.dotProduct(toLight) > 0 ? DELTA : -DELTA);
         Point3D point = intersection.point.add(delta);
-        Ray lightRay = new Ray(point, lightDirection);
+        Ray newToLight = new Ray(point, toLight);
 
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(newToLight);
 
         return intersections == null;
     }

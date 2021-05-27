@@ -28,6 +28,7 @@ public abstract class Geometry implements Intersectable {
      * @return The {@link Geometry}
      */
     public Geometry setEmission(Color c) {
+        if (c == null) return this;
         emission = c;
         return this;
     }

@@ -66,7 +66,7 @@ public class Render {
     }
 
     /**
-     * currently only checks if Render fields are null or not
+     * Calculates Color of rays from camera and writes them onto the ImageWriter
      */
     public void renderImage() {
 

@@ -14,7 +14,7 @@ public class Scene {
 
     public Color background = Color.BLACK;
 
-    public AmbientLight ambientLight = new AmbientLight(Color.BLACK, 0);
+    public AmbientLight ambientLight = new AmbientLight();
 
     public List<LightSource> lights = new LinkedList<>();
 
@@ -26,6 +26,7 @@ public class Scene {
     }
 
     public Scene setBackground(Color color) {
+        if (color == null) return this;
         this.background = color;
         return this;
     }

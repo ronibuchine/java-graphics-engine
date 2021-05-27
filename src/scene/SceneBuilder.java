@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import elements.AmbientLight;
+import elements.DirectionalLight;
+import elements.PointLight;
+import elements.SpotLight;
 import geometries.*;
 import parser.*;
 import primitives.*;
@@ -45,6 +48,7 @@ public class SceneBuilder {
 
         loadSceneAttributes();
         loadAmbientLight();
+        loadLightSources();
         loadGeometries();
 
         return scene;
@@ -60,6 +64,7 @@ public class SceneBuilder {
 
         loadSceneAttributes();
         loadAmbientLight();
+        loadLightSources();
         loadGeometries();
 
         return scene;
@@ -70,7 +75,33 @@ public class SceneBuilder {
     }
 
     public void loadAmbientLight() {
+        if (sceneDesc.ambientLightAttributes.get("color") == null) return;
         scene.setAmbientLight(new AmbientLight(parseColor(sceneDesc.ambientLightAttributes.get("color")), 1));
+    }
+
+    public void loadLightSources() {
+        //add point light to Scene
+        for (Map<String,String> light : sceneDesc.lights) {
+            Color color = parseColor(light.get("color"));
+            switch(light.get("type")) {
+                case "point":
+                    Point3D point = parsePoint(light.get("point"));
+                    scene.lights.add(new PointLight(color, point));
+                    break;
+
+                case "directional":
+                    Vector direction = new Vector(parsePoint(light.get("direction")));
+                    scene.lights.add(new DirectionalLight(color, direction));
+                    break;
+
+                case "spot":
+                    point = parsePoint(light.get("point"));
+                    direction = new Vector(parsePoint(light.get("direction")));
+                    Double beam = null;
+                    if (light.get("beam") != null) beam = Double.parseDouble(light.get("beam"));
+                    scene.lights.add(new SpotLight(color, point, direction).setBeam(beam));
+            }
+        }
     }
 
     public void loadGeometries() {
@@ -83,7 +114,7 @@ public class SceneBuilder {
             Vector direction = new Vector(parsePoint(cylinder.get("direction")));
             double radius = Double.parseDouble(cylinder.get("radius"));
             double height = Double.parseDouble(cylinder.get("height"));
-            Color color = new Color(parseColor(cylinder.get("color")));
+            Color color = parseColor(cylinder.get("color"));
             geometries.add(new Cylinder(radius, new Ray(point, direction), height).setEmission(color));
         }
 
@@ -108,7 +139,7 @@ public class SceneBuilder {
             for (String value : polygon.values()) {
                 list.add(parsePoint(value));
             }
-            Color color = new Color(parseColor(polygon.get("color")));
+            Color color = parseColor(polygon.get("color"));
             geometries.add(new Polygon(list.toArray(new Point3D[list.size()])).setEmission(color));
         }
 
@@ -116,7 +147,7 @@ public class SceneBuilder {
         for (Map<String,String> sphere : sceneDesc.spheres) {
             Point3D center = parsePoint(sphere.get("center"));
             double radius = Double.parseDouble(sphere.get("radius"));
-            Color color = new Color(parseColor(sphere.get("color")));
+            Color color = parseColor(sphere.get("color"));
             geometries.add(new Sphere(center, radius).setEmission(color));
         }
 
@@ -125,7 +156,7 @@ public class SceneBuilder {
             Point3D point = parsePoint(tube.get("point"));
             Vector direction = new Vector(parsePoint(tube.get("direction")));
             double radius = Double.parseDouble(tube.get("radius"));
-            Color color = new Color(parseColor(tube.get("color")));
+            Color color = parseColor(tube.get("color"));
             geometries.add(new Tube(radius, new Ray(point, direction)).setEmission(color));
         }
 
@@ -133,10 +164,12 @@ public class SceneBuilder {
     }
 
     private double[] parseNumbers(String s) {
+        if (s == null) return null;
         String[] c = s.split(" ");
         return new double[] { Double.parseDouble(c[0]), Double.parseDouble(c[1]), Double.parseDouble(c[2]) };
     }
     private Color parseColor(String s) {
+        if (s == null) return null;
         double[] d = parseNumbers(s);
         return new Color(d[0], d[1], d[2]);
     }

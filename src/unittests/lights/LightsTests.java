@@ -1,6 +1,6 @@
 package unittests.lights;
 
-import java.util.Collections;
+import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
@@ -10,6 +10,7 @@ import geometries.*;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
+import scene.SceneBuilder;
 
 /**
  * Test rendering a basic image
@@ -199,6 +200,31 @@ public class LightsTests {
 			new SpotLight(new Color(500, 0, 0), new Point3D(50, -50, 50), new Vector(-1, 1, -3)).setBeam(30)));
 
 		ImageWriter imageWriter = new ImageWriter("lightSphereLights", 500, 500);
+		Render render = new Render()//
+				.setImageWriter(imageWriter) //
+				.setCamera(camera1) //
+				.setRayTracer(new BasicRayTracer(scene1));
+		render.renderImage();
+		render.writeToImage();
+	}
+
+	@Test
+	public void lightsFromXml() {
+		Scene scene = new SceneBuilder("test", new File("src/unittests/xml/tubes.xml").getPath()).build();
+		ImageWriter imageWriter = new ImageWriter("lightsFromXml", 500, 500);
+		Render render = new Render()
+				.setImageWriter(imageWriter)
+				.setCamera(new Camera(new Point3D(0, 20, 50), new Vector(0, 0, -1), new Vector(0, 1, 0)))
+				.setRayTracer(new BasicRayTracer(scene));
+		render.renderImage();
+		render.writeToImage();
+	}
+
+	@Test
+	public void sphereLightsXml() {
+		Scene scene1 = new SceneBuilder("test", new File("src/unittests/xml/sphere.xml").getPath()).build();
+
+		ImageWriter imageWriter = new ImageWriter("lightSphereLightsXML", 500, 500);
 		Render render = new Render()//
 				.setImageWriter(imageWriter) //
 				.setCamera(camera1) //

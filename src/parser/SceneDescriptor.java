@@ -17,6 +17,9 @@ import org.xml.sax.InputSource;
 public class SceneDescriptor {
     public Map<String,String> sceneAttributes = new HashMap<>();
     public Map<String,String> ambientLightAttributes = new HashMap<>();
+    public List<Map<String,String>> lights = new LinkedList<>();
+    //public List<Map<String,String>> directionalLight = new LinkedList<>();
+    //public List<Map<String,String>> spotLight = new LinkedList<>();
     public List<Map<String,String>> cylinders = new LinkedList<>();
     public List<Map<String,String>> planes = new LinkedList<>();
     public List<Map<String,String>> polygons = new LinkedList<>();

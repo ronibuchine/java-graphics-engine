@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+    <lights>
+        <directional-light color="300 300 300" direction="-1 -1 0" />
+        <point-light color="300 100 0" point="-150 -50 50"/>
+        <spot-light color="500 0 0" point="50 -50 50" direction="-1 1 -3" beam="50"/>
+    </lights>
+	<geometries>
+        <sphere center="0 0 -50" radius="50" color="0 0 255"/>
+	</geometries>
+</scene>
