@@ -33,8 +33,7 @@ public class SpotLight extends PointLight {
 
     @Override
     public Color getIntensity(Point3D p) {
-        double effects = Math.pow((direction.dotProduct(getL(p)) > 0 ? direction.dotProduct(getL(p)) : 0) / (kC + kL*getL(p).length() + kQ*getL(p).length()*getL(p).length()), beam);
-        return super.getIntensity().scale(effects);
-        //return super.getIntensity().scale((direction.dotProduct(getL(p)) > 0 ? direction.dotProduct(getL(p)) : 0)).reduce(kC + kL*getL(p).length() + kQ*getL(p).length()*getL(p).length());
+        if (direction.dotProduct(getL(p)) <= 0) return Color.BLACK;
+        return super.getIntensity(p).scale(Math.pow(direction.dotProduct(getL(p)), beam));
     }
 }

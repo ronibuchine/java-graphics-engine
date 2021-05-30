@@ -121,11 +121,11 @@ public class Polygon extends Geometry {
 		try {	
 			Vector edge1 = vertices.get(vertices.size() - 1).subtract(p.point);
 			Vector edge2 = vertices.get(0).subtract(p.point);
-			boolean sign = (r.getDir().dotProduct(edge1.crossProduct(edge2)) > 0);
+			boolean sign = (plane.getNormal().dotProduct(edge1.crossProduct(edge2)) > 0);
 			for (int i = 1; i < vertices.size(); ++i) {		//calculate normal vectors from point to pair of consecutive points on polygon and make sure they are facing same direction
 				edge1 = edge2;
 				edge2 = vertices.get(i).subtract(p.point);
-				if (sign != r.getDir().dotProduct(edge1.crossProduct(edge2)) > 0) return null; //point is outside of polygon
+				if (sign != plane.getNormal().dotProduct(edge1.crossProduct(edge2)) > 0) return null; //point is outside of polygon
 			}
 		}
 		catch (IllegalArgumentException e) { return null; } //intersection point is on edge of polygon
