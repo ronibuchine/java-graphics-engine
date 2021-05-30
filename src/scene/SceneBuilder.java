@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import elements.AmbientLight;
 import elements.DirectionalLight;
@@ -145,8 +146,8 @@ public class SceneBuilder {
         //add polygons to Scene
         for (Map<String,String> polygon : sceneDesc.polygons) {
             List<Point3D> list = new LinkedList<>();
-            for (String value : polygon.values()) {
-                list.add(parsePoint(value));
+            for (Map.Entry<String,String> attr : polygon.entrySet()) {
+                if (attr.getKey().startsWith("p")) list.add(parsePoint(attr.getValue()));
             }
             Color color = parseColor(polygon.get("color"));
             geometries.add(new Polygon(list.toArray(new Point3D[list.size()])).setEmission(color)

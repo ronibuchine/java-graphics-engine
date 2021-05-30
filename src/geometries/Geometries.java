@@ -43,10 +43,10 @@ public class Geometries implements Intersectable {
      * @return {@link List} of {@link Point3D}s that {@link Ray} intersects
      */
     @Override
-    public List<Point3D> findIntersections(Ray r) {
+    public List<Point3D> findIntersections(Ray r, double limit) {
         List<Point3D> list = new LinkedList<>();
         for (Intersectable geom : geometries) {
-            List<Point3D> temp = geom.findIntersections(r);
+            List<Point3D> temp = geom.findIntersections(r, limit);
             if (temp != null) list.addAll(temp);
         }
         if (list.isEmpty()) {
@@ -56,15 +56,16 @@ public class Geometries implements Intersectable {
     } 
 
     /**
-     * Finds all intersection {@link GeoPoint}s of a {@link Ray} and the list of {@link Geometries}
+     * Finds all intersection {@link GeoPoint}s of a {@link Ray} and the list of {@link Geometries} within a given distance
      * @param r the intersecting {@link Ray}
+     * @param limit
      * @return {@link List} of {@link GeoPoint}s that {@link Ray} intersects
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray r) {
+    public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
         List<GeoPoint> list = new LinkedList<>();
         for (Intersectable geom : geometries) {
-            List<GeoPoint> temp = geom.findGeoIntersections(r);
+            List<GeoPoint> temp = geom.findGeoIntersections(r, limit);
             if (temp != null) list.addAll(temp);
         }
         if (list.isEmpty()) {

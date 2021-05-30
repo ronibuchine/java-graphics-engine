@@ -56,7 +56,7 @@ public class Tube extends Geometry {
      * @return {@link List} of {@link GeoPoint}s
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray r) {
+    public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
 
         Vector AB = dir.getDir();
         Vector AO = r.getStartPoint().subtract(dir.getStartPoint());
@@ -84,9 +84,10 @@ public class Tube extends Geometry {
         double scalar1 = alignZero((-b + sqrt(b*b - 4*a*c)) / (2*a));   //positive answer
         double scalar2 = alignZero((-b - sqrt(b*b - 4*a*c)) / (2*a));   //negative answer
         if (scalar1 <= 0 && scalar2 <= 0) return null;          //check if scalars are negative (point is behind ray) or zero (point is at start of ray)
+        if (scalar1 > limit && scalar2 > limit) return null;          //check if scalars are beyond upper boundary
         List<GeoPoint> list = new ArrayList<>();
-        if (scalar1 > 0) list.add(new GeoPoint(this, r.getPoint(scalar1)));
-        if (scalar2 > 0) list.add(new GeoPoint(this, r.getPoint(scalar2)));
+        if (scalar1 > 0 && scalar1 <= limit) list.add(new GeoPoint(this, r.getPoint(scalar1)));
+        if (scalar2 > 0 && scalar2 <= limit) list.add(new GeoPoint(this, r.getPoint(scalar2)));
         return list;
     }
 

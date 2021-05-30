@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+    <lights>
+        <spot-light color="400 240 0" point="-100 -100 200" direction="1 1 -3"/>
+    </lights>
+	<geometries>
+        <sphere center="0 0 -200" radius="60" color="0 0 255" kd=".5" ks=".5" shininess="30"/>
+        <triangle p0="-50 -20 0" p1="-20 -50 0" p2="-48 -48 -4" color="0 0 255" kd=".5" ks=".5" shininess="30" />
+	</geometries>
+</scene>

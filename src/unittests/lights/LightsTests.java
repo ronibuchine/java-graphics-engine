@@ -223,7 +223,6 @@ public class LightsTests {
 	@Test
 	public void sphereLightsXml() {
 		Scene scene1 = new SceneBuilder("test", new File("src/unittests/xml/sphere.xml").getPath()).build();
-
 		ImageWriter imageWriter = new ImageWriter("lightSphereLightsXML", 500, 500);
 		Render render = new Render()//
 				.setImageWriter(imageWriter) //

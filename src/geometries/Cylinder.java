@@ -69,8 +69,8 @@ public class Cylinder extends Tube {
      * @return {@link List} of {@link GeoPoint}s where the {@link Ray} intersects
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray r) {
-        List<GeoPoint> list = super.findGeoIntersections(r);
+    public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
+        List<GeoPoint> list = super.findGeoIntersections(r, limit);
         if (list != null) {
             Iterator<GeoPoint> i = list.iterator();
             while (i.hasNext()) {
@@ -79,8 +79,8 @@ public class Cylinder extends Tube {
             if (list.size() == 2) return list;
         }
         if (list == null) list = new ArrayList<>();
-        List<Point3D> cap1 = new Plane(dir.getDir(), dir.getStartPoint()).findIntersections(r);
-        List<Point3D> cap2 = new Plane(dir.getDir(), dir.getPoint(height)).findIntersections(r);
+        List<Point3D> cap1 = new Plane(dir.getDir(), dir.getStartPoint()).findIntersections(r, limit);
+        List<Point3D> cap2 = new Plane(dir.getDir(), dir.getPoint(height)).findIntersections(r, limit);
         if (cap1 != null && cap1.get(0).distance(dir.getStartPoint()) <= radius) list.add(new GeoPoint(this, cap1.get(0)));
         if (cap2 != null && cap2.get(0).distance(dir.getPoint(height)) <= radius) list.add(new GeoPoint(this, cap2.get(0)));
         return list;

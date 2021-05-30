@@ -1,5 +1,7 @@
 package unittests.lights;
 
+import java.io.File;
+
 import org.junit.Test;
 
 import elements.*;
@@ -7,6 +9,7 @@ import geometries.*;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
+import scene.SceneBuilder;
 
 /**
  * Testing basic shadows
@@ -40,6 +43,32 @@ public class ShadowTests {
 				.setCamera(camera) //
 				.setRayTracer(new BasicRayTracer(scene));
 		render.renderImage();
+		render.writeToImage();
+
+		Scene scene1 = new SceneBuilder("scene1", new File("src/unittests/xml/shadowSphereTriangle1.xml").getPath()).build();
+		render.setRayTracer(new BasicRayTracer(scene1))
+			.setImageWriter(new ImageWriter("shadowSphereTriangle1", 400, 400))
+			.renderImage();
+		render.writeToImage();
+
+		scene1 = new SceneBuilder("scene2", new File("src/unittests/xml/shadowSphereTriangle2.xml").getPath()).build();
+		render.setRayTracer(new BasicRayTracer(scene1))
+			.setImageWriter(new ImageWriter("shadowSphereTriangle2", 400, 400))
+			.renderImage();
+		render.writeToImage();
+
+		scene.setLights(new SpotLight(new Color(400, 240, 0), new Point3D(-85, -85, 130), new Vector(1, 1, -3)) //
+			.setKl(1E-5).setKq(1.5E-7));
+		render.setRayTracer(new BasicRayTracer(scene))
+			.setImageWriter(new ImageWriter("shadowSphereTriangle3", 400, 400))
+			.renderImage();
+		render.writeToImage();
+
+		scene.setLights(new SpotLight(new Color(400, 240, 0), new Point3D(-75, -75, 60), new Vector(1, 1, -3)) //
+			.setKl(1E-5).setKq(1.5E-7));
+		render.setRayTracer(new BasicRayTracer(scene))
+			.setImageWriter(new ImageWriter("shadowSphereTriangle4", 400, 400))
+			.renderImage();
 		render.writeToImage();
 	}
 

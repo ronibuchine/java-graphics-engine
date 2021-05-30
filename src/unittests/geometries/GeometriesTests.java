@@ -42,7 +42,7 @@ public class GeometriesTests {
         // only one shape intersects (BVA)
         geoms1.add(new Polygon(new Point3D(0, 20, 0), new Point3D(5, 20, 5), new Point3D(5, 20, 10),
                 new Point3D(0, 20, 20), new Point3D(-5, 20, 5)));
-        assertEquals("Ray doesn't intersect any geometries", List.of(new Point3D(0, 20, 10)),
+        assertEquals("Ray intersects one geometry", List.of(new Point3D(0, 20, 10)),
                 geoms1.findIntersections(new Ray(new Point3D(0, 0, 10), new Vector(0, 1, 0))));
 
         // all shapes intersects (BVA)
@@ -65,5 +65,42 @@ public class GeometriesTests {
                 List.of(new Point3D(0, 20, 10), new Point3D(0, 20, 10), new Point3D(0, 7, 10), new Point3D(0, 13, 10),
                         new Point3D(0, 25, 10), new Point3D(0, 33, 10)),
                 allGeoms.findIntersections(new Ray(new Point3D(0, 0, 10), new Vector(0, 1, 0))));
+    }
+
+     /**
+     * Test method for
+     * {@link geometries.Geometries#findIntersections(primitives.Ray, double)}
+     */
+    @Test
+    public void testFindIntersectionsLimit() {
+            
+        // =========== Boundary Tests =================
+        // an empty collection (BVA)
+        Geometries geoms1 = new Geometries();
+        assertTrue("empty collection",
+                geoms1.findIntersections(new Ray(new Point3D(1, 0, 0), new Vector(-1, -1, -1)), 10) == null);
+
+        // no shape intersects with a body (BVA)
+        geoms1.add(new Cylinder(1, new Ray(new Point3D(3, 0, 0), new Vector(0, 5, 0)), 5),
+                new Sphere(new Point3D(0, 5, 0), 2),
+                new Polygon(new Point3D(0, 10, 0), new Point3D(-2, 12, 0), new Point3D(-5, 5, 0), new Point3D(-3, 4, 0),
+                        new Point3D(-1, 5, 0)),
+                new Triangle(new Point3D(0, 5, 8), new Point3D(3, 2, 5), new Point3D(0, 0, 3)));
+        assertTrue("Ray doesn't intersect any geometries",
+                geoms1.findIntersections(new Ray(new Point3D(0, 0, 10), new Vector(0, 1, 0)), 100) == null);
+
+        // only one shape intersects (BVA)
+        geoms1.add(new Polygon(new Point3D(0, 20, 0), new Point3D(5, 20, 5), new Point3D(5, 20, 10),
+                new Point3D(0, 20, 20), new Point3D(-5, 20, 5)),
+                new Sphere(new Point3D(0, 10, 10), 3),
+                new Cylinder(5, new Ray(new Point3D(2, 25, 9), new Vector(0, 1, 0)), 8));
+        assertEquals("Ray intersects one geometry", List.of(new Point3D(0, 7, 10)),
+                geoms1.findIntersections(new Ray(new Point3D(0, 0, 10), new Vector(0, 1, 0)), 8));
+
+        // all shapes intersects (BVA)
+        assertEquals("Ray intersects all geometries",
+                List.of(new Point3D(0, 20, 10), new Point3D(0, 7, 10), new Point3D(0, 13, 10), new Point3D(0, 25, 10),
+                        new Point3D(0, 33, 10)),
+                geoms1.findIntersections(new Ray(new Point3D(0, 0, 10), new Vector(0, 1, 0)), 35));
     }
 }

@@ -26,10 +26,6 @@ public class SAXhandler extends DefaultHandler {
         switch (qName.toLowerCase()) {
             case "scene":
                 scene = new SceneDescriptor();
-                /*
-                if (attributes.getValue("background-color") == null) {
-                    throw new SAXException("scene is missing \"background-color\" attribute.");
-                }*/
                 scene.sceneAttributes.put("background-color", attributes.getValue("background-color"));
                 break;
 

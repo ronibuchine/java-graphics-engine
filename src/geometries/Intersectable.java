@@ -35,17 +35,39 @@ public interface Intersectable {
             return geometry.equals(other.geometry) && point.equals(other.point);
         }
     }
-        
+    
     /**
-     * Returns a list of {@link  Geometry}s that a {@link Ray} intersects
+     * @param ray
+     * @return
+     */
+    default List<Point3D> findIntersections(Ray ray) {
+        return findIntersections(ray, Double.POSITIVE_INFINITY);
+    }
+    /**
+     * Returns a list of {@link  Geometry}s that a {@link Ray} intersects within a given distance
      * @param r The ray
      * @return A {@link List} of {@link Point3D}s
      */
-    default List<Point3D> findIntersections(Ray ray) {
-        var geoList = findGeoIntersections(ray);
+    default List<Point3D> findIntersections(Ray ray, double limit) {
+        var geoList = findGeoIntersections(ray, limit);
         return geoList == null ? null
                                : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
     }
+
+    /**
+     * Returns a list of {@link GeoPoint}s that {@Ray} r intersects
+     * @param r
+     * @return
+     */
+    default List<GeoPoint> findGeoIntersections(Ray r) {
+        return findGeoIntersections(r, Double.POSITIVE_INFINITY);
+    }
     
-    List<GeoPoint> findGeoIntersections(Ray r);
+    /**
+     * Returns a list of {@link Geometry}s that {@Ray} r intersects and is within a given distance
+     * @param r
+     * @param limit Upper boundary on distance to intersection point
+     * @return
+     */
+    List<GeoPoint> findGeoIntersections(Ray r, double limit);
 }

@@ -114,8 +114,8 @@ public class Polygon extends Geometry {
 	 * @return {@link List} of {@link GeoPoint}s
 	 */
 	@Override
-	public List<GeoPoint> findGeoIntersections(Ray r) {
-		List <GeoPoint> list = plane.findGeoIntersections(r); 	//gets point where ray intersects the polygon of the plane
+	public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
+		List <GeoPoint> list = plane.findGeoIntersections(r, limit); 	//gets point where ray intersects the polygon of the plane
 		if (list == null) return null;						//if ray doesn't intersect plane at all, then no intersection point
 		GeoPoint p = list.get(0);
 		try {	

@@ -65,7 +65,7 @@ public class Sphere extends Geometry {
      * @return a {@link List} of all {@link GeoPoint}s of intersection
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray r) {
+    public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
         Vector u;
         double projLength;
         try {
@@ -80,8 +80,10 @@ public class Sphere extends Geometry {
         double distToSide = alignZero(Math.sqrt(radius*radius - distToCenter*distToCenter));  //distance from projected point to side of sphere
         if (projLength + distToSide <= 0 && projLength - distToSide <= 0) return null;
         List<GeoPoint> list = new ArrayList<>();
-        if (projLength - distToSide > 0) list.add(new GeoPoint(this, r.getPoint(projLength - distToSide)));
-        if (projLength + distToSide > 0) list.add(new GeoPoint(this, r.getPoint(projLength + distToSide)));
+        if (projLength - distToSide > 0 && alignZero(projLength - distToSide - limit) <= 0) {
+            list.add(new GeoPoint(this, r.getPoint(projLength - distToSide)));
+            if (projLength + distToSide > 0 && alignZero(projLength + distToSide - limit) <= 0) list.add(new GeoPoint(this, r.getPoint(projLength + distToSide)));
+        }
         return list;
     }
     

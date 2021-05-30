@@ -72,7 +72,7 @@ public class Plane extends Geometry {
      * @return {@link List} containing {@link GeoPoint} if intersection exists (returns null if not)
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray r) {
+    public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
         Vector rayToPlane;
         try {
             rayToPlane = p0.subtract(r.getStartPoint()); //a vector from the ray start point to some point on the plane
@@ -80,7 +80,7 @@ public class Plane extends Geometry {
         catch (IllegalArgumentException e) { return null; } //ray starts at plane's representative point
         double numerator = alignZero(normal.dotProduct(rayToPlane));
         double denominator = alignZero(normal.dotProduct(r.getDir()));
-        if (!isZero(denominator) && numerator/denominator > 0) return List.of(new GeoPoint(this, r.getPoint(numerator/denominator)));
+        if (!isZero(denominator) && alignZero(numerator/denominator) > 0 && alignZero(numerator/denominator - limit) <= 0) return List.of(new GeoPoint(this, r.getPoint(numerator/denominator)));
         else return null; //Ray starts on plane, is perpendicular to plane, or is behind the plane
     }
 
