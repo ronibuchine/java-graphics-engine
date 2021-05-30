@@ -103,7 +103,7 @@ public class ReflectionRefractionTests {
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)), //
 				new Triangle(new Point3D(-150, -150, -115), new Point3D(-70, 70, -140), new Point3D(75, 75, -150)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)), //
-				new Sphere(30, new Point3D(60, 50, -50)) //
+				new Sphere(new Point3D(60, 50, -50), 30) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
 						.setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6)));
 
@@ -114,7 +114,7 @@ public class ReflectionRefractionTests {
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
+				.setRayTracer(new BasicRayTracer(scene));
 
 		render.renderImage();
 		render.writeToImage();

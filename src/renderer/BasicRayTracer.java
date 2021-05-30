@@ -5,6 +5,7 @@ import java.util.List;
 import elements.LightSource;
 import geometries.Intersectable.GeoPoint;
 import primitives.Color;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -24,13 +25,26 @@ public class BasicRayTracer extends RayTraceBase {
      */
     private static final double DELTA = 0.1;
 
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+    private static final double INITIAL_K = 1;
+    private static final double MIN_CALC_COLOR_K = 0.001;
+
+
     @Override
     public Color traceRay(Ray r) {
+        GeoPoint closest = findClosestIntersection(r);
+        return closest == null ? scene.background : calcColor(closest, r);
+    }
+
+    /**
+     * Helper function to get list of intersections and return the closest one
+     * @param r
+     * @return
+     */
+    private GeoPoint findClosestIntersection(Ray r) {
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(r);
-        if (intersections == null)
-            return scene.background;
-        GeoPoint closestPoint = r.findClosestGeoPoint(intersections);
-        return calcColor(closestPoint, r);
+        if (intersections == null) return null;
+        return r.findClosestGeoPoint(intersections);
     }
 
     /**
@@ -39,8 +53,19 @@ public class BasicRayTracer extends RayTraceBase {
      * @param point
      * @return The {@link Color} of the point
      */
-    private Color calcColor(GeoPoint point, Ray r) {
-        return scene.ambientLight.getIntensity().add(point.geometry.getEmission()).add(calcLocalEffects(point, r));
+    private Color calcColor(GeoPoint point, Ray r, int rLevel, double k) {
+        Color color = point.geometry.getEmission().add(calcLocalEffects(point, r));
+        return rLevel == 1 ? color : color.add(calcGlobalEffects(point, r, rLevel, k));
+    }
+    /**
+     * Base case of recursion. Adds ambient light to the point
+     * @param gp
+     * @param r
+     * @return
+     */
+    private Color calcColor(GeoPoint gp, Ray r) {
+        return calcColor(gp, r, MAX_CALC_COLOR_LEVEL, INITIAL_K)
+            .add(scene.ambientLight.getIntensity());
     }
 
     /**
@@ -132,6 +157,41 @@ public class BasicRayTracer extends RayTraceBase {
             return Color.BLACK;
         }
         return lightIntensity.scale(Math.pow(vr, shininess) * kS);
+    }
+
+    private Color calcGlobalEffects(GeoPoint gp, Ray r, int rLevel, double k) {
+        Color color = Color.BLACK;
+        Material material = gp.geometry.getMaterial();
+        double kkR = k * material.kR;
+        if (kkR > MIN_CALC_COLOR_K) {
+            color = calcReflection(gp, r.getDir(), rLevel, material.kR, kkR);
+        }
+        double kkT = k * material.kT;
+        if (kkT > MIN_CALC_COLOR_K) {
+            color = color.add(calcRefraction(gp, r.getDir(), rLevel, material.kT, kkT));
+        }
+        return color;
+    }
+
+    private Color calcReflection(GeoPoint p, Vector incident, int rLevel, double kR, double k) {
+        Vector normal = p.geometry.getNormal(p.point);
+        Vector reflection;
+        try {
+            reflection = incident.subtract(normal.scale(2 * normal.dotProduct(incident))).normalized();
+        } catch (IllegalArgumentException e) { return Color.BLACK; }
+        // we must check the direction of the light in order to make sure our ray
+        // direction is correct
+        //Vector delta = n.scale(n.dotProduct(toLight) > 0 ? DELTA : -DELTA);
+        Point3D newPoint = p.point.add(reflection.scale(DELTA));
+        Ray newReflection = new Ray(newPoint, reflection);
+        GeoPoint gp = findClosestIntersection(newReflection);
+        return gp == null ? scene.background : calcColor(gp, newReflection, rLevel - 1, k).scale(kR);
+    }
+    private Color calcRefraction(GeoPoint p, Vector incident, int rLevel, double kT, double k) {
+        Point3D newPoint = p.point.add(incident.scale(DELTA));
+        Ray refraction = new Ray(newPoint, incident);
+        GeoPoint gp = findClosestIntersection(refraction);
+        return gp == null ? scene.background : calcColor(gp, refraction, rLevel - 1, k).scale(kT);
     }
 
 }

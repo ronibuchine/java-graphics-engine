@@ -9,6 +9,11 @@ public class Material {
     public double kS = 0;
     public int nShininess = 0;
 
+    //transparency
+    public double kT = 0;
+    //reflection
+    public double kR = 0;
+
     /**
      * Sets material's diffuse reflection
      * @param kD
@@ -33,4 +38,22 @@ public class Material {
         nShininess = shininess;
         return this;
     }
+
+    /**
+     * Sets material's transparency
+     * @param kT
+     */
+    public Material setKt(double kT) {
+        this.kT = kT;
+        return this;
+    }
+    /**
+     * Sets material's reflection
+     * @param kR 
+     */
+    public Material setKr(double kR) {
+        this.kR = kR;
+        return this;
+    }
+    
 }
