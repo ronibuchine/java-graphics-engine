@@ -133,7 +133,7 @@ public class ReflectionRefractionTests {
 						.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
 				new Cylinder(10, new Ray(new Point3D(-40, 20, 50), new Vector(1, 1, 1)), 30)
 						.setEmission(new Color(java.awt.Color.green))
-						.setMaterial(new Material().setKd(.3).setKs(.4).setShininess(400).setKt(.1).setKr(.3)),
+						.setMaterial(new Material().setKd(.3).setKs(.4).setShininess(50).setKt(.1).setKr(.3)),
 				new Sphere(new Point3D(0, 0, -50), 25) //
 						.setEmission(new Color(java.awt.Color.RED)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
