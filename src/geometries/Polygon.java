@@ -119,14 +119,20 @@ public class Polygon extends Geometry {
 		if (list == null) return null;						//if ray doesn't intersect plane at all, then no intersection point
 		GeoPoint p = list.get(0);
 		try {	
-			Vector edge1 = vertices.get(vertices.size() - 1).subtract(p.point);
-			Vector edge2 = vertices.get(0).subtract(p.point);
-			boolean sign = (plane.getNormal().dotProduct(edge1.crossProduct(edge2)) > 0);
+			Vector n = plane.getNormal();
+			Vector edge1 = vertices.get(vertices.size() - 2).subtract(p.point);
+			Vector edge2 = vertices.get(vertices.size() - 1).subtract(p.point);
+			for (int i = 0; i < vertices.size(); ++i) {
+				if (edge1.crossProduct(edge2).dotProduct(n) <= 0) return null;
+				edge1 = edge2;
+				edge2 = vertices.get(i).subtract(p.point);
+			}
+			/*boolean sign = (plane.getNormal().dotProduct(edge1.crossProduct(edge2)) > 0);
 			for (int i = 1; i < vertices.size(); ++i) {		//calculate normal vectors from point to pair of consecutive points on polygon and make sure they are facing same direction
 				edge1 = edge2;
 				edge2 = vertices.get(i).subtract(p.point);
 				if (sign != plane.getNormal().dotProduct(edge1.crossProduct(edge2)) > 0) return null; //point is outside of polygon
-			}
+			}*/
 		}
 		catch (IllegalArgumentException e) { return null; } //intersection point is on edge of polygon
 		p.geometry = this; //change GeoPoint's geometry to Polygon (instead of Plane)

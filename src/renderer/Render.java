@@ -1,6 +1,7 @@
 package renderer;
 
 import java.util.MissingResourceException;
+
 import elements.Camera;
 import primitives.Color;
 import primitives.Ray;
@@ -74,10 +75,12 @@ public class Render {
         int nY = imageWriter.getNy();
         for (int j = 0; j < nX; j++) {
             for (int i = 0; i < nY; i++) {
+                //j = 366; i = 233; to test line in between triangles
                 Ray pixelRay = camera.constructRayThroughPixel(nX, nY, j, i);
                 imageWriter.writePixel(j, i, rayTracer.traceRay(pixelRay));
             }
         }
+        
     }
 
     /**
