@@ -6,6 +6,7 @@ package unittests.lights;
 import org.junit.Test;
 
 import elements.*;
+import geometries.Cylinder;
 import geometries.Sphere;
 import geometries.Triangle;
 import primitives.*;
@@ -116,6 +117,34 @@ public class ReflectionRefractionTests {
 				.setCamera(camera) //
 				.setRayTracer(new BasicRayTracer(scene));
 
+		render.renderImage();
+		render.writeToImage();
+	}
+
+	@Test
+	public void manyShapes() {
+
+		Camera camera = new Camera(new Point3D(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setViewPlaneSize(150, 150).setDistance(10000);
+
+		scene.geometries.add( //
+				new Sphere(new Point3D(0, 50, -50), 15) //
+						.setEmission(new Color(java.awt.Color.BLUE)) //
+						.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+				new Cylinder(10, new Ray(new Point3D(-40, 20, 50), new Vector(1, 1, 1)), 30)
+						.setEmission(new Color(java.awt.Color.green))
+						.setMaterial(new Material().setKd(.3).setKs(.4).setShininess(400).setKt(.1).setKr(.3)),
+				new Sphere(new Point3D(0, 0, -50), 25) //
+						.setEmission(new Color(java.awt.Color.RED)) //
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
+		scene.lights.add( //
+				new SpotLight(new Color(1000, 600, 0), new Point3D(-100, -100, 500), new Vector(-1, -1, -2)) //
+						.setKl(0.0004).setKq(0.0000006));
+
+		Render render = new Render() //
+				.setImageWriter(new ImageWriter("manyShapes", 1000, 1000)) //
+				.setCamera(camera) //
+				.setRayTracer(new BasicRayTracer(scene));
 		render.renderImage();
 		render.writeToImage();
 	}
