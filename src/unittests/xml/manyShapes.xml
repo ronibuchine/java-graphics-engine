@@ -5,20 +5,18 @@
         <directional-light color="50 155 55" direction="5 32 0"/>        
     </lights>
 	<geometries>
-        <tube point="0 0 0" direction="1 0 0" radius="1" color='45 120 49' ks='.3' kd='.4' shininess="5" kr='.1' kt='0' />
-		<tube point="0 5 0" direction="1 0 0" radius="1" color="203 115 141" ks='.3' kd='.2' shininess="5" kr='.1' kt='0'/>
-		<tube point="0 10 0" direction="1 0 0" radius="1" color="133 115 141" ks='.3' kd='.4' shininess="5" kr='.1' kt='0'/>
-        <tube point="0 20 0" direction="1 0 0" radius="1" color="29 87 0" ks='.3' kd='.2' shininess="5" kr='.1' kt='0'/>
-        <tube point="0 25 0" direction="1 0 0" radius="1" color="78 31 34" ks='.3' kd='.1' shininess="5" kr='.1' kt='0'/>
+        <tube point="0 0 0" direction="1 0 1" radius="2" color='45 120 49' ks='.3' kd='.4' shininess="5" kr='.1' kt='0' />		
+		<tube point="0 10 0" direction="1 0 0" radius="2" color="133 115 141" ks='.3' kd='.4' shininess="5" kr='.1' kt='0'/>        
+        <tube point="0 25 0" direction="1 0 0" radius="2" color="78 31 34" ks='.3' kd='.1' shininess="5" kr='.1' kt='0'/>
         <cylinder point="-27.5 30 0" direction="1 0 0" radius="2" height="5" color="224 231 34" ks='.3' kd='.3' shininess="5" kr='.1' kt='0' />
-        <cylinder point="-15 30 0" direction="1 0 0" radius="2" height="15" color="224 231 34" ks='.3' kd='.1'  shininess="5" kr='.1' kt='0' />
-        <cylinder point="0 30 5" direction="1 0 0" radius="2" height="8" color="2 31 34" ks='.3' kd='.1' shininess="5" kr='.1' kt='0'/>
-        <cylinder point="5 30 0" direction="1 0 0" radius="2" height="10" color="84 51 34" ks='.3' kd='.4' shininess="5" kr='.1' kt='0'/>
-        <sphere center="0 0 -50" radius="20" color="0 0 255" kd=".5" ks=".5" shininess="5" kr='.1' kt='.3'/>
+        <cylinder point="-15 30 0" direction="1 0 0" radius="2" height="5" color="224 231 34" ks='.3' kd='.1'  shininess="5" kr='.1' kt='0' />
+        <cylinder point="0 30 5" direction="1 0 0" radius="2" height="5" color="2 31 34" ks='.3' kd='.1' shininess="5" kr='.1' kt='0'/>
+        
+        <sphere center="-25 -15 0" radius="20" color="50 50 50" kd=".8" ks=".8" shininess="15" kr='.8' kt='0'/>
         <cylinder point="10 30 0" direction="1 0 0" radius="2" height="5" color="78 220 202" ks='.3' kd='.2' shininess="5" kr='.1' kt='0'/>
-        <cylinder point="22.5 30 0" direction="1 0 0" radius="2" height="5" color="78 220 202" ks='.3' kd='.2' shininess="5" kr='.1' kt='.1'/>
-        <tube point="0 35 0" direction="1 0 0" radius="1" color="78 220 202" ks='.3' kd='.4' shininess="5" kr='.1' kt='0'/>
-        <tube point="0 38 0" direction="1 0 0" radius="1" color="78 220 202" ks='.3' kd='.4' shininess="5" kr='.1' kt='0'/>
-        <triangle p0="0 10 -500" p1="0 10 500" p2="0 40 250" color="45 87 180" ks='0' kd='0' shininess='10' kr='.3' kt='0' />
+        <sphere center="22.5 30 0" radius="5" color="124 0 2" ks='.3' kd='.2' shininess="5" kr='.1' kt='.1'/>
+        <tube point="0 40 0" direction="1 0 0" radius="2" color="78 220 202" ks='.3' kd='.4' shininess="5" kr='.1' kt='0'/>
+        <tube point="0 50 0" direction="1 0 0" radius="2" color="78 34 202" ks='.3' kd='.4' shininess="5" kr='.1' kt='0'/>
+        <triangle p0="15 -10 -50" p1="0 -50 50" p2="67 0 25" color="45 87 180" ks='0' kd='0' shininess='10' kr='.3' kt='0' />
 	</geometries>
 </scene>

@@ -131,9 +131,9 @@ public class ReflectionRefractionTests {
 				new Sphere(new Point3D(0, 50, -50), 15) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
 						.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
-				new Cylinder(10, new Ray(new Point3D(-40, 40, 50), new Vector(0, 1, 1)), 30)
-						.setEmission(new Color(80, 0, 0))
-						.setMaterial(new Material().setKd(.3).setKs(.4).setShininess(5).setKt(.1).setKr(.3)),
+				new Cylinder(10, new Ray(new Point3D(-40, 20, 50), new Vector(1, 1, 1)), 30)
+						.setEmission(new Color(java.awt.Color.green))
+						.setMaterial(new Material().setKd(.3).setKs(.4).setShininess(400).setKt(.1).setKr(.3)),
 				new Sphere(new Point3D(0, 0, -50), 25) //
 						.setEmission(new Color(java.awt.Color.RED)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
@@ -142,7 +142,7 @@ public class ReflectionRefractionTests {
 						.setKl(0.0004).setKq(0.0000006));
 
 		Render render = new Render() //
-				.setImageWriter(new ImageWriter("manyShapes", 600, 600)) //
+				.setImageWriter(new ImageWriter("manyShapes", 1000, 1000)) //
 				.setCamera(camera) //
 				.setRayTracer(new BasicRayTracer(scene));
 		render.renderImage();

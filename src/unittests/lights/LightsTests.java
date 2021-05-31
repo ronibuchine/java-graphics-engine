@@ -231,12 +231,12 @@ public class LightsTests {
 
 	@Test
 	public void manyShapesXml() {
-		Camera camera = new Camera(new Point3D(0, 25, 50), new Vector(0, 0, -1), new Vector(0, 1, 0));
+		Camera camera = new Camera(new Point3D(0, 50, 100), new Vector(0, 0, -1), new Vector(0, 1, 0));
 		Scene scene = new SceneBuilder("test", new File("src/unittests/xml/manyShapes.xml").getPath()).build();
-		ImageWriter imageWriter = new ImageWriter("manyShapesXml", 500, 500);
+		ImageWriter imageWriter = new ImageWriter("manyShapesXml", 1000, 1000);
 		Render render = new Render().setImageWriter(imageWriter).setCamera(camera)
 				.setRayTracer(new BasicRayTracer(scene));
-		camera.pitch(-5);
+		camera.pitch(-17);
 		render.renderImage();
 		render.writeToImage();
 	}
