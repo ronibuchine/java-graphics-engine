@@ -19,6 +19,13 @@ import geometries.Intersectable.GeoPoint;
 public class Ray {
 
     /**
+     * DELTA is a constant to help with reflected rays. We want the origin point to
+     * be slightly off the geometry to avoid bugs.
+     */
+    private static final double DELTA = 0.1;
+
+
+    /**
      * Ray takes a direction {@link Vector} as a parameter
      */
     Vector dir;
@@ -94,6 +101,35 @@ public class Ray {
             return Collections.min(list, byDistance);
         }
         return null; // is an empty list meant to return null?
+    }
+
+    /**
+     * Constructs a new Ray that starts a bit off of the intersection point so it doesn't re-intersect with itself
+     * @param gp intersection point
+     * @param dir {@link Vector} pointing in direction of original {@link Ray}
+     * @return
+     */
+    static public Ray constructRefractionRay(GeoPoint gp, Vector dir) {
+        Vector normal = gp.geometry.getNormal(gp.point);
+        // we must check the direction of the light
+        // in order to make sure our ray direction is correct
+        Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : -DELTA);
+        return new Ray(gp.point.add(delta), dir);
+    }
+
+    /**
+     * Constructs a ray that is reflected at the intersection point, based off the incident angle
+     * @param gp
+     * @param incident
+     * @return
+     */
+    static public Ray constructReflectionRay(GeoPoint gp, Vector incident) {
+        Vector normal = gp.geometry.getNormal(gp.point);
+        Vector reflection;
+        try {
+            reflection = incident.subtract(normal.scale(2 * normal.dotProduct(incident))).normalized();
+        } catch (IllegalArgumentException e) { return null; }
+        return constructRefractionRay(gp, reflection);
     }
 
     @Override
