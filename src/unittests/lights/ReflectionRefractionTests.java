@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import elements.*;
 import geometries.Cylinder;
+import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
 import primitives.*;
@@ -130,18 +131,17 @@ public class ReflectionRefractionTests {
 		scene.geometries.add( //
 				new Sphere(new Point3D(0, 0, -50), 15) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
-				new Cylinder(10, new Ray(new Point3D(-30, 10, 50), new Vector(1, 1, 1)), 30)
+						.setMaterial(new Material().setKd(0.3).setKs(0.3).setShininess(100).setKt(0.8)),
+				new Cylinder(10, new Ray(new Point3D(-30, 10, 20), new Vector(1, 1, 1)), 30)
 						.setEmission(new Color(java.awt.Color.green))
-						.setMaterial(new Material().setKd(.3).setKs(.4).setShininess(50).setKt(.1).setKr(.3)),
+						.setMaterial(new Material().setKd(.7).setKs(.7).setShininess(50).setKt(.1).setKr(.3)),
 				new Sphere(new Point3D(50, -20, -50), 25) //
 						.setEmission(new Color(java.awt.Color.RED)) //
-						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
-		scene.lights.add( //
-				new SpotLight(new Color(1000, 600, 0), new Point3D(-100, -100, 500), new Vector(-1, -1, -10)) //
-						.setKl(0.0004).setKq(0.0000006));
+						.setMaterial(new Material().setKd(0.5).setKs(0.3).setShininess(100).setKr(.8)),
+				new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0))
+						.setMaterial(new Material().setKd(.5).setKt(.3).setKr(.1)));
 		scene.lights.add(
-				new DirectionalLight(new Color(255, 255, 255), new Vector(0, -1, 0))
+				new PointLight(new Color(200, 200, 200), new Point3D(10, 80, 40))
 		);
 
 		Render render = new Render() //
