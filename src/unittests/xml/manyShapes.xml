@@ -17,6 +17,6 @@
         <sphere center="22.5 30 0" radius="5" color="124 0 2" ks='.3' kd='.2' shininess="5" kr='.1' kt='.1'/>
         <tube point="0 40 0" direction="1 0 0" radius="2" color="78 220 202" ks='.3' kd='.4' shininess="5" kr='.1' kt='0'/>
         <tube point="0 55 0" direction="1 0 0" radius="2" color="78 34 202" ks='.3' kd='.4' shininess="5" kr='.1' kt='0'/>
-        <triangle p0="15 -10 -50" p1="0 -50 50" p2="67 0 25" color="45 87 180" ks='0' kd='0' shininess='10' kr='.3' kt='0' />
+        <triangle p0="15 -10 -50" p1="0 -50 50" p2="67 0 25" color="45 87 180" ks='0' kd='0' shininess='10' kr='.8' kt='0' />
 	</geometries>
 </scene>
