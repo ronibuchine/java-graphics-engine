@@ -1,6 +1,10 @@
 package renderer;
 
 import java.util.MissingResourceException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import elements.Camera;
 import primitives.Color;
@@ -73,14 +77,24 @@ public class Render {
 
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
+        ExecutorService exec = Executors.newFixedThreadPool(10);
         for (int j = 0; j < nX; j++) {
             for (int i = 0; i < nY; i++) {
+                final int row = j;
+                final int column = i;
                 //j = 366; i = 233; to test line in between triangles
-                Ray pixelRay = camera.constructRayThroughPixel(nX, nY, j, i);
-                imageWriter.writePixel(j, i, rayTracer.traceRay(pixelRay));
+                exec.submit(() -> {
+                    Ray pixelRay = camera.constructRayThroughPixel(nX, nY, row, column);
+                    imageWriter.writePixel(row, column, rayTracer.traceRay(pixelRay));
+                });
             }
         }
-        
+        exec.shutdown();
+        try {
+            exec.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Thread exception. See cause...", e);
+        }
     }
 
     /**
