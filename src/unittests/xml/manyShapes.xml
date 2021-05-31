@@ -12,7 +12,7 @@
         <cylinder point="-15 30 0" direction="1 0 0" radius="2" height="5" color="224 231 34" ks='.3' kd='.1'  shininess="5" kr='.7' kt='0' />
         <sphere center="0 30 5" radius="5" color="2 31 34" ks='.3' kd='.1' shininess="5" kr='.1' kt='0'/>
         
-        <sphere center="-25 -15 0" radius="20" color="50 50 50" kd=".8" ks=".8" shininess="15" kr='.8' kt='0'/>
+        <sphere center="-25 0 0" radius="20" color="150 25 25" kd=".8" ks=".8" shininess="15" kr='0' kt='.6'/>
         <cylinder point="10 30 0" direction="1 0 0" radius="2" height="5" color="78 220 202" ks='.3' kd='.2' shininess="5" kr='.7' kt='0'/>
         <sphere center="22.5 30 0" radius="5" color="124 0 2" ks='.3' kd='.2' shininess="5" kr='.1' kt='.1'/>
         <tube point="0 40 0" direction="1 0 0" radius="2" color="78 220 202" ks='.3' kd='.4' shininess="5" kr='.1' kt='0'/>
