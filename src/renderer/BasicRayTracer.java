@@ -98,24 +98,11 @@ public class BasicRayTracer extends RayTraceBase {
     }
 
     /**
-     * Method which determines if an intersection point is covered by a shadow
+     * Method which determines an intersection points level of shade
      * 
      * @param l            Vector from light source
      * @param intersection the intersection point to be checked
      */
-    private boolean unshaded(LightSource source, Vector l, GeoPoint intersection) {
-        Vector toLight = l.scale(-1);
-        Ray newToLight = Ray.constructRefractionRay(intersection, toLight);
-
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(newToLight, source.getDistance(intersection.point));
-        if (intersections == null) return true;
-
-        for (GeoPoint p : intersections) {
-            if (p.geometry.getMaterial().kT == 0) return false;
-        }
-        return true;
-    }
-
     private double transparency(LightSource source, Vector l, GeoPoint gp) {
         Vector toLight = l.scale(-1);
         Ray newToLight = Ray.constructRefractionRay(gp, toLight);

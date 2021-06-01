@@ -1,5 +1,6 @@
 package primitives;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -109,7 +110,7 @@ public class Ray {
      * @param dir {@link Vector} pointing in direction of original {@link Ray}
      * @return
      */
-    static public Ray constructRefractionRay(GeoPoint gp, Vector dir) {
+    public static Ray constructRefractionRay(GeoPoint gp, Vector dir) {
         Vector normal = gp.geometry.getNormal(gp.point);
         // we must check the direction of the light
         // in order to make sure our ray direction is correct
@@ -123,13 +124,34 @@ public class Ray {
      * @param incident
      * @return
      */
-    static public Ray constructReflectionRay(GeoPoint gp, Vector incident) {
+    public static Ray constructReflectionRay(GeoPoint gp, Vector incident) {
         Vector normal = gp.geometry.getNormal(gp.point);
         Vector reflection;
         try {
             reflection = incident.subtract(normal.scale(2 * normal.dotProduct(incident))).normalized();
         } catch (IllegalArgumentException e) { return null; }
         return constructRefractionRay(gp, reflection);
+    }
+
+    /**
+     * Constructs a list of Rays that are refracted at an intersection point
+     * @param gp intersection point
+     * @param dir direction to center the spread
+     * @param spread narrowness of spread
+     * @param n number of constructed rays to create
+     */
+    public static List<Ray> constructRefractedRays(GeoPoint gp, Vector dir, double spread, int n) {
+        ArrayList<Ray> rays = new ArrayList<>(n);
+        Vector normal = gp.geometry.getNormal(gp.point);
+        // we must check the direction of the light
+        // in order to make sure our ray direction is correct
+        Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : -DELTA);
+        Point3D head = gp.point.add(delta);
+        Vector main = dir.scale(spread);
+        rays.add(new Ray(head, main));
+        for (int i = 1; i < n; ++i) {
+        }
+        return rays;
     }
 
     @Override
