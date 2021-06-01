@@ -91,13 +91,17 @@ public class RayTests {
 
     @Test
     public void testConstructRefractedRays() {
+        
+        double spread = 3;  //width of spread (higher is narrower)
+        int rays = 500;     //number of rays to generate
+
         Plane p1 = new Plane(new Vector(0, 0, 1), new Point3D(0, 0, -250));
         GeoPoint gp = new GeoPoint(p1, Point3D.ZERO);
         //Ray r = new Ray(gp.point, new Vector(0, 1, 0));
         ImageWriter image = new ImageWriter("refractedRays", 500, 500);
         Color white = new Color(java.awt.Color.WHITE);
-        List<Ray> rays = Ray.constructRefractedRays(gp, new Vector(0, 0, -1), 2, 500);
-        for (Ray r : rays) {
+        List<Ray> rayList = Ray.constructRefractedRays(gp, new Vector(0, 0, -1), spread, rays);
+        for (Ray r : rayList) {
             Point3D intersection = r.findClosestPoint(p1.findIntersections(r));
             int x = (int)intersection.getX() + 250;
             int y = (int)intersection.getY() + 250;
