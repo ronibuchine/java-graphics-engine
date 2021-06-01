@@ -1,9 +1,6 @@
 package renderer;
 
 import java.util.MissingResourceException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 import elements.Camera;
@@ -77,22 +74,12 @@ public class Render {
 
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
-        ExecutorService exec = Executors.newFixedThreadPool(10);
-        IntStream.range(0, nY).forEach(column -> {
+        IntStream.range(0, nY).forEach(column -> 
             IntStream.range(0, nX).forEach(row -> {
-                exec.submit(() -> {
-                    Ray pixelRay = camera.constructRayThroughPixel(nX, nY, row, column);
-                    imageWriter.writePixel(row, column, rayTracer.traceRay(pixelRay));
-                });
-            });
-        });
-        
-        exec.shutdown();
-        try {
-            exec.awaitTermination(1, TimeUnit.MINUTES);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Thread exception. See cause...", e);
-        }
+                Ray pixelRay = camera.constructRayThroughPixel(nX, nY, row, column);
+                imageWriter.writePixel(row, column, rayTracer.traceRay(pixelRay));
+            })
+        );
     }
 
     /**
