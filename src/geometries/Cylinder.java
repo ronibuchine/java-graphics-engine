@@ -48,7 +48,7 @@ public class Cylinder extends Tube {
      * @return dir.getDir() the direction vector of the cylinder
      */
     public Vector getNormal(Point3D p0) {
-        if (p0 == dir.getStartPoint()) return dir.getDir();
+        if (p0.equals(dir.getStartPoint())) return dir.getDir();
         double t = alignZero(dir.getDir().dotProduct(p0.subtract(dir.getStartPoint())));
         if (t == 0 || alignZero(t - height) >= 0) return dir.getDir();
         return super.getNormal(p0);

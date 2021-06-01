@@ -78,10 +78,12 @@ public class Plane extends Geometry {
             rayToPlane = p0.subtract(r.getStartPoint()); //a vector from the ray start point to some point on the plane
         }
         catch (IllegalArgumentException e) { return null; } //ray starts at plane's representative point
-        double numerator = alignZero(normal.dotProduct(rayToPlane));
-        double denominator = alignZero(normal.dotProduct(r.getDir()));
-        if (!isZero(denominator) && alignZero(numerator/denominator) > 0 && alignZero(numerator/denominator - limit) <= 0) return List.of(new GeoPoint(this, r.getPoint(numerator/denominator)));
-        else return null; //Ray starts on plane, is perpendicular to plane, or is behind the plane
+        double denominator = normal.dotProduct(r.getDir());
+        if (isZero(denominator)) return null; //ray is parallel to plane
+        //double numerator = alignZero(normal.dotProduct(rayToPlane));
+        double t = alignZero(normal.dotProduct(rayToPlane) / denominator);
+        if (t > 0 && alignZero(t - limit) <= 0) return List.of(new GeoPoint(this, r.getPoint(t)));
+        else return null; //Ray starts on plane, is behind the plane, or is further than limit
     }
 
 }
