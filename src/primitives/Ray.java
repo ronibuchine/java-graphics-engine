@@ -1,9 +1,10 @@
 package primitives;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.StringJoiner;
 
 import geometries.Intersectable.GeoPoint;
@@ -141,15 +142,30 @@ public class Ray {
      * @param n number of constructed rays to create
      */
     public static List<Ray> constructRefractedRays(GeoPoint gp, Vector dir, double spread, int n) {
-        ArrayList<Ray> rays = new ArrayList<>(n);
+        if (n < 1) return null;
+        List<Ray> rays = new LinkedList<>();
         Vector normal = gp.geometry.getNormal(gp.point);
         // we must check the direction of the light
         // in order to make sure our ray direction is correct
         Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : -DELTA);
+
         Point3D head = gp.point.add(delta);
-        Vector main = dir.scale(spread);
-        rays.add(new Ray(head, main));
+        Point3D point = head.add(dir.scale(spread));
+        rays.add(new Ray(head, point.subtract(head)));
+
+        Vector vRight;
+        try {
+            vRight = normal.crossProduct(dir).normalized();
+        } catch (IllegalArgumentException e) { 
+            vRight = dir.crossProduct(normal.add(new Vector(1, 1, 1))); //need to fix this
+        }
+        Random generator = new Random();
+        
         for (int i = 1; i < n; ++i) {
+            try {
+                Vector offset = vRight.rotate(dir, generator.nextDouble() * 360).scale(generator.nextDouble());
+                rays.add(new Ray(head, point.add(offset).subtract(head)));
+            } catch (IllegalArgumentException e) { --i; }
         }
         return rays;
     }

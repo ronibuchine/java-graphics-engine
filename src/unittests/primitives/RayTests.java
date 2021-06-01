@@ -2,16 +2,20 @@ package unittests.primitives;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
 
+import geometries.Plane;
 import geometries.Tube;
 import geometries.Intersectable.GeoPoint;
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+import renderer.ImageWriter;
 
 /**
  * Unit testing class for {@link Ray} methods.
@@ -83,5 +87,22 @@ public class RayTests {
         // TC04: empty list
         list.clear();
         assertNull("Returned incorrect value for TC04", r.findClosestGeoPoint(list));
+    }
+
+    @Test
+    public void testConstructRefractedRays() {
+        Plane p1 = new Plane(new Vector(0, 0, 1), new Point3D(0, 0, -250));
+        GeoPoint gp = new GeoPoint(p1, Point3D.ZERO);
+        //Ray r = new Ray(gp.point, new Vector(0, 1, 0));
+        ImageWriter image = new ImageWriter("refractedRays", 500, 500);
+        Color white = new Color(java.awt.Color.WHITE);
+        List<Ray> rays = Ray.constructRefractedRays(gp, new Vector(0, 0, -1), 2, 500);
+        for (Ray r : rays) {
+            Point3D intersection = r.findClosestPoint(p1.findIntersections(r));
+            int x = (int)intersection.getX() + 250;
+            int y = (int)intersection.getY() + 250;
+            if (x < 500 && x >= 0 && y < 500 && y >= 0) image.writePixel(x, y, white);
+        }
+        image.writeToImage();
     }
 }
