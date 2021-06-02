@@ -92,20 +92,20 @@ public class RayTests {
     @Test
     public void testConstructRefractedRays() {
         
-        double spread = 3;  //width of spread (higher is narrower)
+        double spread = 1;  //width of spread (higher is narrower)
         int rays = 500;     //number of rays to generate
+        double loops = 43;  //number of times to loop in a circle (0 for random distribution)
 
         Plane p1 = new Plane(new Vector(0, 0, 1), new Point3D(0, 0, -250));
         GeoPoint gp = new GeoPoint(p1, Point3D.ZERO);
-        //Ray r = new Ray(gp.point, new Vector(0, 1, 0));
         ImageWriter image = new ImageWriter("refractedRays", 500, 500);
         Color white = new Color(java.awt.Color.WHITE);
-        List<Ray> rayList = Ray.constructRefractedRays(gp, new Vector(0, 0, -1), spread, rays);
+        List<Ray> rayList = Ray.constructRefractedRays(gp, new Vector(0, 0, -1), spread, rays, loops);
         for (Ray r : rayList) {
             Point3D intersection = r.findClosestPoint(p1.findIntersections(r));
             int x = (int)intersection.getX() + 250;
             int y = (int)intersection.getY() + 250;
-            if (x < 500 && x >= 0 && y < 500 && y >= 0) image.writePixel(x, y, white);
+            image.writePixel(x, y, white);
         }
         image.writeToImage();
     }

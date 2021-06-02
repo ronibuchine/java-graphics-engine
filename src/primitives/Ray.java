@@ -140,9 +140,10 @@ public class Ray {
      * @param dir direction to center the spread
      * @param spread narrowness of spread
      * @param n number of constructed rays to create
+     * @param loops number of times to loop in a circle (0 for random distribution)
      */
-    public static List<Ray> constructRefractedRays(GeoPoint gp, Vector dir, double spread, int n) {
-        if (n < 1) return null;
+    public static List<Ray> constructRefractedRays(GeoPoint gp, Vector dir, double spread, int n, double loops) {
+        if (n < 1 || spread < 1) return null;
         List<Ray> rays = new LinkedList<>();
         Vector normal = gp.geometry.getNormal(gp.point);
         // we must check the direction of the light
@@ -150,22 +151,33 @@ public class Ray {
         Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : -DELTA);
 
         Point3D head = gp.point.add(delta);
-        Point3D point = head.add(dir.scale(spread));
-        rays.add(new Ray(head, point.subtract(head)));
+        Point3D center = head.add(dir.scale(spread));
+        rays.add(new Ray(head, center.subtract(head)));
 
         Vector vRight;
         try {
-            vRight = normal.crossProduct(dir).normalized();
+            vRight = dir.crossProduct(new Vector(0, 0, 1)).normalized();
         } catch (IllegalArgumentException e) { 
-            vRight = dir.crossProduct(normal.add(new Vector(1, 1, 1))); //need to fix this
+            vRight = dir.crossProduct(new Vector(0, -1, 0)).normalized(); //need to fix this
         }
         Random generator = new Random();
-        
-        for (int i = 1; i < n; ++i) {
-            try {
-                Vector offset = vRight.rotate(dir, generator.nextDouble() * 360).scale(generator.nextDouble());
-                rays.add(new Ray(head, point.add(offset).subtract(head)));
-            } catch (IllegalArgumentException e) { --i; }
+        Vector original = center.subtract(head);
+        Vector offset;
+        if (loops == 0) {
+            for (int i = 1; i < n; ++i) {
+                try {
+                    offset = vRight.rotate(dir, generator.nextDouble() * 360).scale(generator.nextDouble());
+                    rays.add(new Ray(head, original.add(offset)));
+                } catch (IllegalArgumentException e) { --i; }
+            }
+        }
+        else {
+            double scale = 1.0 / n;
+            double angle = 360.0 * loops / n;
+            for (int i = 1; i < n; ++i) {
+                offset = vRight.scale(scale*i).rotate(dir, angle*i);
+                rays.add(new Ray(head, original.add(offset)));
+            }
         }
         return rays;
     }
