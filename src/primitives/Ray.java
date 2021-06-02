@@ -29,7 +29,7 @@ public class Ray {
     /**
      * N is a constant that determines how many rays to construct
      */
-    private static final int N = 10;
+    private static final int N = 100;
     
     /**
      * Random number generator

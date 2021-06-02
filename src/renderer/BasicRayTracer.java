@@ -18,7 +18,7 @@ public class BasicRayTracer extends RayTraceBase {
     /**
      * Determines method of distributing rays in a beam:
      * 0 = random distribution
-     * >0 = number of loops to make around the beam
+     * !0 = number of loops to make around the beam
      */
     private double DISTRIBUTION = 0;
 

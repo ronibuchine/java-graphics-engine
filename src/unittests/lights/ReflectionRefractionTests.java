@@ -131,7 +131,7 @@ public class ReflectionRefractionTests {
 		scene.geometries.add( //
 				new Sphere(new Point3D(0, 0, -50), 15) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setKd(0.3).setKs(0.3).setShininess(100).setKt(0.8).setGloss(1)),
+						.setMaterial(new Material().setKd(0.3).setKs(0.3).setShininess(100).setKt(0.8)),
 				new Cylinder(10, new Ray(new Point3D(-30, 10, 20), new Vector(1, 1, 1)), 30)
 						.setEmission(new Color(java.awt.Color.green))
 						.setMaterial(new Material().setKd(.7).setKs(.7).setShininess(50).setKt(.1).setKr(.3)),
@@ -168,6 +168,35 @@ public class ReflectionRefractionTests {
 		camera.move(0, 0, 300);
 		camera.pitch(-50);
 		render.setImageWriter(new ImageWriter("manyShapesRotated3", 1000, 1000));
+		render.renderImage();
+		render.writeToImage();
+	}
+
+	@Test
+	public void testGlossiness() {
+		Camera camera = new Camera(new Point3D(0, 0, 300), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setViewPlaneSize(150, 150).setDistance(300);
+		scene.geometries.add(
+		new Sphere(new Point3D(0, 0, -50), 15) //
+				.setEmission(new Color(java.awt.Color.BLUE)) //
+				.setMaterial(new Material().setKd(0.3).setKs(0.3).setShininess(100).setKt(0.8)),
+		new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0))
+				.setEmission(new Color(200, 0, 0))
+				.setMaterial(new Material().setKd(.5).setKt(.3).setKr(.1)),
+		new Plane(new Vector(0, 0, 1), Point3D.ZERO)
+				.setEmission(new Color(0, 100, 0))
+				.setMaterial(new Material().setKt(.8).setGloss(5)));
+
+		scene.lights.add(
+				new PointLight(new Color(200, 200, 200), new Point3D(0, 50, -60))
+		);
+
+		Render render = new Render() //
+				.setImageWriter(new ImageWriter("glossiness", 1000, 1000)) //
+				.setCamera(camera) //
+				.setRayTracer(new BasicRayTracer(scene))
+				.setMultithreading(0)
+				.setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 	}
