@@ -150,25 +150,25 @@ public class ReflectionRefractionTests {
 				.setRayTracer(new BasicRayTracer(scene))
 				.setMultithreading(0)
 				.setDebugPrint();
-		render.renderImage(true);
+		render.renderImage();
 		render.writeToImage();
 
 		camera.move(0, 100, 50);
 		camera.pitch(-10);
 		render.setImageWriter(new ImageWriter("manyShapesRotated1", 1000, 1000));
-		render.renderImage(true);
+		render.renderImage();
 		render.writeToImage();
 
 		camera.yaw(30);
 		camera.move(100, -100, 0);
 		render.setImageWriter(new ImageWriter("manyShapesRotated2", 1000, 1000));
-		render.renderImage(true);
+		render.renderImage();
 		render.writeToImage();
 
 		camera.move(0, 0, 300);
 		camera.pitch(-50);
 		render.setImageWriter(new ImageWriter("manyShapesRotated3", 1000, 1000));
-		render.renderImage(true);
+		render.renderImage();
 		render.writeToImage();
 	}
 }

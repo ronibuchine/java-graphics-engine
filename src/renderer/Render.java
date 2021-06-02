@@ -1,6 +1,5 @@
 package renderer;
 
-import java.util.List;
 import java.util.MissingResourceException;
 import java.util.stream.IntStream;
 
@@ -107,7 +106,7 @@ public class Render {
 				if (Render.this._print) System.out.printf("\r %02d%%", percents);
 			if (percents >= 0)
 				return true;
-			if (Render.this._print) System.out.printf("\r %02d%%", 100);
+			//if (Render.this._print) System.out.printf("\r %02d%%", 100);
 			return false;
 		}
 	}
@@ -116,11 +115,10 @@ public class Render {
 	 * This function renders image's pixel color map from the scene included with
 	 * the Renderer object
 	 */
-    public void renderImage(boolean multithread) {
-        if (multithread == false) {
-            renderImage();
-            return;
-        }
+    public void renderImage() {
+        if (imageWriter == null || camera == null || rayTracer == null)
+            throw new MissingResourceException("One of the Rendering components is null", null, null);
+
 		final int nX = imageWriter.getNx();
 		final int nY = imageWriter.getNy();
 
@@ -143,7 +141,7 @@ public class Render {
 
 		// Wait for all threads to finish
 		for (Thread thread : threads) try { thread.join(); } catch (Exception e) {}
-		if (_print) System.out.printf("\r100%%\n");
+		if (_print) System.out.printf("\r finished\n");//("\r100%%\n");
 	}
 
 	/**
@@ -220,24 +218,6 @@ public class Render {
     public Render setRayTracer(BasicRayTracer rayTracer) {
         this.rayTracer = rayTracer;
         return this;
-    }
-
-    /**
-     * Calculates Color of rays from camera and writes them onto the ImageWriter
-     */
-    public void renderImage() {
-
-        if (imageWriter == null || camera == null || rayTracer == null)
-            throw new MissingResourceException("One of the Rendering components is null", null, null);
-
-        int nX = imageWriter.getNx();
-        int nY = imageWriter.getNy();
-        IntStream.range(0, nY).forEach(column -> 
-            IntStream.range(0, nX).forEach(row -> {
-                Ray pixelRay = camera.constructRayThroughPixel(nX, nY, row, column);
-                imageWriter.writePixel(row, column, rayTracer.traceRay(pixelRay));
-            })
-        );
     }
 
     /**
