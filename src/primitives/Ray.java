@@ -26,6 +26,10 @@ public class Ray {
      */
     private static final double DELTA = 0.1;
 
+    /**
+     * N is a constant that determines how many rays to construct
+     */
+    private static final int N = 10;
 
     /**
      * Ray takes a direction {@link Vector} as a parameter
@@ -118,7 +122,6 @@ public class Ray {
         Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : -DELTA);
         return new Ray(gp.point.add(delta), dir);
     }
-
     /**
      * Constructs a ray that is reflected at the intersection point, based off the incident angle
      * @param gp
@@ -142,8 +145,8 @@ public class Ray {
      * @param n number of constructed rays to create
      * @param loops number of times to loop in a circle (0 for random distribution)
      */
-    public static List<Ray> constructRefractedRays(GeoPoint gp, Vector dir, double spread, int n, double loops) {
-        if (n < 1 || spread < 1) return null;
+    public static List<Ray> constructRefractedRays(GeoPoint gp, Vector dir, double spread, double loops) {
+        if (N < 1 || spread < 1) return null;
         List<Ray> rays = new LinkedList<>();
         Vector normal = gp.geometry.getNormal(gp.point);
         // we must check the direction of the light
@@ -164,7 +167,7 @@ public class Ray {
         Vector original = center.subtract(head);
         Vector offset;
         if (loops == 0) {
-            for (int i = 1; i < n; ++i) {
+            for (int i = 1; i < N; ++i) {
                 try {
                     offset = vRight.rotate(dir, generator.nextDouble() * 360).scale(generator.nextDouble());
                     rays.add(new Ray(head, original.add(offset)));
@@ -172,14 +175,26 @@ public class Ray {
             }
         }
         else {
-            double scale = 1.0 / n;
-            double angle = 360.0 * loops / n;
-            for (int i = 1; i < n; ++i) {
+            double scale = 1.0 / N;
+            double angle = 360.0 * loops / N;
+            for (int i = 1; i < N; ++i) {
                 offset = vRight.scale(scale*i).rotate(dir, angle*i);
                 rays.add(new Ray(head, original.add(offset)));
             }
         }
         return rays;
+    }
+    /**
+     * Calculates main reflection ray and constructs a beam as if they were refracted
+     */
+    public static List<Ray> constructReflectionRays(GeoPoint gp, Vector incident, double spread, int n, double loops) {
+        Vector normal = gp.geometry.getNormal(gp.point);
+        Vector reflection;
+        try {
+            reflection = incident.subtract(normal.scale(2 * normal.dotProduct(incident))).normalized();
+        } catch (IllegalArgumentException e) { return null; }
+        
+        return constructRefractedRays(gp, reflection, spread, n, loops);
     }
 
     @Override

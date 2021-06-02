@@ -171,11 +171,11 @@ public class BasicRayTracer extends RayTraceBase {
         Material material = gp.geometry.getMaterial();
         double kkR = k * material.kR;
         if (kkR > MIN_CALC_COLOR_K) {
-            color = calcGlobalEffect(Ray.constructReflectionRay(gp, incident), rLevel, material.kR, kkR);
+            color = calcGlobalEffect(Ray.constructReflectionRays(gp, incident, material.glossiness, distribution), rLevel, material.kR, kkR);
         }
         double kkT = k * material.kT;
         if (kkT > MIN_CALC_COLOR_K) {
-            color = color.add(calcGlobalEffect(Ray.constructRefractionRay(gp, incident), rLevel, material.kT, kkT));
+            color = color.add(calcGlobalEffect(Ray.constructRefractionRays(gp, incident, material.glossiness, distribution), rLevel, material.kT, kkT));
         }
         return color;
     }

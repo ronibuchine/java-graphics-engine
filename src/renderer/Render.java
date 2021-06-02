@@ -1,7 +1,6 @@
 package renderer;
 
 import java.util.MissingResourceException;
-import java.util.stream.IntStream;
 
 import elements.Camera;
 import primitives.Color;
