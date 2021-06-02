@@ -206,7 +206,7 @@ public class SceneBuilder {
     }
 
     private Material parseMaterial(Map<String, String> geo) {
-        double kD = 0, kS = 0, kR = 0, kT = 0;
+        double kD = 0, kS = 0, kR = 0, kT = 0, glossiness = Double.POSITIVE_INFINITY;
         int shininess = 0;
         if (geo.get("kd") != null)
             kD = Double.parseDouble(geo.get("kd"));
@@ -218,6 +218,8 @@ public class SceneBuilder {
             kR = Double.parseDouble(geo.get("kr"));
         if (geo.get("kt") != null)
             kT = Double.parseDouble(geo.get("kt"));
-        return new Material().setKd(kD).setKs(kS).setShininess(shininess).setKr(kR).setKt(kT);
+        if (geo.get("glossiness") != null)
+            glossiness = Double.parseDouble(geo.get("glossiness"));
+        return new Material().setKd(kD).setKs(kS).setShininess(shininess).setKr(kR).setKt(kT).setGloss(glossiness);
     }
 }

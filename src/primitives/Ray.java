@@ -30,6 +30,11 @@ public class Ray {
      * N is a constant that determines how many rays to construct
      */
     private static final int N = 10;
+    
+    /**
+     * Random number generator
+     */
+    private static Random GENERATOR = new Random();
 
     /**
      * Ray takes a direction {@link Vector} as a parameter
@@ -145,7 +150,7 @@ public class Ray {
      * @param n number of constructed rays to create
      * @param loops number of times to loop in a circle (0 for random distribution)
      */
-    public static List<Ray> constructRefractedRays(GeoPoint gp, Vector dir, double spread, double loops) {
+    public static List<Ray> constructRefractionRays(GeoPoint gp, Vector dir, double spread, double loops) {
         if (N < 1 || spread < 1) return null;
         List<Ray> rays = new LinkedList<>();
         Vector normal = gp.geometry.getNormal(gp.point);
@@ -154,22 +159,21 @@ public class Ray {
         Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : -DELTA);
 
         Point3D head = gp.point.add(delta);
+        if (Double.isInfinite(spread)) return List.of(new Ray(head, dir));
         Point3D center = head.add(dir.scale(spread));
         rays.add(new Ray(head, center.subtract(head)));
-
         Vector vRight;
         try {
             vRight = dir.crossProduct(new Vector(0, 0, 1)).normalized();
         } catch (IllegalArgumentException e) { 
             vRight = dir.crossProduct(new Vector(0, -1, 0)).normalized(); //need to fix this
         }
-        Random generator = new Random();
         Vector original = center.subtract(head);
         Vector offset;
         if (loops == 0) {
             for (int i = 1; i < N; ++i) {
                 try {
-                    offset = vRight.rotate(dir, generator.nextDouble() * 360).scale(generator.nextDouble());
+                    offset = vRight.rotate(dir, GENERATOR.nextDouble() * 360).scale(GENERATOR.nextDouble());
                     rays.add(new Ray(head, original.add(offset)));
                 } catch (IllegalArgumentException e) { --i; }
             }
@@ -187,14 +191,14 @@ public class Ray {
     /**
      * Calculates main reflection ray and constructs a beam as if they were refracted
      */
-    public static List<Ray> constructReflectionRays(GeoPoint gp, Vector incident, double spread, int n, double loops) {
+    public static List<Ray> constructReflectionRays(GeoPoint gp, Vector incident, double spread, double loops) {
         Vector normal = gp.geometry.getNormal(gp.point);
         Vector reflection;
         try {
             reflection = incident.subtract(normal.scale(2 * normal.dotProduct(incident))).normalized();
         } catch (IllegalArgumentException e) { return null; }
         
-        return constructRefractedRays(gp, reflection, spread, n, loops);
+        return constructRefractionRays(gp, reflection, spread, loops);
     }
 
     @Override

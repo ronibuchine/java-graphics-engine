@@ -13,6 +13,8 @@ public class Material {
     public double kT = 0;
     //reflection
     public double kR = 0;
+    //glossiness
+    public double glossiness = Double.POSITIVE_INFINITY;
 
     /**
      * Sets material's diffuse reflection
@@ -55,5 +57,11 @@ public class Material {
         this.kR = kR;
         return this;
     }
-    
+    /**
+     * Sets material's glossiness
+     */
+    public Material setGloss(double gloss) {
+        this.glossiness = gloss;
+        return this;
+    }
 }

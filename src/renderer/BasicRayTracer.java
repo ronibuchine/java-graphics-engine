@@ -1,5 +1,6 @@
 package renderer;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import elements.LightSource;
@@ -14,8 +15,25 @@ import static primitives.Util.alignZero;
 
 public class BasicRayTracer extends RayTraceBase {
 
+    /**
+     * Determines method of distributing rays in a beam:
+     * 0 = random distribution
+     * >0 = number of loops to make around the beam
+     */
+    private double DISTRIBUTION = 0;
+
     public BasicRayTracer(Scene scene) {
         super(scene);
+    }
+
+    /**
+     * Constructor that sets Scene and RayTracer's method of distribution
+     * @param scene
+     * @param dist
+     */
+    public BasicRayTracer(Scene scene, double dist) {
+        super(scene);
+        this.DISTRIBUTION = dist;
     }
 
     private static final int MAX_CALC_COLOR_LEVEL = 10;
@@ -171,11 +189,11 @@ public class BasicRayTracer extends RayTraceBase {
         Material material = gp.geometry.getMaterial();
         double kkR = k * material.kR;
         if (kkR > MIN_CALC_COLOR_K) {
-            color = calcGlobalEffect(Ray.constructReflectionRays(gp, incident, material.glossiness, distribution), rLevel, material.kR, kkR);
+            color = calcGlobalEffect(Ray.constructReflectionRays(gp, incident, material.glossiness, DISTRIBUTION), rLevel, material.kR, kkR);
         }
         double kkT = k * material.kT;
         if (kkT > MIN_CALC_COLOR_K) {
-            color = color.add(calcGlobalEffect(Ray.constructRefractionRays(gp, incident, material.glossiness, distribution), rLevel, material.kT, kkT));
+            color = color.add(calcGlobalEffect(Ray.constructRefractionRays(gp, incident, material.glossiness, DISTRIBUTION), rLevel, material.kT, kkT));
         }
         return color;
     }
@@ -191,5 +209,27 @@ public class BasicRayTracer extends RayTraceBase {
     private Color calcGlobalEffect(Ray r, int rLevel, double kX, double kkX) {
         GeoPoint gp = findClosestIntersection(r);
         return gp == null ? scene.background : calcColor(gp, r.getDir(), rLevel - 1, kkX).scale(kX);
+    }
+
+    private Color calcGlobalEffect(List<Ray> rays, int rLevel, double kX, double kkX) {
+        List<Color> colors = new LinkedList<>();
+        Ray previousRay = rays.get(0);
+        Color previousColor = calcGlobalEffect(previousRay, rLevel, kX, kkX);
+        for (Ray r : rays) {
+            if (!r.equals(previousRay)) {
+                previousRay = r;
+                previousColor = calcGlobalEffect(r, rLevel, kX, kkX);
+            }
+            colors.add(previousColor);
+        }
+        return mixColors(colors);
+    }
+
+    private Color mixColors(List<Color> colors) {
+        Color all = Color.BLACK;
+        for (Color c : colors) {
+            all = all.add(c);
+        }
+        return all.reduce(colors.size());
     }
 }
