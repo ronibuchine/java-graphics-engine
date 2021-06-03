@@ -202,16 +202,12 @@ public class ReflectionRefractionTests {
 		Camera camera = new Camera(new Point3D(0, 0, 300), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setViewPlaneSize(150, 150).setDistance(300);
 		scene.geometries.add(
-			new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0))
-				.setEmission(new Color(200, 0, 0))
-				.setMaterial(new Material().setKd(.5)),
-			new Tube(10, new Ray(Point3D.ZERO, new Vector(-1, 10, 1)))
-				.setEmission(new Color(0, 0, 255))
-				.setMaterial(new Material().setKd(.5).setKr(.8).setGloss(5)));
+				new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0)).setEmission(new Color(200, 0, 0))
+						.setMaterial(new Material().setKd(.5)),
+				new Tube(10, new Ray(Point3D.ZERO, new Vector(0, 10, 0))).setEmission(new Color(0, 0, 255))
+						.setMaterial(new Material().setKd(.5).setKr(.8).setGloss(3)));
 
-		scene.lights.add(
-				new PointLight(new Color(200, 200, 200), new Point3D(0, 50, -60))
-		);
+		scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(0, 50, -60)));
 
 		scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(0, 50, -60)));
 
