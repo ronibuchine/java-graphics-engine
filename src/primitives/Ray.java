@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.StringJoiner;
 
+import geometries.Geometries;
+import geometries.Geometry;
+import geometries.Intersectable;
 import geometries.Intersectable.GeoPoint;
 
 /**
@@ -195,10 +198,30 @@ public class Ray {
             double angle = 360.0 * loops / N;
             for (int i = 1; i < N; ++i) {
                 offset = vRight.scale(scale * i).rotate(dir, angle * i);
-                rays.add(new Ray(head, original.add(offset)));
+                Ray ray = new Ray(head, original.add(offset));
+                // we only want rays that intersect with the geometry itself to be averaged out
+                if (intersectsWithSelf(gp.geometry, ray))
+                    rays.add(ray);
+
             }
         }
         return rays;
+    }
+
+    /**
+     * Helper method to determine if a ray from a geometry intersects with itself
+     * 
+     * @param geometry
+     * @param ray
+     */
+    private static boolean intersectsWithSelf(Geometry geometry, Ray ray) {
+        List<Intersectable.GeoPoint> intersections = geometry.findGeoIntersections(ray);
+        for (GeoPoint gp : intersections) {
+            if (gp.geometry == geometry)
+                return true;
+        }
+
+        return false;
     }
 
     /**
