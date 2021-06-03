@@ -188,7 +188,9 @@ public class Ray {
             for (int i = 1; i < N; ++i) {
                 try {
                     offset = vRight.rotate(dir, GENERATOR.nextDouble() * 360).scale(GENERATOR.nextDouble());
-                    rays.add(new Ray(head, original.add(offset)));
+                    Ray ray = new Ray(head, original.add(offset));
+                    if (!intersectsWithSelf(gp.geometry, ray))
+                        rays.add(ray);
                 } catch (IllegalArgumentException e) {
                     --i;
                 }
@@ -200,7 +202,7 @@ public class Ray {
                 offset = vRight.scale(scale * i).rotate(dir, angle * i);
                 Ray ray = new Ray(head, original.add(offset));
                 // we only want rays that intersect with the geometry itself to be averaged out
-                if (intersectsWithSelf(gp.geometry, ray))
+                if (!intersectsWithSelf(gp.geometry, ray))
                     rays.add(ray);
 
             }
@@ -216,6 +218,8 @@ public class Ray {
      */
     private static boolean intersectsWithSelf(Geometry geometry, Ray ray) {
         List<Intersectable.GeoPoint> intersections = geometry.findGeoIntersections(ray);
+        if (intersections == null)
+            return false;
         for (GeoPoint gp : intersections) {
             if (gp.geometry == geometry)
                 return true;

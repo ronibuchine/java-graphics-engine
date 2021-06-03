@@ -173,23 +173,23 @@ public class ReflectionRefractionTests {
 	public void testGlossiness() {
 		Camera camera = new Camera(new Point3D(0, 0, 300), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setViewPlaneSize(150, 150).setDistance(300);
-		scene.geometries.add(new Sphere(new Point3D(10, 0, -50), 15) //
+		scene.geometries.add(new Sphere(new Point3D(25, 0, -50), 15) //
 				.setEmission(new Color(140, 25, 25)) //
 				.setMaterial(new Material().setKd(0.5).setKs(0.7).setShininess(200).setKt(0.05)),
-				new Sphere(new Point3D(-40, 0, -50), 15) //
+				new Sphere(new Point3D(-25, 0, -50), 15) //
 						.setEmission(new Color(50, 50, 200)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.7).setShininess(200).setKt(0.05)),
-				new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0)).setEmission(new Color(75, 75, 75))
+				new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0)).setEmission(new Color(50, 50, 50))
 						.setMaterial(new Material().setKd(.5).setKt(.3).setKr(.1)),
-				new Polygon(new Point3D(-40, -80, -25), new Point3D(10, -80, -25), new Point3D(10, 100, -25),
-						new Point3D(-40, 100, -25)).setEmission(new Color(134, 140, 140))
-								.setMaterial(new Material().setKt(.93).setGloss(5)));
+				new Polygon(new Point3D(-25, -80, -25), new Point3D(25, -80, -25), new Point3D(25, 100, -25),
+						new Point3D(-25, 100, -25)).setEmission(new Color(134, 140, 140))
+								.setMaterial(new Material().setKt(.8).setGloss(5)));
 
 		scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(60, 70, -60)));
 		scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(-60, 70, -60)));
 
 		Render render = new Render() //
-				.setImageWriter(new ImageWriter("glossiness", 1000, 1000)) //
+				.setImageWriter(new ImageWriter("diffusedglass", 1000, 1000)) //
 				.setCamera(camera) //
 				.setRayTracer(new BasicRayTracer(scene)).setMultithreading(0).setDebugPrint();
 		render.renderImage();
