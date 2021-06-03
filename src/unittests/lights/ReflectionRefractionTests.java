@@ -181,6 +181,8 @@ public class ReflectionRefractionTests {
 						.setMaterial(new Material().setKd(0.5).setKs(0.7).setShininess(200).setKt(0.05)),
 				new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0)).setEmission(new Color(50, 50, 50))
 						.setMaterial(new Material().setKd(.5).setKt(.3).setKr(.1)),
+				new Plane(new Vector(0, 0, 1), new Point3D(0, 0, -300)).setEmission(new Color(50, 50, 50))
+						.setMaterial(new Material().setKd(.5).setKt(.3).setKr(.1)),
 				new Polygon(new Point3D(-25, -80, -25), new Point3D(25, -80, -25), new Point3D(25, 100, -25),
 						new Point3D(-25, 100, -25)).setEmission(new Color(134, 140, 140))
 								.setMaterial(new Material().setKt(.8).setGloss(5)));
