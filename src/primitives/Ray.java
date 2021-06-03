@@ -32,7 +32,7 @@ public class Ray {
     /**
      * N is a constant that determines how many rays to construct
      */
-    private static final int N = 100;
+    private static final int N = 10;
 
     /**
      * Random number generator
@@ -189,7 +189,7 @@ public class Ray {
                 try {
                     offset = vRight.rotate(dir, GENERATOR.nextDouble() * 360).scale(GENERATOR.nextDouble());
                     Ray ray = new Ray(head, original.add(offset));
-                    if (ray.dir.dotProduct(normal) > 0)// (!intersectsWithSelf(gp.geometry, ray))
+                    if (ray.dir.dotProduct(normal) !=  dir.dotProduct(normal))// (!intersectsWithSelf(gp.geometry, ray))
                         rays.add(ray);
                 } catch (IllegalArgumentException e) {
                     --i;
@@ -202,30 +202,12 @@ public class Ray {
                 offset = vRight.scale(scale * i).rotate(dir, angle * i);
                 Ray ray = new Ray(head, original.add(offset));
                 // we only want rays that intersect with the geometry itself to be averaged out
-                if (ray.dir.dotProduct(normal) > 0)//(!intersectsWithSelf(gp.geometry, ray))
+                if (ray.dir.dotProduct(normal) != dir.dotProduct(normal))//(!intersectsWithSelf(gp.geometry, ray))
                     rays.add(ray);
 
             }
         }
         return rays;
-    }
-
-    /**
-     * Helper method to determine if a ray from a geometry intersects with itself
-     * 
-     * @param geometry
-     * @param ray
-     */
-    private static boolean intersectsWithSelf(Geometry geometry, Ray ray) {
-        List<Intersectable.GeoPoint> intersections = geometry.findGeoIntersections(ray);
-        if (intersections == null)
-            return false;
-        for (GeoPoint gp : intersections) {
-            if (gp.geometry == geometry)
-                return true;
-        }
-
-        return false;
     }
 
     /**
