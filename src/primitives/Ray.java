@@ -30,7 +30,7 @@ public class Ray {
      * N is a constant that determines how many rays to construct
      */
     private static final int N = 100;
-    
+
     /**
      * Random number generator
      */
@@ -103,20 +103,23 @@ public class Ray {
      * ray's {@link Ray#p0 origin} point
      * 
      * @param list list of {@link GeoPoint}s
-     * @return {@link GeoPoint} closest to {@link Ray}'s origin point or returns null
-     *         if the list is empty
+     * @return {@link GeoPoint} closest to {@link Ray}'s origin point or returns
+     *         null if the list is empty
      */
     public GeoPoint findClosestGeoPoint(List<GeoPoint> list) {
         if (!list.isEmpty()) {
-            Comparator<GeoPoint> byDistance = (p1, p2) -> p1.point.distanceSquared(p0) > p2.point.distanceSquared(p0) ? 1 : -1;
+            Comparator<GeoPoint> byDistance = (p1,
+                    p2) -> p1.point.distanceSquared(p0) > p2.point.distanceSquared(p0) ? 1 : -1;
             return Collections.min(list, byDistance);
         }
         return null; // is an empty list meant to return null?
     }
 
     /**
-     * Constructs a new Ray that starts a bit off of the intersection point so it doesn't re-intersect with itself
-     * @param gp intersection point
+     * Constructs a new Ray that starts a bit off of the intersection point so it
+     * doesn't re-intersect with itself
+     * 
+     * @param gp  intersection point
      * @param dir {@link Vector} pointing in direction of original {@link Ray}
      * @return
      */
@@ -127,8 +130,11 @@ public class Ray {
         Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : -DELTA);
         return new Ray(gp.point.add(delta), dir);
     }
+
     /**
-     * Constructs a ray that is reflected at the intersection point, based off the incident angle
+     * Constructs a ray that is reflected at the intersection point, based off the
+     * incident angle
+     * 
      * @param gp
      * @param incident
      * @return
@@ -138,20 +144,24 @@ public class Ray {
         Vector reflection;
         try {
             reflection = incident.subtract(normal.scale(2 * normal.dotProduct(incident))).normalized();
-        } catch (IllegalArgumentException e) { return null; }
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
         return constructRefractionRay(gp, reflection);
     }
 
     /**
      * Constructs a list of Rays that are refracted at an intersection point
-     * @param gp intersection point
-     * @param dir direction to center the spread
+     * 
+     * @param gp     intersection point
+     * @param dir    direction to center the spread
      * @param spread narrowness of spread
-     * @param n number of constructed rays to create
-     * @param loops number of times to loop in a circle (0 for random distribution)
+     * @param n      number of constructed rays to create
+     * @param loops  number of times to loop in a circle (0 for random distribution)
      */
     public static List<Ray> constructRefractionRays(GeoPoint gp, Vector dir, double spread, double loops) {
-        if (N < 1 || spread < 1) return null;
+        if (N < 1 || spread < 1)
+            return null;
         List<Ray> rays = new LinkedList<>();
         Vector normal = gp.geometry.getNormal(gp.point);
         // we must check the direction of the light
@@ -159,14 +169,15 @@ public class Ray {
         Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : -DELTA);
 
         Point3D head = gp.point.add(delta);
-        if (Double.isInfinite(spread)) return List.of(new Ray(head, dir));
+        if (Double.isInfinite(spread))
+            return List.of(new Ray(head, dir));
         Point3D center = head.add(dir.scale(spread));
         rays.add(new Ray(head, center.subtract(head)));
         Vector vRight;
         try {
             vRight = dir.crossProduct(new Vector(0, 0, 1)).normalized();
-        } catch (IllegalArgumentException e) { 
-            vRight = dir.crossProduct(new Vector(0, -1, 0)).normalized(); //need to fix this
+        } catch (IllegalArgumentException e) {
+            vRight = dir.crossProduct(new Vector(0, -1, 0)).normalized(); // need to fix this
         }
         Vector original = center.subtract(head);
         Vector offset;
@@ -175,29 +186,34 @@ public class Ray {
                 try {
                     offset = vRight.rotate(dir, GENERATOR.nextDouble() * 360).scale(GENERATOR.nextDouble());
                     rays.add(new Ray(head, original.add(offset)));
-                } catch (IllegalArgumentException e) { --i; }
+                } catch (IllegalArgumentException e) {
+                    --i;
+                }
             }
-        }
-        else {
+        } else {
             double scale = 1.0 / N;
             double angle = 360.0 * loops / N;
             for (int i = 1; i < N; ++i) {
-                offset = vRight.scale(scale*i).rotate(dir, angle*i);
+                offset = vRight.scale(scale * i).rotate(dir, angle * i);
                 rays.add(new Ray(head, original.add(offset)));
             }
         }
         return rays;
     }
+
     /**
-     * Calculates main reflection ray and constructs a beam as if they were refracted
+     * Calculates main reflection ray and constructs a beam as if they were
+     * refracted
      */
     public static List<Ray> constructReflectionRays(GeoPoint gp, Vector incident, double spread, double loops) {
         Vector normal = gp.geometry.getNormal(gp.point);
         Vector reflection;
         try {
             reflection = incident.subtract(normal.scale(2 * normal.dotProduct(incident))).normalized();
-        } catch (IllegalArgumentException e) { return null; }
-        
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+
         return constructRefractionRays(gp, reflection, spread, loops);
     }
 

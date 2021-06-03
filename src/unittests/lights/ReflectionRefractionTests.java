@@ -8,6 +8,7 @@ import org.junit.Test;
 import elements.*;
 import geometries.Cylinder;
 import geometries.Plane;
+import geometries.Polygon;
 import geometries.Sphere;
 import geometries.Triangle;
 import primitives.*;
@@ -140,16 +141,12 @@ public class ReflectionRefractionTests {
 						.setMaterial(new Material().setKd(0.5).setKs(0.3).setShininess(100).setKr(.8)),
 				new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0))
 						.setMaterial(new Material().setKd(.5).setKt(.3).setKr(.1)));
-		scene.lights.add(
-				new PointLight(new Color(200, 200, 200), new Point3D(10, 80, 40))
-		);
+		scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(10, 80, 40)));
 
 		Render render = new Render() //
 				.setImageWriter(new ImageWriter("manyShapes", 1000, 1000)) //
 				.setCamera(camera) //
-				.setRayTracer(new BasicRayTracer(scene))
-				.setMultithreading(0)
-				.setDebugPrint();
+				.setRayTracer(new BasicRayTracer(scene)).setMultithreading(0).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 
@@ -176,27 +173,24 @@ public class ReflectionRefractionTests {
 	public void testGlossiness() {
 		Camera camera = new Camera(new Point3D(0, 0, 300), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setViewPlaneSize(150, 150).setDistance(300);
-		scene.geometries.add(
-		new Sphere(new Point3D(0, 0, -50), 15) //
-				.setEmission(new Color(java.awt.Color.BLUE)) //
-				.setMaterial(new Material().setKd(0.3).setKs(0.3).setShininess(100).setKt(0.8)),
-		new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0))
-				.setEmission(new Color(200, 0, 0))
-				.setMaterial(new Material().setKd(.5).setKt(.3).setKr(.1)),
-		new Plane(new Vector(0, 0, 1), Point3D.ZERO)
-				.setEmission(new Color(0, 100, 0))
-				.setMaterial(new Material().setKt(.8).setGloss(5)));
+		scene.geometries.add(new Sphere(new Point3D(10, 0, -50), 15) //
+				.setEmission(new Color(140, 25, 25)) //
+				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setKt(0.2)),
+				new Sphere(new Point3D(-40, 0, -50), 15) //
+						.setEmission(new Color(50, 50, 200)) //
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setKt(0.2)),
+				new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0)).setEmission(new Color(75, 75, 75))
+						.setMaterial(new Material().setKd(.5).setKt(.3).setKr(.1)),
+				new Polygon(new Point3D(-40, -80, -25), new Point3D(10, -80, -25), new Point3D(10, 100, -25),
+						new Point3D(-40, 100, -25)).setEmission(new Color(134, 140, 140))
+								.setMaterial(new Material().setKt(.8).setGloss(5)));
 
-		scene.lights.add(
-				new PointLight(new Color(200, 200, 200), new Point3D(0, 50, -60))
-		);
+		scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(0, 50, -60)));
 
 		Render render = new Render() //
 				.setImageWriter(new ImageWriter("glossiness", 1000, 1000)) //
 				.setCamera(camera) //
-				.setRayTracer(new BasicRayTracer(scene))
-				.setMultithreading(0)
-				.setDebugPrint();
+				.setRayTracer(new BasicRayTracer(scene)).setMultithreading(0).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 	}
