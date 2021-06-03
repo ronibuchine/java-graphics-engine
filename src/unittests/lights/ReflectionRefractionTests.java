@@ -11,6 +11,7 @@ import geometries.Plane;
 import geometries.Polygon;
 import geometries.Sphere;
 import geometries.Triangle;
+import geometries.Tube;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
@@ -170,7 +171,7 @@ public class ReflectionRefractionTests {
 	}
 
 	@Test
-	public void testGlossiness() {
+	public void testDiffusion() {
 		Camera camera = new Camera(new Point3D(0, 0, 300), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setViewPlaneSize(150, 150).setDistance(300);
 		scene.geometries.add(new Sphere(new Point3D(25, 0, -50), 15) //
@@ -192,6 +193,32 @@ public class ReflectionRefractionTests {
 
 		Render render = new Render() //
 				.setImageWriter(new ImageWriter("diffusedglass", 1000, 1000)) //
+				.setCamera(camera) //
+				.setRayTracer(new BasicRayTracer(scene)).setMultithreading(0).setDebugPrint();
+		render.renderImage();
+		render.writeToImage();
+	}
+
+	@Test
+	public void testGlossiness() {
+		Camera camera = new Camera(new Point3D(0, 0, 300), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setViewPlaneSize(150, 150).setDistance(300);
+		scene.geometries.add(
+			new Plane(new Vector(0, 1, 0), new Point3D(0, -50, 0))
+				.setEmission(new Color(200, 0, 0))
+				.setMaterial(new Material().setKd(.5)),
+			new Tube(10, new Ray(Point3D.ZERO, new Vector(0, 10, 0)))
+				.setEmission(new Color(0, 0, 255))
+				.setMaterial(new Material().setKd(.5).setKr(.8).setGloss(3)));
+
+		scene.lights.add(
+				new PointLight(new Color(200, 200, 200), new Point3D(0, 50, -60))
+		);
+
+		scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(0, 50, -60)));
+
+		Render render = new Render() //
+				.setImageWriter(new ImageWriter("glossiness", 1000, 1000)) //
 				.setCamera(camera) //
 				.setRayTracer(new BasicRayTracer(scene)).setMultithreading(0).setDebugPrint();
 		render.renderImage();
