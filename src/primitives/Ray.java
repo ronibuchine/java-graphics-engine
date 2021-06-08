@@ -27,6 +27,11 @@ public class Ray {
     private static final double DELTA = 0.1;
 
     /**
+     * N is a constant that determines how many rays to construct
+     */
+    private static final int N = 100;
+
+    /**
      * Random number generator
      */
     private static Random GENERATOR = new Random();
@@ -154,7 +159,8 @@ public class Ray {
      * @param n      number of constructed rays to create
      * @param loops  number of times to loop in a circle (0 for random distribution)
      */
-    public static List<Ray> constructRefractionRays(GeoPoint gp, Vector dir, double spread, double loops, int rayCount) {
+    public static List<Ray> constructRefractionRays(GeoPoint gp, Vector dir, double spread, double loops,
+            int rayCount) {
         if (rayCount < 1 || spread < 1)
             return null;
         List<Ray> rays = new LinkedList<>();
@@ -181,7 +187,7 @@ public class Ray {
                 try {
                     offset = vRight.rotate(dir, GENERATOR.nextDouble() * 360).scale(GENERATOR.nextDouble());
                     Ray ray = new Ray(head, original.add(offset));
-                    if (ray.dir.dotProduct(normal) !=  dir.dotProduct(normal))// (!intersectsWithSelf(gp.geometry, ray))
+                    if (ray.dir.dotProduct(normal) != dir.dotProduct(normal))// (!intersectsWithSelf(gp.geometry, ray))
                         rays.add(ray);
                 } catch (IllegalArgumentException e) {
                     --i;
@@ -194,7 +200,7 @@ public class Ray {
                 offset = vRight.scale(scale * i).rotate(dir, angle * i);
                 Ray ray = new Ray(head, original.add(offset));
                 // we only want rays that intersect with the geometry itself to be averaged out
-                if (ray.dir.dotProduct(normal) != dir.dotProduct(normal))//(!intersectsWithSelf(gp.geometry, ray))
+                if (ray.dir.dotProduct(normal) != dir.dotProduct(normal))// (!intersectsWithSelf(gp.geometry, ray))
                     rays.add(ray);
 
             }
@@ -206,7 +212,8 @@ public class Ray {
      * Calculates main reflection ray and constructs a beam as if they were
      * refracted
      */
-    public static List<Ray> constructReflectionRays(GeoPoint gp, Vector incident, double spread, double loops, int rayCount) {
+    public static List<Ray> constructReflectionRays(GeoPoint gp, Vector incident, double spread, double loops,
+            int rayCount) {
         Vector normal = gp.geometry.getNormal(gp.point);
         Vector reflection;
         try {

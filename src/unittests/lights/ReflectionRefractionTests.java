@@ -174,7 +174,7 @@ public class ReflectionRefractionTests {
 	public void testDiffusion() {
 		Camera camera = new Camera(new Point3D(0, 0, 300), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setViewPlaneSize(150, 150).setDistance(300);
-		scene.geometries.add(new Sphere(new Point3D(25, 0, -100), 15) //
+		scene.geometries.add(new Sphere(new Point3D(25, 0, -170), 15) //
 				.setEmission(new Color(140, 25, 25)) //
 				.setMaterial(new Material().setKd(0.5).setKs(0.7).setShininess(200).setKt(0.05)),
 				new Sphere(new Point3D(-25, 0, -50), 15) //
