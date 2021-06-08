@@ -22,6 +22,21 @@ public class BasicRayTracer extends RayTraceBase {
      */
     private double DISTRIBUTION = 0;
 
+    public BasicRayTracer setDistribution(int spread) {
+        DISTRIBUTION = spread;
+        return this;
+    }
+
+    /**
+     * Determines number of rays to shoot in a beam
+     */
+    private int N = 1;
+
+    public BasicRayTracer setRayCount(int n) {
+        this.N = n;
+        return this;
+    }
+
     public BasicRayTracer(Scene scene) {
         super(scene);
     }
@@ -189,11 +204,11 @@ public class BasicRayTracer extends RayTraceBase {
         Material material = gp.geometry.getMaterial();
         double kkR = k * material.kR;
         if (kkR > MIN_CALC_COLOR_K) {
-            color = calcGlobalEffect(Ray.constructReflectionRays(gp, incident, material.glossiness, DISTRIBUTION), rLevel, material.kR, kkR);
+            color = calcGlobalEffect(Ray.constructReflectionRays(gp, incident, material.glossiness, DISTRIBUTION, N), rLevel, material.kR, kkR);
         }
         double kkT = k * material.kT;
         if (kkT > MIN_CALC_COLOR_K) {
-            color = color.add(calcGlobalEffect(Ray.constructRefractionRays(gp, incident, material.glossiness, DISTRIBUTION), rLevel, material.kT, kkT));
+            color = color.add(calcGlobalEffect(Ray.constructRefractionRays(gp, incident, material.glossiness, DISTRIBUTION, N), rLevel, material.kT, kkT));
         }
         return color;
     }

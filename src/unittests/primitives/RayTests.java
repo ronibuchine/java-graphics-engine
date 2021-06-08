@@ -99,7 +99,7 @@ public class RayTests {
         GeoPoint gp = new GeoPoint(p1, Point3D.ZERO);
         ImageWriter image = new ImageWriter("refractedRays", 500, 500);
         Color white = new Color(java.awt.Color.WHITE);
-        List<Ray> rayList = Ray.constructRefractionRays(gp, new Vector(0, 0, -1), spread, loops);
+        List<Ray> rayList = Ray.constructRefractionRays(gp, new Vector(0, 0, -1), spread, loops, 300);
         for (Ray r : rayList) {
             Point3D intersection = r.findClosestPoint(p1.findIntersections(r));
             int x = (int)intersection.getX() + 250;
