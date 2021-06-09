@@ -27,11 +27,6 @@ public class Ray {
     private static final double DELTA = 0.1;
 
     /**
-     * N is a constant that determines how many rays to construct
-     */
-    private static final int N = 100;
-
-    /**
      * Random number generator
      */
     private static Random GENERATOR = new Random();

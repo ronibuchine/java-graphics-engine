@@ -84,5 +84,15 @@ public class Sphere extends Geometry {
         if (projLength + distToSide > 0 && alignZero(projLength + distToSide - limit) <= 0) list.add(new GeoPoint(this, r.getPoint(projLength + distToSide)));
         return list;
     }
+
+    @Override
+    public Point3D getMinPoint() {
+        return new Point3D(center.getX() - radius, center.getY() - radius, center.getZ() - radius);
+    }
+
+    @Override
+    public Point3D getMaxPoint() {
+        return new Point3D(center.getX() + radius, center.getY() + radius, center.getZ() + radius);
+    }
     
 }

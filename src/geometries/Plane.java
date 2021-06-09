@@ -80,10 +80,21 @@ public class Plane extends Geometry {
         catch (IllegalArgumentException e) { return null; } //ray starts at plane's representative point
         double denominator = normal.dotProduct(r.getDir());
         if (isZero(denominator)) return null; //ray is parallel to plane
-        //double numerator = alignZero(normal.dotProduct(rayToPlane));
         double t = alignZero(normal.dotProduct(rayToPlane) / denominator);
         if (t > 0 && alignZero(t - limit) <= 0) return List.of(new GeoPoint(this, r.getPoint(t)));
         else return null; //Ray starts on plane, is behind the plane, or is further than limit
+    }
+
+    @Override
+    public Point3D getMinPoint() {
+        // Plane has no min point
+        return null;
+    }
+
+    @Override
+    public Point3D getMaxPoint() {
+        // Plane has no max point
+        return null;
     }
 
 }

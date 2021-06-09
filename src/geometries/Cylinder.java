@@ -86,4 +86,20 @@ public class Cylinder extends Tube {
         return list;
     }
 
+    @Override
+    public Point3D getMinPoint() {
+        Vector adjust = new Vector(radius, radius, radius).scale(-1);
+        Point3D start = dir.getStartPoint();
+        Point3D end = dir.getPoint(height);
+        return BoundingBox.min(start, end).add(adjust);
+    }
+
+    @Override
+    public Point3D getMaxPoint() {
+        Vector adjust = new Vector(radius, radius, radius);
+        Point3D start = dir.getStartPoint();
+        Point3D end = dir.getPoint(height);
+        return BoundingBox.max(start, end).add(adjust);
+    }
+
 }

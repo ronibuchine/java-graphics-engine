@@ -13,7 +13,7 @@ import primitives.Ray;
  */
 public class Geometries implements Intersectable {
     
-    private List<Intersectable> geometries;
+    protected List<Intersectable> geometries;
     
     /**
      * Default constructor for Geometries which creates an empty list
@@ -33,8 +33,8 @@ public class Geometries implements Intersectable {
     /**
      * Method that adds lists of {@link Geometry Geometries} to the list of scene geometries
      */
-    public void add(Intersectable... geometry) {
-        geometries.addAll(List.of(geometry));
+    public void add(Geometry... geometries) {
+        this.geometries.addAll(List.of(geometries));
     }
 
     /**
