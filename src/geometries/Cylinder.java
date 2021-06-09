@@ -88,18 +88,62 @@ public class Cylinder extends Tube {
 
     @Override
     public Point3D getMinPoint() {
-        Vector adjust = new Vector(radius, radius, radius).scale(-1);
+        Vector dir1;
+        Vector dir2;
+        try {
+            dir1 = dir.getDir().crossProduct(new Vector(0, 0, 1)).normalize().scale(this.radius);
+        } catch (IllegalArgumentException e) {
+            dir1 = dir.getDir().crossProduct(new Vector(1, 0, 0)).normalize().scale(this.radius);
+        }
+        try {
+            dir2 = dir.getDir().crossProduct(new Vector(0, 1, 0)).normalize().scale(this.radius);
+        } catch (IllegalArgumentException e) {
+            dir2 = dir.getDir().crossProduct(new Vector(1, 0, 0)).normalize().scale(this.radius);
+        }
+
         Point3D start = dir.getStartPoint();
         Point3D end = dir.getPoint(height);
-        return BoundingBox.min(start, end).add(adjust);
+
+        return BoundingBox.min(
+            start.add(dir1),
+            start.add(dir1.scale(-1)),
+            start.add(dir2),
+            start.add(dir2.scale(-1)),
+            end.add(dir1),
+            end.add(dir1.scale(-1)),
+            end.add(dir2),
+            end.add(dir2.scale(-1))
+        );
     }
 
     @Override
     public Point3D getMaxPoint() {
-        Vector adjust = new Vector(radius, radius, radius);
+        Vector dir1;
+        Vector dir2;
+        try {
+            dir1 = dir.getDir().crossProduct(new Vector(0, 0, 1)).normalize().scale(this.radius);
+        } catch (IllegalArgumentException e) {
+            dir1 = dir.getDir().crossProduct(new Vector(1, 0, 0)).normalize().scale(this.radius);
+        }
+        try {
+            dir2 = dir.getDir().crossProduct(new Vector(0, 1, 0)).normalize().scale(this.radius);
+        } catch (IllegalArgumentException e) {
+            dir2 = dir.getDir().crossProduct(new Vector(1, 0, 0)).normalize().scale(this.radius);
+        }
+
         Point3D start = dir.getStartPoint();
         Point3D end = dir.getPoint(height);
-        return BoundingBox.max(start, end).add(adjust);
+
+        return BoundingBox.max(
+            start.add(dir1),
+            start.add(dir1.scale(-1)),
+            start.add(dir2),
+            start.add(dir2.scale(-1)),
+            end.add(dir1),
+            end.add(dir1.scale(-1)),
+            end.add(dir2),
+            end.add(dir2.scale(-1))
+        );
     }
 
 }
