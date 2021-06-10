@@ -57,12 +57,12 @@ public class BoundingBox extends Geometries {
 
     @Override
     public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
-        if (!testIntersection(r))
+        if (!getsIntersected(r))
             return null;
         return super.findGeoIntersections(r, limit);
     }
 
-    public boolean testIntersection(Ray r) {
+    public boolean getsIntersected(Ray r) {
         double tmin = 0;
         double tmax = Double.POSITIVE_INFINITY;
         Point3D rDir = r.getDir().getHead();

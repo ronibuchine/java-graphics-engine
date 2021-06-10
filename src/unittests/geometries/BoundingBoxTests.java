@@ -11,6 +11,7 @@ import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -61,5 +62,18 @@ public class BoundingBoxTests {
         } catch (Exception e) {
             assertTrue(true);
         }
+    }
+
+    /**
+     * unit test to check whether a ray intersects the bounding box
+     */
+    @Test
+    public void boxIntersectionTest() {
+
+        b1.add(new Geometries(s1, t1));
+        Ray ray = new Ray(new Point3D(0, -50, 0), new Vector(0, 1, 0));
+
+        assertTrue(b1.getsIntersected(ray));
+
     }
 }
