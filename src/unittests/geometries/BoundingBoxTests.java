@@ -34,8 +34,10 @@ public class BoundingBoxTests {
 
         b1.add(s1);
 
-        assertEquals(b1.getMin(), new Point3D(-5, -5, -5));
-        assertEquals(b1.getMax(), new Point3D(5, 5, 5));
+        assertEquals("Single geometry test for bounding box failed to retrieve min point", b1.getMin(),
+                new Point3D(-5, -5, -5));
+        assertEquals("Single geometry test for bounding box failed to retrieve max point", b1.getMax(),
+                new Point3D(5, 5, 5));
 
     }
 
@@ -47,7 +49,9 @@ public class BoundingBoxTests {
 
         b1.add(t1);
 
-        assertEquals(b1.getMin(), new Point3D(-5, -5, -5));
-        assertEquals(b1.getMax(), new Point3D(10, 10, 10));
+        assertEquals("Mulitple geometry test for bounding box failed to retrieve min point", b1.getMin(),
+                new Point3D(-5, -5, -5));
+        assertEquals("Multiple geometry test for bounding box failed to retrieve min point", b1.getMax(),
+                new Point3D(10, 10, 10));
     }
 }
