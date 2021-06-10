@@ -47,11 +47,9 @@ public class BoundingBox extends Geometries {
     @Override
     public void add(Intersectable... geometries) {
         for (Intersectable g : geometries) {
-            if (g instanceof Plane || g instanceof Tube)
-                throw new IllegalArgumentException("Planes and Tubes may not be placed in a BoundingBox");
-            this.geometries.add(g);
             min = min != null ? min(g.getMinPoint(), min) : g.getMinPoint();
             max = max != null ? max(g.getMaxPoint(), max) : g.getMaxPoint();
+            this.geometries.add(g);
         }
     }
 
@@ -101,27 +99,35 @@ public class BoundingBox extends Geometries {
     }
 
     static Point3D min(Point3D... points) {
-        double x = points[0].getX();
-        double y = points[0].getY();
-        double z = points[0].getZ();
-        for (Point3D p : points) {
-            x = Double.min(p.getX(), x);
-            y = Double.min(p.getY(), y);
-            z = Double.min(p.getZ(), z);
+        try {
+            double x = points[0].getX();
+            double y = points[0].getY();
+            double z = points[0].getZ();
+            for (Point3D p : points) {
+                x = Double.min(p.getX(), x);
+                y = Double.min(p.getY(), y);
+                z = Double.min(p.getZ(), z);
+            }
+            return new Point3D(x, y, z);
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException("Can't find minimum point of infinite geometry");
         }
-        return new Point3D(x, y, z);
     }
 
     static Point3D max(Point3D... points) {
-        double x = points[0].getX();
-        double y = points[0].getY();
-        double z = points[0].getZ();
-        for (Point3D p : points) {
-            x = Double.max(p.getX(), x);
-            y = Double.max(p.getY(), y);
-            z = Double.max(p.getZ(), z);
+        try {
+            double x = points[0].getX();
+            double y = points[0].getY();
+            double z = points[0].getZ();
+            for (Point3D p : points) {
+                x = Double.max(p.getX(), x);
+                y = Double.max(p.getY(), y);
+                z = Double.max(p.getZ(), z);
+            }
+            return new Point3D(x, y, z);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Can't find maximum point of infinite geometry");
         }
-        return new Point3D(x, y, z);
     }
 
 }

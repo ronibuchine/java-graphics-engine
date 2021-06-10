@@ -34,7 +34,7 @@ public class BoundingBoxTests {
     @Test
     public void singleGeometryBoxTest() {
 
-        b1.add(new Geometries(s1));
+        b1.add(s1);
 
         assertEquals("Single geometry test for bounding box failed to retrieve min point", b1.getMin(),
                 new Point3D(-5, -5, -5));
@@ -49,7 +49,7 @@ public class BoundingBoxTests {
     @Test
     public void multipleGeometryBoxTest() {
 
-        b1.add(new Geometries(s1, t1));
+        b1.add(s1, t1);
 
         assertEquals("Mulitple geometry test for bounding box failed to retrieve min point", b1.getMin(),
                 new Point3D(-5, -5, -5));
@@ -59,7 +59,7 @@ public class BoundingBoxTests {
         try {
             b1.add(new Geometries(p1));
             fail("Did not throw exception when trying to add unbounded geometry");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
