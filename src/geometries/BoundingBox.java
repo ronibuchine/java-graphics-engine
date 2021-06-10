@@ -30,10 +30,29 @@ public class BoundingBox extends Geometries {
         add(geos);
     }
 
+    /**
+     * Getter method for min point
+     * 
+     * @return min point of bounding box
+     */
+    public Point3D getMin() {
+        return min;
+    }
+
+    /**
+     * Getter method for max point of bounding box
+     * 
+     * @return max point of bounding box
+     */
+    public Point3D getMax() {
+        return max;
+    }
+
     @Override
     public void add(Intersectable... geometries) {
         for (Intersectable g : geometries) {
-            if (g instanceof Plane || g instanceof Tube) throw new IllegalArgumentException("Planes and Tubes may not be placed in a BoundingBox");
+            if (g instanceof Plane || g instanceof Tube)
+                throw new IllegalArgumentException("Planes and Tubes may not be placed in a BoundingBox");
             this.geometries.add(g);
             min = min(g.getMinPoint(), min);
             max = max(g.getMaxPoint(), max);
@@ -42,7 +61,8 @@ public class BoundingBox extends Geometries {
 
     @Override
     public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
-        if (!testIntersection(r)) return null;
+        if (!testIntersection(r))
+            return null;
         return geos.findGeoIntersections(r, limit);
     }
 
@@ -53,7 +73,8 @@ public class BoundingBox extends Geometries {
         Point3D rStart = r.getStartPoint();
         for (int i = 0; i < 3; ++i) {
             double coord = getCoord(rDir, i);
-            if (coord == 0) continue;
+            if (coord == 0)
+                continue;
             double invD = alignZero(1 / coord);
             double t0 = alignZero((getCoord(min, i) - getCoord(rStart, i)) * invD);
             double t1 = alignZero((getCoord(max, i) - getCoord(rStart, i)) * invD);
@@ -64,7 +85,8 @@ public class BoundingBox extends Geometries {
             }
             tmin = t0 > tmin ? t0 : tmin;
             tmax = t1 < tmax ? t1 : tmax;
-            if (tmax <= tmin) return false;
+            if (tmax <= tmin)
+                return false;
         }
         return true;
     }
@@ -93,7 +115,8 @@ public class BoundingBox extends Geometries {
         }
         return new Point3D(x, y, z);
     }
-    static Point3D max(Point3D...points) {
+
+    static Point3D max(Point3D... points) {
         double x = points[0].getX();
         double y = points[0].getY();
         double z = points[0].getZ();

@@ -34,8 +34,8 @@ public class BoundingBoxTests {
 
         b1.add(s1);
 
-        assertEquals(b1.getMinPoint(), new Point3D(-5, -5, -5));
-        assertEquals(b1.getMaxPoint(), new Point3D(5, 5, 5));
+        assertEquals(b1.getMin(), new Point3D(-5, -5, -5));
+        assertEquals(b1.getMax(), new Point3D(5, 5, 5));
 
     }
 
@@ -47,7 +47,7 @@ public class BoundingBoxTests {
 
         b1.add(t1);
 
-        assertEquals(b1.getMinPoint(), new Point3D(-5, -5, -5));
-        assertEquals(b1.getMaxPoint(), new Point3D(10, 10, 10));
+        assertEquals(b1.getMin(), new Point3D(-5, -5, -5));
+        assertEquals(b1.getMax(), new Point3D(10, 10, 10));
     }
 }
