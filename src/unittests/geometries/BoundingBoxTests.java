@@ -47,7 +47,7 @@ public class BoundingBoxTests {
     @Test
     public void multipleGeometryBoxTest() {
 
-        b1.add(t1);
+        b1.add(s1, t1);
 
         assertEquals("Mulitple geometry test for bounding box failed to retrieve min point", b1.getMin(),
                 new Point3D(-5, -5, -5));
