@@ -9,7 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * BoundingBox is an Axis Aligned Bounding Box (AABB)
+ * BoundingBox is an Axis Aligned Bounding Box (AABB) Created to enhance
+ * performance of rendering
  * 
  * @author Roni Buchine
  * @author Eliezer Jacobs
@@ -21,6 +22,11 @@ public class BoundingBox extends Geometries {
      */
     private Point3D min, max;
 
+    /**
+     * Constructor for Bounding Box
+     * 
+     * @param geos geometries encapsulated by the Bounding Box
+     */
     public BoundingBox(Intersectable... geos) {
         geometries = new LinkedList<>();
         add(geos);
@@ -45,6 +51,12 @@ public class BoundingBox extends Geometries {
     }
 
     @Override
+    /**
+     * Adds {@link Intersectable}s to the bounding box and recalculates the min and
+     * max points
+     * 
+     * @param geometries to be added
+     */
     public void add(Intersectable... geometries) {
         for (Intersectable g : geometries) {
             min = min != null ? min(g.getMinPoint(), min) : g.getMinPoint();
@@ -54,12 +66,24 @@ public class BoundingBox extends Geometries {
     }
 
     @Override
+    /**
+     * Overridden method to avoid tracing intersections of objects inside bounding
+     * box if it isn't intersected
+     *
+     */
     public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
         if (!getsIntersected(r))
             return null;
         return super.findGeoIntersections(r, limit);
     }
 
+    /**
+     * Method that checks if the bounding box gets intersected at all
+     * 
+     * @param r intersecting {@link Ray}
+     * @return true if it gets intersected
+     * @return false if it isn't intersected
+     */
     public boolean getsIntersected(Ray r) {
         double tmin = 0;
         double tmax = Double.POSITIVE_INFINITY;
@@ -85,6 +109,9 @@ public class BoundingBox extends Geometries {
         return true;
     }
 
+    /**
+     * gets {@link Coordinate} of the point
+     */
     private double getCoord(Point3D p, int c) {
         switch (c) {
             case 1:
@@ -98,6 +125,12 @@ public class BoundingBox extends Geometries {
         }
     }
 
+    /**
+     * finds the min x, y and z values of all objects within the bounding box
+     * 
+     * @param points
+     * @return a {@link Point3D} with the min x, y and z values
+     */
     static Point3D min(Point3D... points) {
         try {
             double x = points[0].getX();
@@ -114,6 +147,12 @@ public class BoundingBox extends Geometries {
         }
     }
 
+    /**
+     * finds the max x, y and z values of all objects within the bounding box
+     * 
+     * @param points
+     * @return a {@link Point3D} with the max x, y and z values
+     */
     static Point3D max(Point3D... points) {
         try {
             double x = points[0].getX();
