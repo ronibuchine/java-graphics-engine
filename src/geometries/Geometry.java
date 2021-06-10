@@ -57,14 +57,4 @@ public abstract class Geometry implements Intersectable {
      */
     public abstract Vector getNormal(Point3D p);
 
-    /**
-     * Abstract method to calculate Geometry's min point
-     * @return
-     */
-    public abstract Point3D getMinPoint();
-    /**
-     * Abstract method to calculate Geometry's max point
-     * @return
-     */
-    public abstract Point3D getMaxPoint();
 }

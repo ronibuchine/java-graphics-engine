@@ -25,14 +25,14 @@ public class BoundingBox extends Geometries {
      */
     private Geometries geos;
 
-    public BoundingBox(Geometry... geos) {
+    public BoundingBox(Intersectable... geos) {
         geometries = new LinkedList<>();
         add(geos);
     }
 
     @Override
-    public void add(Geometry... geometries) {
-        for (Geometry g : geometries) {
+    public void add(Intersectable... geometries) {
+        for (Intersectable g : geometries) {
             if (g instanceof Plane || g instanceof Tube) throw new IllegalArgumentException("Planes and Tubes may not be placed in a BoundingBox");
             this.geometries.add(g);
             min = min(g.getMinPoint(), min);

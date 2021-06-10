@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class Geometries implements Intersectable {
     /**
      * Method that adds lists of {@link Geometry Geometries} to the list of scene geometries
      */
-    public void add(Geometry... geometries) {
+    public void add(Intersectable... geometries) {
         this.geometries.addAll(List.of(geometries));
     }
 
@@ -72,6 +73,20 @@ public class Geometries implements Intersectable {
             return null;
         }
         return list;
+    }
+
+    @Override
+    public Point3D getMinPoint() {
+        List<Point3D> points = new LinkedList<>();
+        geometries.forEach(g -> points.add(g.getMinPoint()));
+        return BoundingBox.min(points.toArray(new Point3D[0]));
+    }
+
+    @Override
+    public Point3D getMaxPoint() {
+        List<Point3D> points = new LinkedList<>();
+        geometries.forEach(g -> points.add(g.getMaxPoint()));
+        return BoundingBox.max(points.toArray(new Point3D[0]));
     } 
 
 }

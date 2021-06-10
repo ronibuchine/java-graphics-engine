@@ -70,4 +70,16 @@ public interface Intersectable {
      * @return
      */
     List<GeoPoint> findGeoIntersections(Ray r, double limit);
+
+    
+    /**
+     * Abstract method to calculate Geometry's min point
+     * @return
+     */
+    public abstract Point3D getMinPoint();
+    /**
+     * Abstract method to calculate Geometry's max point
+     * @return
+     */
+    public abstract Point3D getMaxPoint();
 }
