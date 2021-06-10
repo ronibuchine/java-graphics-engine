@@ -1,11 +1,16 @@
 package unittests.geometries;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 import geometries.BoundingBox;
+import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
 import primitives.Point3D;
+import primitives.Vector;
 
 /**
  * Testing class for Bounding Box performance enhancements
@@ -17,6 +22,7 @@ public class BoundingBoxTests {
 
     Triangle t1 = new Triangle(Point3D.ZERO, new Point3D(10, 10, 0), new Point3D(10, 0, 10));
     Sphere s1 = new Sphere(Point3D.ZERO, 5);
+    Plane plane = new Plane(new Vector(0, 0, 1), Point3D.ZERO);
 
     BoundingBox b1 = new BoundingBox();
 
@@ -47,5 +53,12 @@ public class BoundingBoxTests {
                 new Point3D(-5, -5, -5));
         assertEquals("Multiple geometry test for bounding box failed to retrieve min point", b1.getMax(),
                 new Point3D(10, 10, 10));
+
+        try {
+            b1.add(plane);
+            fail("Did not throw exception when trying to add unbounded geometry");
+        } catch (Exception e) {
+            assertTrue(true);
+        }
     }
 }
