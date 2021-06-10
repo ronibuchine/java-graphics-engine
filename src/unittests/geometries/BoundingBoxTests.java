@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import geometries.BoundingBox;
+import geometries.Geometries;
 import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
@@ -22,7 +23,7 @@ public class BoundingBoxTests {
 
     Triangle t1 = new Triangle(Point3D.ZERO, new Point3D(10, 10, 0), new Point3D(10, 0, 10));
     Sphere s1 = new Sphere(Point3D.ZERO, 5);
-    Plane plane = new Plane(new Vector(0, 0, 1), Point3D.ZERO);
+    Plane p1 = new Plane(new Vector(0, 0, 1), Point3D.ZERO);
 
     BoundingBox b1 = new BoundingBox();
 
@@ -32,7 +33,7 @@ public class BoundingBoxTests {
     @Test
     public void singleGeometryBoxTest() {
 
-        b1.add(s1);
+        b1.add(new Geometries(s1));
 
         assertEquals("Single geometry test for bounding box failed to retrieve min point", b1.getMin(),
                 new Point3D(-5, -5, -5));
@@ -47,7 +48,7 @@ public class BoundingBoxTests {
     @Test
     public void multipleGeometryBoxTest() {
 
-        b1.add(s1, t1);
+        b1.add(new Geometries(s1, t1));
 
         assertEquals("Mulitple geometry test for bounding box failed to retrieve min point", b1.getMin(),
                 new Point3D(-5, -5, -5));
@@ -55,7 +56,7 @@ public class BoundingBoxTests {
                 new Point3D(10, 10, 10));
 
         try {
-            b1.add(plane);
+            b1.add(new Geometries(p1));
             fail("Did not throw exception when trying to add unbounded geometry");
         } catch (Exception e) {
             assertTrue(true);
