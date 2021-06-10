@@ -1,14 +1,8 @@
 package unittests.geometries;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.Test;
-
 import geometries.BoundingBox;
-import geometries.Intersectable;
 import geometries.Sphere;
 import geometries.Triangle;
 import primitives.Point3D;
@@ -47,7 +41,7 @@ public class BoundingBoxTests {
     @Test
     public void multipleGeometryBoxTest() {
 
-        b1.add(t1);
+        b1.add(s1, t1);
 
         assertEquals("Mulitple geometry test for bounding box failed to retrieve min point", b1.getMin(),
                 new Point3D(-5, -5, -5));

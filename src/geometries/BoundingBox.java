@@ -54,8 +54,8 @@ public class BoundingBox extends Geometries {
             if (g instanceof Plane || g instanceof Tube)
                 throw new IllegalArgumentException("Planes and Tubes may not be placed in a BoundingBox");
             this.geometries.add(g);
-            min = min(g.getMinPoint(), min);
-            max = max(g.getMaxPoint(), max);
+            min = min != null ? min(g.getMinPoint(), min) : g.getMinPoint();
+            max = max != null ? max(g.getMaxPoint(), max) : g.getMaxPoint();
         }
     }
 
