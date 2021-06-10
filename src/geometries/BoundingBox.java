@@ -20,10 +20,6 @@ public class BoundingBox extends Geometries {
      * Represents the two extreme points of the BoundingBox
      */
     private Point3D min, max;
-    /**
-     * Holds a list of internal Geometries
-     */
-    private Geometries geos;
 
     public BoundingBox(Intersectable... geos) {
         geometries = new LinkedList<>();
@@ -63,7 +59,7 @@ public class BoundingBox extends Geometries {
     public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
         if (!testIntersection(r))
             return null;
-        return geos.findGeoIntersections(r, limit);
+        return super.findGeoIntersections(r, limit);
     }
 
     public boolean testIntersection(Ray r) {
