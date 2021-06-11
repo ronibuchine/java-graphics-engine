@@ -37,7 +37,8 @@ public class BoundingBox extends Geometries {
      * 
      * @return min point of bounding box
      */
-    public Point3D getMin() {
+    @Override
+    public Point3D getMinPoint() {
         return min;
     }
 
@@ -46,17 +47,18 @@ public class BoundingBox extends Geometries {
      * 
      * @return max point of bounding box
      */
-    public Point3D getMax() {
+    @Override
+    public Point3D getMaxPoint() {
         return max;
     }
 
-    @Override
     /**
      * Adds {@link Intersectable}s to the bounding box and recalculates the min and
      * max points
      * 
      * @param geometries to be added
      */
+    @Override
     public void add(Intersectable... geometries) {
         for (Intersectable g : geometries) {
             min = min != null ? min(g.getMinPoint(), min) : g.getMinPoint();
@@ -65,12 +67,12 @@ public class BoundingBox extends Geometries {
         }
     }
 
-    @Override
     /**
      * Overridden method to avoid tracing intersections of objects inside bounding
      * box if it isn't intersected
      *
      */
+    @Override
     public List<GeoPoint> findGeoIntersections(Ray r, double limit) {
         if (!getsIntersected(r))
             return null;
@@ -110,7 +112,7 @@ public class BoundingBox extends Geometries {
     }
 
     /**
-     * gets {@link Coordinate} of the point
+     * helper function to get specific coordinnate from a {@link Point3D}
      */
     private double getCoord(Point3D p, int c) {
         switch (c) {
@@ -126,47 +128,39 @@ public class BoundingBox extends Geometries {
     }
 
     /**
-     * finds the min x, y and z values of all objects within the bounding box
+     * finds the min x, y and z values from a list of {@link Point3D}s
      * 
      * @param points
      * @return a {@link Point3D} with the min x, y and z values
      */
     static Point3D min(Point3D... points) {
-        try {
-            double x = points[0].getX();
-            double y = points[0].getY();
-            double z = points[0].getZ();
-            for (Point3D p : points) {
-                x = Double.min(p.getX(), x);
-                y = Double.min(p.getY(), y);
-                z = Double.min(p.getZ(), z);
-            }
-            return new Point3D(x, y, z);
-        } catch (NullPointerException e) {
-            throw new IllegalArgumentException("Can't find minimum point of infinite geometry");
+        double x = points[0].getX();
+        double y = points[0].getY();
+        double z = points[0].getZ();
+        for (Point3D p : points) {
+            x = Double.min(p.getX(), x);
+            y = Double.min(p.getY(), y);
+            z = Double.min(p.getZ(), z);
         }
+        return new Point3D(x, y, z);
     }
 
     /**
-     * finds the max x, y and z values of all objects within the bounding box
+     * finds the max x, y and z values from a list of {@link Point3D}s
      * 
      * @param points
      * @return a {@link Point3D} with the max x, y and z values
      */
     static Point3D max(Point3D... points) {
-        try {
-            double x = points[0].getX();
-            double y = points[0].getY();
-            double z = points[0].getZ();
-            for (Point3D p : points) {
-                x = Double.max(p.getX(), x);
-                y = Double.max(p.getY(), y);
-                z = Double.max(p.getZ(), z);
-            }
-            return new Point3D(x, y, z);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Can't find maximum point of infinite geometry");
+        double x = points[0].getX();
+        double y = points[0].getY();
+        double z = points[0].getZ();
+        for (Point3D p : points) {
+            x = Double.max(p.getX(), x);
+            y = Double.max(p.getY(), y);
+            z = Double.max(p.getZ(), z);
         }
+        return new Point3D(x, y, z);
     }
 
 }

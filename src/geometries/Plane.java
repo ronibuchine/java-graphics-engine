@@ -88,13 +88,13 @@ public class Plane extends Geometry {
     @Override
     public Point3D getMinPoint() {
         // Plane has no min point
-        return null;
+        throw new IllegalArgumentException("Plane has no minimum point");
     }
 
     @Override
     public Point3D getMaxPoint() {
         // Plane has no max point
-        return null;
+        throw new IllegalArgumentException("Plane has no minimum point");
     }
 
 }
