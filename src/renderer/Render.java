@@ -118,6 +118,8 @@ public class Render {
         if (imageWriter == null || camera == null || rayTracer == null)
             throw new MissingResourceException("One of the Rendering components is null", null, null);
 
+		long startTime = System.nanoTime();
+
 		final int nX = imageWriter.getNx();
 		final int nY = imageWriter.getNy();
 
@@ -140,7 +142,7 @@ public class Render {
 
 		// Wait for all threads to finish
 		for (Thread thread : threads) try { thread.join(); } catch (Exception e) {}
-		if (_print) System.out.printf("\r finished\n");//("\r100%%\n");
+		if (_print) System.out.printf("\r finished " + imageWriter.getImageName() + ".png (" + (System.nanoTime() - startTime) + ")\n");//("\r100%%\n");
 	}
 
 	/**

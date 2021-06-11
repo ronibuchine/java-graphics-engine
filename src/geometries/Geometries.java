@@ -88,4 +88,55 @@ public class Geometries implements Intersectable {
         return BoundingBox.max(points.toArray(new Point3D[0]));
     } 
 
+    /**
+     * Method that returns a Geometries object with all finite Geometry's organized in {@link BoundingBox}s
+     * @return
+     */
+    public Geometries createHierarchy() {
+        Geometries g = new Geometries();
+        Geometries f = this.flatten();
+
+        //remove all infinite Geometry's
+        for (Intersectable i : f.geometries) {
+            try {
+                i.getMinPoint();
+            } catch (IllegalArgumentException e) {
+                g.add(i);
+                f.geometries.remove(i);
+            }
+        }
+
+        //sort out the finite Geometry's into regions
+        BoundingBox[] regions = new BoundingBox[8];
+        Point3D center = f.getMiddle();
+        for (Intersectable i : f.geometries) {
+            int n = 0;
+            n += i.getMiddle().getX() < center.getX() ? 0 : 1;
+            n += i.getMiddle().getY() < center.getY() ? 0 : 2;
+            n += i.getMiddle().getZ() < center.getZ() ? 0 : 4;
+            if (regions[n] == null) regions[n] = new BoundingBox(i);
+            else regions[n].add(i);
+        }
+        for (BoundingBox i : regions) {
+            if (i != null) g.add(i);
+        }
+        return g;
+    }
+    /**
+     * Helper function that creates a new Geometries instance without any sub-Geometries (flattens the list)
+     * @return
+     */
+    private Geometries flatten() {
+        Geometries g = new Geometries();
+        for (Intersectable i : geometries) {
+            if (i instanceof Geometries) {
+                ((Geometries)i).flatten().geometries.forEach(x -> g.add(x));
+            }
+            else {
+                g.add(i);
+            }
+        }
+        return g;
+    }
+
 }

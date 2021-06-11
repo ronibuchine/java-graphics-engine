@@ -82,4 +82,12 @@ public interface Intersectable {
      * @return
      */
     public abstract Point3D getMaxPoint();
+    default Point3D getMiddle() {
+        Point3D min = getMinPoint();
+        Point3D max = getMaxPoint();
+        return new Point3D(
+            (min.getX() + max.getX()) / 2,
+            (min.getY() + max.getY()) / 2,
+            (min.getZ() + max.getZ()) / 2);
+    }
 }
