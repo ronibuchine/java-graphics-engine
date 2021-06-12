@@ -1564,7 +1564,7 @@ public class TeapotTest {
                 Render render = new Render() //
                                 .setCamera(camera) //
                                 .setImageWriter(imageWriter) //
-                                .setRayTracer(new BasicRayTracer(scene).setRayCount(20)) //
+                                .setRayTracer(new BasicRayTracer(scene).setRayCount(5)) //
                                 .setMultithreading(3).setDebugPrint();
                 render.renderImage();
                 // render.printGrid(50, new Color(java.awt.Color.YELLOW));

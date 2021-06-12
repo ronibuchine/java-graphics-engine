@@ -92,12 +92,12 @@ public class BoundingBox extends Geometries {
         Point3D rDir = r.getDir().getHead();
         Point3D rStart = r.getStartPoint();
         for (int i = 0; i < 3; ++i) {
-            double coord = getCoord(rDir, i);
+            double coord = rDir.getCoord(i);
             if (coord == 0)
                 continue;
             double invD = alignZero(1 / coord);
-            double t0 = alignZero((getCoord(min, i) - getCoord(rStart, i)) * invD);
-            double t1 = alignZero((getCoord(max, i) - getCoord(rStart, i)) * invD);
+            double t0 = alignZero((min.getCoord(i) - rStart.getCoord(i)) * invD);
+            double t1 = alignZero((max.getCoord(i) - rStart.getCoord(i)) * invD);
             if (invD < 0) {
                 double temp = t1;
                 t1 = t0;
@@ -109,22 +109,6 @@ public class BoundingBox extends Geometries {
                 return false;
         }
         return true;
-    }
-
-    /**
-     * helper function to get specific coordinnate from a {@link Point3D}
-     */
-    private double getCoord(Point3D p, int c) {
-        switch (c) {
-            case 1:
-                return p.getX();
-            case 2:
-                return p.getY();
-            case 3:
-                return p.getZ();
-            default:
-                return 0;
-        }
     }
 
     /**

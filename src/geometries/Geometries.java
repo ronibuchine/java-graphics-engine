@@ -92,6 +92,7 @@ public class Geometries implements Intersectable {
      * Method that returns a Geometries object with all finite Geometry's organized in {@link BoundingBox}s
      * @return
      */
+    /*
     public Geometries createHierarchy() {
         Geometries g = new Geometries();
         Geometries f = this.flatten();
@@ -121,7 +122,33 @@ public class Geometries implements Intersectable {
             if (i != null) g.add(i);
         }
         return g;
+    }*/
+
+    public Geometries createHierarchy() {
+        Geometries g = new Geometries();
+        BoundingBox f = new BoundingBox();
+
+        //remove all infinite Geometry's
+        for (Intersectable i : this.flatten().geometries) {
+            try {
+                i.getMinPoint();
+                f.add(i);
+            } catch (IllegalArgumentException e) {
+                g.add(i);
+            }
+        }
+
+        int longestAxis = calcLongestAxis(f);
+        double middle = (f.getMaxPoint().getCoord(longestAxis) - f.getMinPoint().getCoord(longestAxis)) / 2;
+
+        BoundingBox b0 = new BoundingBox(splitByAxis(f, longestAxis, middle, true).toArray(new Intersectable[0]));
+        BoundingBox b1 = new BoundingBox(splitByAxis(f, longestAxis, middle, false).toArray(new Intersectable[0]));
+        if (b0.geometries.isEmpty() || b1.geometries.isEmpty()) g.add(f);
+        else g.add(b0, b1);
+
+        return g;
     }
+
     /**
      * Helper function that creates a new Geometries instance without any sub-Geometries (flattens the list)
      * @return
@@ -137,6 +164,37 @@ public class Geometries implements Intersectable {
             }
         }
         return g;
+    }
+
+    /**
+     * Helper function that finds longest axis of a BoundingBox
+     * 0 = x-axis, 1 = y-axis, 2 = z-axis
+     * @param b
+     * @return
+     */
+    private int calcLongestAxis(BoundingBox b) {
+        int longestAxis = 0;
+        double axisLength = b.getMaxPoint().getX() - b.getMinPoint().getX();
+        for (int i = 1; i < 3; ++i) {
+            if (b.getMaxPoint().getCoord(i) - b.getMinPoint().getCoord(i) > axisLength) longestAxis = i;
+        }
+        return longestAxis;
+    }
+
+    /**
+     * Helper function that finds all Geometry's on a given half of a BoundingBox
+     * @param b
+     * @param axis the axis of the BoundingBox to split
+     * @param middle the coordinate of the axis
+     * @param greater
+     * @return
+     */
+    private List<Intersectable> splitByAxis(BoundingBox b, int axis, double middle, boolean greater) {
+        List<Intersectable> list = new LinkedList<>();
+        for (Intersectable i : b.geometries) {
+            if ((greater && i.getMiddle().getCoord(axis) >= middle) || (!greater && i.getMiddle().getCoord(axis) < middle)) list.add(i);
+        }
+        return list;
     }
 
 }

@@ -60,6 +60,22 @@ public class Point3D {
     public double getZ() {return z.coord;}
 
     /**
+     * helper function to get specific coordinnate from a {@link Point3D}
+     */
+    public double getCoord(int c) {
+        switch (c) {
+            case 0:
+                return getX();
+            case 1:
+                return getY();
+            case 2:
+                return getZ();
+            default:
+                throw new IllegalArgumentException("Coordinate must be 0, 1, or 2");
+        }
+    }
+
+    /**
      * Constructor that takes three double values and initializes the {@link Coordinate}s with those values
      * @param x double value
      * @param y double value
