@@ -99,13 +99,16 @@ public class BoundingBox extends Geometries {
             double t0 = alignZero((min.getCoord(i) - rStart.getCoord(i)) * invD);
             double t1 = alignZero((max.getCoord(i) - rStart.getCoord(i)) * invD);
             if (invD < 0) {
-                double temp = t1;
-                t1 = t0;
-                t0 = temp;
+                //double temp = t1;
+                //t1 = t0;
+                //t0 = temp;
+                tmin = t1 > tmin ? t1 : tmin;
+                tmax = t0 < tmax ? t0 : tmax;
+            } else {
+                tmin = t0 > tmin ? t0 : tmin;
+                tmax = t1 < tmax ? t1 : tmax;
             }
-            tmin = t0 > tmin ? t0 : tmin;
-            tmax = t1 < tmax ? t1 : tmax;
-            if (tmax <= tmin)
+            if (tmax < tmin)
                 return false;
         }
         return true;
