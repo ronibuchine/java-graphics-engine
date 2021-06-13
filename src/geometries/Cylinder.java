@@ -88,6 +88,7 @@ public class Cylinder extends Tube {
 
     @Override
     public Point3D getMinPoint() {
+        /*
         Vector dir1;
         Vector dir2;
         try {
@@ -99,11 +100,13 @@ public class Cylinder extends Tube {
             dir2 = dir.getDir().crossProduct(new Vector(0, 1, 0)).normalize().scale(this.radius);
         } catch (IllegalArgumentException e) {
             dir2 = dir.getDir().crossProduct(new Vector(1, 0, 0)).normalize().scale(this.radius);
-        }
+        }*/
 
         Point3D start = dir.getStartPoint();
         Point3D end = dir.getPoint(height);
+        return BoundingBox.min(new Sphere(start, radius).getMinPoint(), new Sphere(end, radius).getMinPoint());
 
+        /*
         return BoundingBox.min(
             start.add(dir1),
             start.add(dir1.scale(-1)),
@@ -113,11 +116,12 @@ public class Cylinder extends Tube {
             end.add(dir1.scale(-1)),
             end.add(dir2),
             end.add(dir2.scale(-1))
-        );
+        );*/
     }
 
     @Override
     public Point3D getMaxPoint() {
+        /*
         Vector dir1;
         Vector dir2;
         try {
@@ -130,10 +134,12 @@ public class Cylinder extends Tube {
         } catch (IllegalArgumentException e) {
             dir2 = dir.getDir().crossProduct(new Vector(1, 0, 0)).normalize().scale(this.radius);
         }
-
+        */
         Point3D start = dir.getStartPoint();
         Point3D end = dir.getPoint(height);
+        return BoundingBox.max(new Sphere(start, radius).getMaxPoint(), new Sphere(end, radius).getMaxPoint());
 
+        /*
         return BoundingBox.max(
             start.add(dir1),
             start.add(dir1.scale(-1)),
@@ -143,7 +149,7 @@ public class Cylinder extends Tube {
             end.add(dir1.scale(-1)),
             end.add(dir2),
             end.add(dir2.scale(-1))
-        );
+        );*/
     }
 
 }
