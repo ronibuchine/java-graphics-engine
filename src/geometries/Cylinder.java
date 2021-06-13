@@ -88,68 +88,34 @@ public class Cylinder extends Tube {
 
     @Override
     public Point3D getMinPoint() {
-        /*
-        Vector dir1;
-        Vector dir2;
-        try {
-            dir1 = dir.getDir().crossProduct(new Vector(0, 0, 1)).normalize().scale(this.radius);
-        } catch (IllegalArgumentException e) {
-            dir1 = dir.getDir().crossProduct(new Vector(1, 0, 0)).normalize().scale(this.radius);
-        }
-        try {
-            dir2 = dir.getDir().crossProduct(new Vector(0, 1, 0)).normalize().scale(this.radius);
-        } catch (IllegalArgumentException e) {
-            dir2 = dir.getDir().crossProduct(new Vector(1, 0, 0)).normalize().scale(this.radius);
-        }*/
 
         Point3D start = dir.getStartPoint();
         Point3D end = dir.getPoint(height);
-        return BoundingBox.min(new Sphere(start, radius).getMinPoint(), new Sphere(end, radius).getMinPoint());
+        Point3D normal = dir.getDir().getHead();
+        double ax = Math.acos(normal.getX());
+        double ay = Math.acos(normal.getY());
+        double az = Math.acos(normal.getZ());
 
-        /*
-        return BoundingBox.min(
-            start.add(dir1),
-            start.add(dir1.scale(-1)),
-            start.add(dir2),
-            start.add(dir2.scale(-1)),
-            end.add(dir1),
-            end.add(dir1.scale(-1)),
-            end.add(dir2),
-            end.add(dir2.scale(-1))
-        );*/
+        Vector offset = new Vector(Math.sin(ax), Math.sin(ay), Math.sin(az));
+        offset = offset.scale(-radius);
+
+        return BoundingBox.min(start.add(offset), end.add(offset));
     }
 
     @Override
     public Point3D getMaxPoint() {
-        /*
-        Vector dir1;
-        Vector dir2;
-        try {
-            dir1 = dir.getDir().crossProduct(new Vector(0, 0, 1)).normalize().scale(this.radius);
-        } catch (IllegalArgumentException e) {
-            dir1 = dir.getDir().crossProduct(new Vector(1, 0, 0)).normalize().scale(this.radius);
-        }
-        try {
-            dir2 = dir.getDir().crossProduct(new Vector(0, 1, 0)).normalize().scale(this.radius);
-        } catch (IllegalArgumentException e) {
-            dir2 = dir.getDir().crossProduct(new Vector(1, 0, 0)).normalize().scale(this.radius);
-        }
-        */
+
         Point3D start = dir.getStartPoint();
         Point3D end = dir.getPoint(height);
-        return BoundingBox.max(new Sphere(start, radius).getMaxPoint(), new Sphere(end, radius).getMaxPoint());
+        Point3D normal = dir.getDir().getHead();
+        double ax = Math.acos(normal.getX());
+        double ay = Math.acos(normal.getY());
+        double az = Math.acos(normal.getZ());
 
-        /*
-        return BoundingBox.max(
-            start.add(dir1),
-            start.add(dir1.scale(-1)),
-            start.add(dir2),
-            start.add(dir2.scale(-1)),
-            end.add(dir1),
-            end.add(dir1.scale(-1)),
-            end.add(dir2),
-            end.add(dir2.scale(-1))
-        );*/
+        Vector offset = new Vector(Math.sin(ax), Math.sin(ay), Math.sin(az));
+        offset = offset.scale(radius);
+        
+        return BoundingBox.max(start.add(offset), end.add(offset));
     }
 
 }
