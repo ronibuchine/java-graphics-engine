@@ -13,20 +13,23 @@ import scene.Scene;
  */
 public class Render {
 
-    ImageWriter imageWriter;
+	ImageWriter imageWriter;
 
-    Camera camera;
+	Camera camera;
 
-    RayTraceBase rayTracer;
+	RayTraceBase rayTracer;
 
-    private int _threads = 1;
+	private int _threads = 1;
 	private final int SPARE_THREADS = 2;
 	private boolean _print = false;
-    /**
-	 * Pixel is an internal helper class whose objects are associated with a Render object that
-	 * they are generated in scope of. It is used for multithreading in the Renderer and for follow up
-	 * its progress.<br/>
-	 * There is a main follow up object and several secondary objects - one in each thread.
+
+	/**
+	 * Pixel is an internal helper class whose objects are associated with a Render
+	 * object that they are generated in scope of. It is used for multithreading in
+	 * the Renderer and for follow up its progress.<br/>
+	 * There is a main follow up object and several secondary objects - one in each
+	 * thread.
+	 * 
 	 * @author Dan
 	 *
 	 */
@@ -42,6 +45,7 @@ public class Render {
 
 		/**
 		 * The constructor for initializing the main follow up Pixel object
+		 * 
 		 * @param maxRows the amount of pixel rows
 		 * @param maxCols the amount of pixel columns
 		 */
@@ -50,22 +54,27 @@ public class Render {
 			_maxCols = maxCols;
 			_pixels = maxRows * maxCols;
 			_nextCounter = _pixels / 100;
-			if (Render.this._print) System.out.printf("\r %02d%%", _percents);
+			if (Render.this._print)
+				System.out.printf("\r %02d%%", _percents);
 		}
 
 		/**
-		 *  Default constructor for secondary Pixel objects
+		 * Default constructor for secondary Pixel objects
 		 */
-		public Pixel() {}
+		public Pixel() {
+		}
 
 		/**
-		 * Internal function for thread-safe manipulating of main follow up Pixel object - this function is
-		 * critical section for all the threads, and main Pixel object data is the shared data of this critical
-		 * section.<br/>
+		 * Internal function for thread-safe manipulating of main follow up Pixel object
+		 * - this function is critical section for all the threads, and main Pixel
+		 * object data is the shared data of this critical section.<br/>
 		 * The function provides next pixel number each call.
-		 * @param target target secondary Pixel object to copy the row/column of the next pixel 
-		 * @return the progress percentage for follow up: if it is 0 - nothing to print, if it is -1 - the task is
-		 * finished, any other value - the progress percentage (only when it changes)
+		 * 
+		 * @param target target secondary Pixel object to copy the row/column of the
+		 *               next pixel
+		 * @return the progress percentage for follow up: if it is 0 - nothing to print,
+		 *         if it is -1 - the task is finished, any other value - the progress
+		 *         percentage (only when it changes)
 		 */
 		private synchronized int nextP(Pixel target) {
 			++col;
@@ -96,16 +105,19 @@ public class Render {
 		/**
 		 * Public function for getting next pixel number into secondary Pixel object.
 		 * The function prints also progress percentage in the console window.
-		 * @param target target secondary Pixel object to copy the row/column of the next pixel 
+		 * 
+		 * @param target target secondary Pixel object to copy the row/column of the
+		 *               next pixel
 		 * @return true if the work still in progress, -1 if it's done
 		 */
 		public boolean nextPixel(Pixel target) {
 			int percents = nextP(target);
 			if (percents > 0)
-				if (Render.this._print) System.out.printf("\r %02d%%", percents);
+				if (Render.this._print)
+					System.out.printf("\r %02d%%", percents);
 			if (percents >= 0)
 				return true;
-			//if (Render.this._print) System.out.printf("\r %02d%%", 100);
+			// if (Render.this._print) System.out.printf("\r %02d%%", 100);
 			return false;
 		}
 	}
@@ -114,9 +126,9 @@ public class Render {
 	 * This function renders image's pixel color map from the scene included with
 	 * the Renderer object
 	 */
-    public void renderImage() {
-        if (imageWriter == null || camera == null || rayTracer == null)
-            throw new MissingResourceException("One of the Rendering components is null", null, null);
+	public void renderImage() {
+		if (imageWriter == null || camera == null || rayTracer == null)
+			throw new MissingResourceException("One of the Rendering components is null", null, null);
 
 		long startTime = System.nanoTime();
 
@@ -138,11 +150,18 @@ public class Render {
 		}
 
 		// Start threads
-		for (Thread thread : threads) thread.start();
+		for (Thread thread : threads)
+			thread.start();
 
 		// Wait for all threads to finish
-		for (Thread thread : threads) try { thread.join(); } catch (Exception e) {}
-		if (_print) System.out.printf("\r finished " + imageWriter.getImageName() + ".png (" + (System.nanoTime() - startTime) + ")\n");//("\r100%%\n");
+		for (Thread thread : threads)
+			try {
+				thread.join();
+			} catch (Exception e) {
+			}
+		if (_print)
+			System.out.printf("\r finished " + imageWriter.getImageName() + ".png ("
+					+ ((System.nanoTime() - startTime) / 1000000000.0) + " seconds)\n");// ("\r100%%\n");
 	}
 
 	/**
@@ -177,69 +196,69 @@ public class Render {
 		return this;
 	}
 
-    /**
-     * sets the image writer field
-     * 
-     * @param imageWriter
-     * @return this The object itself
-     */
-    public Render setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
-        return this;
-    }
+	/**
+	 * sets the image writer field
+	 * 
+	 * @param imageWriter
+	 * @return this The object itself
+	 */
+	public Render setImageWriter(ImageWriter imageWriter) {
+		this.imageWriter = imageWriter;
+		return this;
+	}
 
-    /**
-     * Sets the scene field
-     * 
-     * @param scene
-     * @return this The object itself
-     */
-    public Render setScene(Scene scene) {
-        rayTracer.scene = scene;
-        return this;
-    }
+	/**
+	 * Sets the scene field
+	 * 
+	 * @param scene
+	 * @return this The object itself
+	 */
+	public Render setScene(Scene scene) {
+		rayTracer.scene = scene;
+		return this;
+	}
 
-    /**
-     * Sets the camera field
-     * 
-     * @param camera
-     * @return this The object itself
-     */
-    public Render setCamera(Camera camera) {
-        this.camera = camera;
-        return this;
-    }
+	/**
+	 * Sets the camera field
+	 * 
+	 * @param camera
+	 * @return this The object itself
+	 */
+	public Render setCamera(Camera camera) {
+		this.camera = camera;
+		return this;
+	}
 
-    /**
-     * Sets the ray tracer field
-     * 
-     * @param rayTracer
-     * @return this The object itself
-     */
-    public Render setRayTracer(BasicRayTracer rayTracer) {
-        this.rayTracer = rayTracer;
-        return this;
-    }
+	/**
+	 * Sets the ray tracer field
+	 * 
+	 * @param rayTracer
+	 * @return this The object itself
+	 */
+	public Render setRayTracer(BasicRayTracer rayTracer) {
+		this.rayTracer = rayTracer;
+		return this;
+	}
 
-    /**
-     * method that prints grid lines to be rendered
-     * RUN THIS AFTER {@link Render#renderImage()}
-     * 
-     * @param interval to make the lines
-     * @param color    color of the grid lines
-     */
-    public void printGrid(int interval, Color color) {
-        imageWriter.printGrid(interval, color);
-    }
+	/**
+	 * method that prints grid lines to be rendered RUN THIS AFTER
+	 * {@link Render#renderImage()}
+	 * 
+	 * @param interval to make the lines
+	 * @param color    color of the grid lines
+	 */
+	public void printGrid(int interval, Color color) {
+		imageWriter.printGrid(interval, color);
+	}
 
-    /**
-     * Method calls {@link ImageWriter} method of writeToImage() assuming that it is
-     * not a null value
-     */
-    public void writeToImage() {
-        if (imageWriter != null) {
-            imageWriter.writeToImage();
-        } else
-            throw new MissingResourceException("imageWriter has a null value", null, null);
-    }
+	/**
+	 * Method calls {@link ImageWriter} method of writeToImage() assuming that it is
+	 * not a null value
+	 */
+	public void writeToImage() {
+		if (imageWriter != null) {
+			imageWriter.writeToImage();
+		} else
+			throw new MissingResourceException("imageWriter has a null value", null, null);
+	}
 }

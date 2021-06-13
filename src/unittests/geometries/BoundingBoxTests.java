@@ -5,14 +5,27 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+
+import elements.AmbientLight;
+import elements.Camera;
+import elements.PointLight;
+import elements.SpotLight;
 import geometries.BoundingBox;
+import geometries.Cylinder;
 import geometries.Geometries;
 import geometries.Plane;
+import geometries.Polygon;
 import geometries.Sphere;
 import geometries.Triangle;
+import primitives.Color;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+import renderer.BasicRayTracer;
+import renderer.ImageWriter;
+import renderer.Render;
+import scene.Scene;
 
 /**
  * Testing class for Bounding Box performance enhancements
@@ -22,6 +35,7 @@ import primitives.Vector;
  */
 public class BoundingBoxTests {
 
+    private Scene scene = new Scene("Test scene").setAmbientLight(new AmbientLight(new Color(50, 0, 0), .6));
     Triangle t1 = new Triangle(Point3D.ZERO, new Point3D(10, 10, 0), new Point3D(10, 0, 10));
     Sphere s1 = new Sphere(Point3D.ZERO, 5);
     Plane p1 = new Plane(new Vector(0, 0, 1), Point3D.ZERO);
@@ -74,6 +88,70 @@ public class BoundingBoxTests {
         Ray ray = new Ray(new Point3D(0, -50, 0), new Vector(0, 1, 0));
 
         assertTrue(b1.getsIntersected(ray));
+
+    }
+
+    @Test
+    public void performanceTestManyObjects() {
+
+        Camera camera = new Camera(new Point3D(0, 150, 400), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+                .setViewPlaneSize(150, 150).setDistance(300);
+        camera.pitch(-15);
+
+        scene.geometries.add(
+                new Plane(new Vector(0, 1, 0), Point3D.ZERO).setEmission(new Color(50, 150, 100))
+                        .setMaterial(new Material().setKd(.7).setKs(.7).setShininess(100)),
+                // medium podium
+                new Cylinder(15, new Ray(new Point3D(0, 0, -50), new Vector(0, 1, 0)), 1)
+                        .setEmission(new Color(30, 80, 90))
+                        .setMaterial(new Material().setKd(.7).setKs(.7).setShininess(100)),
+                new Cylinder(5, new Ray(new Point3D(0, 1, -50), new Vector(0, 1, 0)), 20)
+                        .setEmission(new Color(30, 80, 90))
+                        .setMaterial(new Material().setKd(.7).setKs(.7).setShininess(100)),
+                new Cylinder(25, new Ray(new Point3D(0, 21, -50), new Vector(0, 1, 0)), 3)
+                        .setEmission(new Color(30, 80, 90))
+                        .setMaterial(new Material().setKd(.5).setKs(.5).setShininess(50).setKr(.6)),
+                new Sphere(new Point3D(0, 34, -50), 10).setEmission(new Color(30, 80, 90))
+                        .setMaterial(new Material().setKd(.8).setKs(.8).setShininess(100)),
+                // short podium
+                new Cylinder(15, new Ray(new Point3D(-35, 0, 50), new Vector(0, 1, 0)), 1)
+                        .setEmission(new Color(30, 80, 90))
+                        .setMaterial(new Material().setKd(.7).setKs(.7).setShininess(100)),
+                new Cylinder(5, new Ray(new Point3D(-35, 1, 50), new Vector(0, 1, 0)), 10)
+                        .setEmission(new Color(30, 80, 90))
+                        .setMaterial(new Material().setKd(.7).setKs(.7).setShininess(100)),
+                new Cylinder(25, new Ray(new Point3D(-35, 11, 50), new Vector(0, 1, 0)), 3)
+                        .setEmission(new Color(30, 80, 90))
+                        .setMaterial(new Material().setKd(.5).setKs(.5).setShininess(50).setKr(.7)),
+                new Sphere(new Point3D(-35, 24, 50), 10).setEmission(new Color(130, 80, 90))
+                        .setMaterial(new Material().setKd(.7).setKs(.7).setShininess(100)),
+                // tall podium
+                new Cylinder(15, new Ray(new Point3D(35, 0, 50), new Vector(0, 1, 0)), 1)
+                        .setEmission(new Color(30, 80, 90))
+                        .setMaterial(new Material().setKd(.7).setKs(.7).setShininess(100)),
+                new Cylinder(5, new Ray(new Point3D(35, 1, 50), new Vector(0, 1, 0)), 30)
+                        .setEmission(new Color(30, 80, 90))
+                        .setMaterial(new Material().setKd(.7).setKs(.7).setShininess(100)),
+                new Cylinder(25, new Ray(new Point3D(35, 31, 50), new Vector(0, 1, 0)), 3)
+                        .setEmission(new Color(30, 80, 90))
+                        .setMaterial(new Material().setKd(.5).setKs(.5).setShininess(50).setKr(.7)),
+                new Sphere(new Point3D(35, 44, 50), 10).setEmission(new Color(70, 180, 6))
+                        .setMaterial(new Material().setKd(.7).setKs(.7).setShininess(100)),
+                // outer sphere
+
+                new Polygon(new Point3D(-80, 0, 0), new Point3D(-80, 80, 0), new Point3D(80, 80, 0),
+                        new Point3D(80, 0, 0)).setEmission(new Color(0, 0, 70)).setMaterial(
+                                new Material().setKd(.5).setKs(.5).setShininess(50).setKt(.8).setGloss(20)));
+
+        scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(-100, 30, -200)));
+        scene.lights.add(new PointLight(new Color(100, 100, 100), new Point3D(2500, 350, 450)));
+
+        Render render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)) // .setCamera(camera)
+                .setCamera(camera) // //
+                .setRayTracer(new BasicRayTracer(scene.createHierarchy()).setRayCount(10)).setMultithreading(0)
+                .setDebugPrint();
+        render.renderImage();
+        render.writeToImage();
 
     }
 }
