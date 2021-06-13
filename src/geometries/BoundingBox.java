@@ -147,4 +147,14 @@ public class BoundingBox extends Geometries {
         return new Point3D(x, y, z);
     }
 
+    @Override
+    public BoundingBox createHierarchy() {
+        int longestAxis = calcLongestAxis(this);
+        double middle = ((this.getMaxPoint().getCoord(longestAxis) - this.getMinPoint().getCoord(longestAxis)) / 2) + this.getMinPoint().getCoord(longestAxis);
+
+        BoundingBox b0 = new BoundingBox(splitByAxis(this, longestAxis, middle, true).toArray(new Intersectable[0]));
+        BoundingBox b1 = new BoundingBox(splitByAxis(this, longestAxis, middle, false).toArray(new Intersectable[0]));
+        if (b0.geometries.isEmpty() || b1.geometries.isEmpty()) return this;
+        return new BoundingBox(b0.createHierarchy(), b1.createHierarchy());
+    }
 }

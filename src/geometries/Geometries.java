@@ -138,14 +138,9 @@ public class Geometries implements Intersectable {
             }
         }
 
-        int longestAxis = calcLongestAxis(f);
-        double middle = (f.getMaxPoint().getCoord(longestAxis) - f.getMinPoint().getCoord(longestAxis)) / 2;
-
-        BoundingBox b0 = new BoundingBox(splitByAxis(f, longestAxis, middle, true).toArray(new Intersectable[0]));
-        BoundingBox b1 = new BoundingBox(splitByAxis(f, longestAxis, middle, false).toArray(new Intersectable[0]));
-        if (b0.geometries.isEmpty() || b1.geometries.isEmpty()) g.add(f);
-        else g.add(b0, b1);
-
+        if (!f.geometries.isEmpty()) f = f.createHierarchy();
+        if (g.geometries.isEmpty()) return f;
+        if (!f.geometries.isEmpty()) g.add(f);
         return g;
     }
 
@@ -172,7 +167,7 @@ public class Geometries implements Intersectable {
      * @param b
      * @return
      */
-    private int calcLongestAxis(BoundingBox b) {
+    protected int calcLongestAxis(BoundingBox b) {
         int longestAxis = 0;
         double axisLength = b.getMaxPoint().getX() - b.getMinPoint().getX();
         for (int i = 1; i < 3; ++i) {
@@ -189,7 +184,7 @@ public class Geometries implements Intersectable {
      * @param greater
      * @return
      */
-    private List<Intersectable> splitByAxis(BoundingBox b, int axis, double middle, boolean greater) {
+    protected List<Intersectable> splitByAxis(BoundingBox b, int axis, double middle, boolean greater) {
         List<Intersectable> list = new LinkedList<>();
         for (Intersectable i : b.geometries) {
             if ((greater && i.getMiddle().getCoord(axis) >= middle) || (!greater && i.getMiddle().getCoord(axis) < middle)) list.add(i);
