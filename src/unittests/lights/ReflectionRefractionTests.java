@@ -147,7 +147,7 @@ public class ReflectionRefractionTests {
 		Render render = new Render() //
 				.setImageWriter(new ImageWriter("manyShapes", 1000, 1000)) //
 				.setCamera(camera) //
-				.setRayTracer(new BasicRayTracer(scene)).setMultithreading(3).setDebugPrint();
+				.setRayTracer(new BasicRayTracer(scene.createHierarchy())).setMultithreading(3).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 
@@ -189,10 +189,17 @@ public class ReflectionRefractionTests {
 		scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(60, 70, -60)));
 		scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(-60, 70, -60)));
 
-		Render render = new Render() //
+		Render render = new Render().setImageWriter(new ImageWriter("diffusedglass", 1000, 1000)) // .setCamera(camera)
+				.setCamera(camera) // //
+				.setRayTracer(new BasicRayTracer(scene).setRayCount(100)).setMultithreading(3).setDebugPrint();
+		render.renderImage();
+		render.writeToImage();
+
+		render = new Render() //
 				.setImageWriter(new ImageWriter("diffusedglass", 1000, 1000)) //
 				.setCamera(camera) //
-				.setRayTracer(new BasicRayTracer(scene).setRayCount(100)).setMultithreading(3).setDebugPrint();
+				.setRayTracer(new BasicRayTracer(scene.createHierarchy()).setRayCount(100)).setMultithreading(3)
+				.setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 	}
@@ -215,5 +222,6 @@ public class ReflectionRefractionTests {
 				.setRayTracer(new BasicRayTracer(scene).setRayCount(100)).setMultithreading(3).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
+
 	}
 }
