@@ -145,7 +145,10 @@ public class BoundingBoxTests {
                                 new Polygon(new Point3D(-80, 0, 0), new Point3D(-80, 80, 0), new Point3D(80, 80, 0),
                                                 new Point3D(80, 0, 0)).setEmission(new Color(0, 0, 70)).setMaterial(
                                                                 new Material().setKd(.5).setKs(.5).setShininess(50)
-                                                                                .setKt(.8).setGloss(20)));
+                                                                                .setKt(.8).setGloss(20)),
+                                new Sphere(new Point3D(100, 150, -100), 50).setEmission(new Color(50, 50, 50))
+                                                .setMaterial(new Material().setKd(.5).setKs(.5).setShininess(70)
+                                                                .setKr(.4).setGloss(20)));
 
                 // scene.lights.add(new PointLight(new Color(100, 100, 100), new Point3D(-100,
                 // 30, -200)));
