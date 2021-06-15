@@ -146,7 +146,7 @@ public class BoundingBoxTests {
                                                 new Point3D(80, 0, 0)).setEmission(new Color(0, 0, 70)).setMaterial(
                                                                 new Material().setKd(.5).setKs(.5).setShininess(50)
                                                                                 .setKt(.8).setGloss(20)),
-                                new Sphere(new Point3D(100, 150, -100), 50).setEmission(new Color(50, 50, 50))
+                                new Sphere(new Point3D(100, 110, -100), 38).setEmission(new Color(50, 50, 50))
                                                 .setMaterial(new Material().setKd(.5).setKs(.5).setShininess(70)
                                                                 .setKr(.4).setGloss(20)));
 
@@ -157,23 +157,25 @@ public class BoundingBoxTests {
                 scene.lights.add(new PointLight(new Color(100, 100, 100), new Point3D(32, 32, 55)));
                 scene.lights.add(new PointLight(new Color(100, 100, 100), new Point3D(-32, 12, 55)));
                 scene.lights.add(new PointLight(new Color(100, 100, 100), new Point3D(1, 22, -50)));
+
                 // unoptimized 1726 seconds
-                Render render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)) // .setCamera(camera)
-                                .setCamera(camera) // //
-                                .setRayTracer(new BasicRayTracer(scene).setRayCount(50)).setDebugPrint();
-                render.renderImage();
-                render.writeToImage();
-                // threading
-                render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)) // .setCamera(camera)
-                                .setCamera(camera) // //
-                                .setRayTracer(new BasicRayTracer(scene).setRayCount(50)).setMultithreading(3)
+                Render render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)).setCamera(camera)
+                                .setCamera(camera).setRayTracer(new BasicRayTracer(scene).setRayCount(300))
                                 .setDebugPrint();
                 render.renderImage();
                 render.writeToImage();
+
+                // threading
+                render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)).setCamera(camera)
+                                .setCamera(camera).setRayTracer(new BasicRayTracer(scene).setRayCount(300))
+                                .setMultithreading(3).setDebugPrint();
+                render.renderImage();
+                render.writeToImage();
+
                 // full optimization, threading + AABB
                 render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)) // .setCamera(camera)
                                 .setCamera(camera) // //
-                                .setRayTracer(new BasicRayTracer(scene.createHierarchy()).setRayCount(50))
+                                .setRayTracer(new BasicRayTracer(scene.createHierarchy()).setRayCount(300))
                                 .setMultithreading(3).setDebugPrint();
                 render.renderImage();
                 render.writeToImage();
