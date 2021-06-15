@@ -22,8 +22,8 @@ public class BasicRayTracer extends RayTraceBase {
      */
     private double DISTRIBUTION = 0;
 
-    public BasicRayTracer setDistribution(int spread) {
-        DISTRIBUTION = spread;
+    public BasicRayTracer setDistribution(int loops) {
+        DISTRIBUTION = loops;
         return this;
     }
 

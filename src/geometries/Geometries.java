@@ -78,14 +78,14 @@ public class Geometries implements Intersectable {
     public Point3D getMinPoint() {
         List<Point3D> points = new LinkedList<>();
         geometries.forEach(g -> points.add(g.getMinPoint()));
-        return BoundingBox.min(points.toArray(new Point3D[0]));
+        return Point3D.min(points.toArray(new Point3D[0]));
     }
 
     @Override
     public Point3D getMaxPoint() {
         List<Point3D> points = new LinkedList<>();
         geometries.forEach(g -> points.add(g.getMaxPoint()));
-        return BoundingBox.max(points.toArray(new Point3D[0]));
+        return Point3D.max(points.toArray(new Point3D[0]));
     } 
 
     /**

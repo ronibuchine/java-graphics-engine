@@ -141,12 +141,12 @@ public class Polygon extends Geometry {
 
 	@Override
 	public Point3D getMinPoint() {
-		return BoundingBox.min(vertices.toArray(new Point3D[0]));
+		return Point3D.min(vertices.toArray(new Point3D[0]));
 	}
 
 	@Override
 	public Point3D getMaxPoint() {
-		return BoundingBox.max(vertices.toArray(new Point3D[0]));
+		return Point3D.max(vertices.toArray(new Point3D[0]));
 	}
 	
 }

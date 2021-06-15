@@ -99,7 +99,7 @@ public class Cylinder extends Tube {
         Vector offset = new Vector(Math.sin(ax), Math.sin(ay), Math.sin(az));
         offset = offset.scale(-radius);
 
-        return BoundingBox.min(start.add(offset), end.add(offset));
+        return Point3D.min(start.add(offset), end.add(offset));
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Cylinder extends Tube {
         Vector offset = new Vector(Math.sin(ax), Math.sin(ay), Math.sin(az));
         offset = offset.scale(radius);
         
-        return BoundingBox.max(start.add(offset), end.add(offset));
+        return Point3D.max(start.add(offset), end.add(offset));
     }
 
 }
