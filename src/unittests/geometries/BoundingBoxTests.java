@@ -157,6 +157,12 @@ public class BoundingBoxTests {
 
                 Render render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)) // .setCamera(camera)
                                 .setCamera(camera) // //
+                                .setRayTracer(new BasicRayTracer(scene).setRayCount(50)).setDebugPrint();
+                render.renderImage();
+                render.writeToImage();
+
+                render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)) // .setCamera(camera)
+                                .setCamera(camera) // //
                                 .setRayTracer(new BasicRayTracer(scene.createHierarchy()).setRayCount(50))
                                 .setMultithreading(3).setDebugPrint();
                 render.renderImage();
