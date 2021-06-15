@@ -198,6 +198,15 @@ public class Vector {
         return new Vector(xVal, yVal, zVal);
     }
 
+    
+    public Vector calcVright() {
+        try {
+            return crossProduct(new Vector(0, 0, 1)).normalized();
+        } catch (IllegalArgumentException e) {
+            return crossProduct(new Vector(0, -1, 0)).normalized();
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

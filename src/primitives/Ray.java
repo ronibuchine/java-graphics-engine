@@ -151,7 +151,7 @@ public class Ray {
      * @param gp     intersection point
      * @param dir    direction to center the spread
      * @param spread narrowness of spread
-     * @param n      number of constructed rays to create
+     * @param rayCount      number of constructed rays to create
      * @param loops  number of times to loop in a circle (0 for random distribution)
      */
     public static List<Ray> constructRefractionRays(GeoPoint gp, Vector dir, double spread, double loops,
@@ -167,7 +167,7 @@ public class Ray {
         Point3D head = gp.point.add(delta);
         if (Double.isInfinite(spread))
             return List.of(new Ray(head, dir));
-        Vector vRight = calcVright(dir);
+        Vector vRight = dir.calcVright();
         Vector original = dir.scale(spread);
         rays.add(new Ray(head, original));
         
@@ -206,14 +206,6 @@ public class Ray {
                 list.add(ray);
         }
         return list;
-    }
-
-    private static Vector calcVright(Vector dir) {
-        try {
-            return dir.crossProduct(new Vector(0, 0, 1)).normalized();
-        } catch (IllegalArgumentException e) {
-            return dir.crossProduct(new Vector(0, -1, 0)).normalized();
-        }
     }
 
     /**
