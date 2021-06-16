@@ -158,24 +158,24 @@ public class BoundingBoxTests {
                 scene.lights.add(new PointLight(new Color(100, 100, 100), new Point3D(-32, 12, 55)));
                 scene.lights.add(new PointLight(new Color(100, 100, 100), new Point3D(1, 22, -50)));
 
-                // unoptimized 1726 seconds
+                // unoptimized 1714 seconds
                 Render render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)).setCamera(camera)
-                                .setCamera(camera).setRayTracer(new BasicRayTracer(scene).setRayCount(300))
+                                .setCamera(camera).setRayTracer(new BasicRayTracer(scene).setRayCount(50))
                                 .setDebugPrint();
                 render.renderImage();
                 render.writeToImage();
 
-                // threading
+                // threading 1228 seconds
                 render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)).setCamera(camera)
-                                .setCamera(camera).setRayTracer(new BasicRayTracer(scene).setRayCount(300))
+                                .setCamera(camera).setRayTracer(new BasicRayTracer(scene).setRayCount(50))
                                 .setMultithreading(3).setDebugPrint();
                 render.renderImage();
                 render.writeToImage();
 
-                // full optimization, threading + AABB
+                // full optimization, threading + AABB 660 seconds
                 render = new Render().setImageWriter(new ImageWriter("podiums", 1000, 1000)) // .setCamera(camera)
                                 .setCamera(camera) // //
-                                .setRayTracer(new BasicRayTracer(scene.createHierarchy()).setRayCount(300))
+                                .setRayTracer(new BasicRayTracer(scene.createHierarchy()).setRayCount(50))
                                 .setMultithreading(3).setDebugPrint();
                 render.renderImage();
                 render.writeToImage();
