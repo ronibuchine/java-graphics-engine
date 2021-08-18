@@ -138,5 +138,15 @@ public class Polygon extends Geometry {
 		p.geometry = this; //change GeoPoint's geometry to Polygon (instead of Plane)
 		return List.of(p); //point is inside polygon
 	}
+
+	@Override
+	public Point3D getMinPoint() {
+		return Point3D.min(vertices.toArray(new Point3D[0]));
+	}
+
+	@Override
+	public Point3D getMaxPoint() {
+		return Point3D.max(vertices.toArray(new Point3D[0]));
+	}
 	
 }

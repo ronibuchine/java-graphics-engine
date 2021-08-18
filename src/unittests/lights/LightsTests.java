@@ -235,25 +235,28 @@ public class LightsTests {
 		Scene scene = new SceneBuilder("test", new File("src/unittests/xml/manyShapes.xml").getPath()).build();
 		ImageWriter imageWriter = new ImageWriter("manyShapesXml", 1000, 1000);
 		Render render = new Render().setImageWriter(imageWriter).setCamera(camera)
-				.setRayTracer(new BasicRayTracer(scene));
+				.setRayTracer(new BasicRayTracer(scene.createHierarchy())).setDebugPrint().setMultithreading(3);
 
 		render.renderImage();
 		render.writeToImage();
 
 		camera.pitch(-17);
-		render.setImageWriter(new ImageWriter("manyShapesXMLAfterMove1", 1000, 1000));
+		render.setImageWriter(new ImageWriter("manyShapesXMLAfterMove1", 1000, 1000)).setDebugPrint()
+				.setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
 
 		camera.move(0, 200, 0);
 		camera.yaw(180);
-		render.setImageWriter(new ImageWriter("manyShapesXMLAfterMove2", 1000, 1000));
+		render.setImageWriter(new ImageWriter("manyShapesXMLAfterMove2", 1000, 1000)).setDebugPrint()
+				.setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
 
 		camera.move(0, 50, 150);
 		camera.pitch(-75);
-		render.setImageWriter(new ImageWriter("manyShapesXMLAfterMove3", 1000, 1000));
+		render.setImageWriter(new ImageWriter("manyShapesXMLAfterMove3", 1000, 1000)).setDebugPrint()
+				.setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
 

@@ -60,6 +60,22 @@ public class Point3D {
     public double getZ() {return z.coord;}
 
     /**
+     * helper function to get specific coordinnate from a {@link Point3D}
+     */
+    public double getCoord(int c) {
+        switch (c) {
+            case 0:
+                return getX();
+            case 1:
+                return getY();
+            case 2:
+                return getZ();
+            default:
+                throw new IllegalArgumentException("Coordinate must be 0, 1, or 2");
+        }
+    }
+
+    /**
      * Constructor that takes three double values and initializes the {@link Coordinate}s with those values
      * @param x double value
      * @param y double value
@@ -113,6 +129,43 @@ public class Point3D {
      */
     public double distance(Point3D p) {
         return Math.sqrt(distanceSquared(p));
+    }
+
+    
+    /**
+     * finds the min x, y and z values from a list of {@link Point3D}s
+     * 
+     * @param points
+     * @return a {@link Point3D} with the min x, y and z values
+     */
+    public static Point3D min(Point3D... points) {
+        double x = points[0].getX();
+        double y = points[0].getY();
+        double z = points[0].getZ();
+        for (Point3D p : points) {
+            x = Double.min(p.getX(), x);
+            y = Double.min(p.getY(), y);
+            z = Double.min(p.getZ(), z);
+        }
+        return new Point3D(x, y, z);
+    }
+
+    /**
+     * finds the max x, y and z values from a list of {@link Point3D}s
+     * 
+     * @param points
+     * @return a {@link Point3D} with the max x, y and z values
+     */
+    public static Point3D max(Point3D... points) {
+        double x = points[0].getX();
+        double y = points[0].getY();
+        double z = points[0].getZ();
+        for (Point3D p : points) {
+            x = Double.max(p.getX(), x);
+            y = Double.max(p.getY(), y);
+            z = Double.max(p.getZ(), z);
+        }
+        return new Point3D(x, y, z);
     }
 
     @Override

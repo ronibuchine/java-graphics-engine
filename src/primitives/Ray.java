@@ -27,11 +27,6 @@ public class Ray {
     private static final double DELTA = 0.1;
 
     /**
-     * N is a constant that determines how many rays to construct
-     */
-    private static final int N = 100;
-
-    /**
      * Random number generator
      */
     private static Random GENERATOR = new Random();
@@ -156,7 +151,7 @@ public class Ray {
      * @param gp     intersection point
      * @param dir    direction to center the spread
      * @param spread narrowness of spread
-     * @param n      number of constructed rays to create
+     * @param rayCount      number of constructed rays to create
      * @param loops  number of times to loop in a circle (0 for random distribution)
      */
     public static List<Ray> constructRefractionRays(GeoPoint gp, Vector dir, double spread, double loops,
@@ -172,40 +167,45 @@ public class Ray {
         Point3D head = gp.point.add(delta);
         if (Double.isInfinite(spread))
             return List.of(new Ray(head, dir));
-        Point3D center = head.add(dir.scale(spread));
-        rays.add(new Ray(head, center.subtract(head)));
-        Vector vRight;
-        try {
-            vRight = dir.crossProduct(new Vector(0, 0, 1)).normalized();
-        } catch (IllegalArgumentException e) {
-            vRight = dir.crossProduct(new Vector(0, -1, 0)).normalized(); // need to fix this
-        }
-        Vector original = center.subtract(head);
-        Vector offset;
-        if (loops == 0) {
-            for (int i = 1; i < rayCount; ++i) {
-                try {
-                    offset = vRight.rotate(dir, GENERATOR.nextDouble() * 360).scale(GENERATOR.nextDouble());
-                    Ray ray = new Ray(head, original.add(offset));
-                    if (ray.dir.dotProduct(normal) != dir.dotProduct(normal))// (!intersectsWithSelf(gp.geometry, ray))
-                        rays.add(ray);
-                } catch (IllegalArgumentException e) {
-                    --i;
-                }
-            }
-        } else {
-            double scale = 1.0 / rayCount;
-            double angle = 360.0 * loops / rayCount;
-            for (int i = 1; i < rayCount; ++i) {
-                offset = vRight.scale(scale * i).rotate(dir, angle * i);
-                Ray ray = new Ray(head, original.add(offset));
-                // we only want rays that intersect with the geometry itself to be averaged out
-                if (ray.dir.dotProduct(normal) != dir.dotProduct(normal))// (!intersectsWithSelf(gp.geometry, ray))
-                    rays.add(ray);
-
-            }
-        }
+        Vector vRight = dir.calcVright();
+        Vector original = dir.scale(spread);
+        rays.add(new Ray(head, original));
+        
+        if (loops == 0) rays.addAll(randSpread(head, original, vRight, normal, rayCount));
+        else rays.addAll(loopSpread(head, original, vRight, normal, loops, rayCount));
         return rays;
+    }
+
+    private static List<Ray> randSpread(Point3D head, Vector original, Vector vRight, Vector normal, int rayCount) {
+        List<Ray> list = new LinkedList<>();
+        
+        Vector offset;
+        for (int i = 1; i < rayCount; ++i) {
+            try {
+                offset = vRight.rotate(original.normalized(), GENERATOR.nextDouble() * 360).scale(GENERATOR.nextDouble());
+                Ray ray = new Ray(head, original.add(offset));
+                if (ray.dir.dotProduct(normal) > 0 == original.dotProduct(normal) > 0)
+                    list.add(ray);
+            } catch (IllegalArgumentException e) {
+                --i;
+            }
+        }
+        return list;
+    }
+    private static List<Ray> loopSpread(Point3D head, Vector original, Vector vRight, Vector normal, double loops, int rayCount) {
+        List<Ray> list = new LinkedList<>();
+
+        double scale = 1.0 / rayCount;
+        double angle = 360.0 * loops / rayCount;
+
+        Vector offset;
+        for (int i = 1; i < rayCount; ++i) {
+            offset = vRight.scale(scale * i).rotate(original.normalized(), angle * i);
+            Ray ray = new Ray(head, original.add(offset));
+            if (ray.dir.dotProduct(normal) > 0 == original.dotProduct(normal) > 0)// (!intersectsWithSelf(gp.geometry, ray))
+                list.add(ray);
+        }
+        return list;
     }
 
     /**

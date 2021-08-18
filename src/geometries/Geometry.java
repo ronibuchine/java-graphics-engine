@@ -56,5 +56,5 @@ public abstract class Geometry implements Intersectable {
      * @return The normal {@link Vector} at the {@link Point3D} p
      */
     public abstract Vector getNormal(Point3D p);
-    
+
 }

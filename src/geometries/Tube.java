@@ -91,4 +91,16 @@ public class Tube extends Geometry {
         return list;
     }
 
+    @Override
+    public Point3D getMinPoint() {
+        // Tube has no min point
+        throw new IllegalArgumentException("Tube has no minimum point");
+    }
+
+    @Override
+    public Point3D getMaxPoint() {
+        // Tube has no max point
+        throw new IllegalArgumentException("Tube has no maximum point");
+    }
+
 }

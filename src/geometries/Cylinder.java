@@ -86,4 +86,36 @@ public class Cylinder extends Tube {
         return list;
     }
 
+    @Override
+    public Point3D getMinPoint() {
+
+        Point3D start = dir.getStartPoint();
+        Point3D end = dir.getPoint(height);
+        Point3D normal = dir.getDir().getHead();
+        double ax = Math.acos(normal.getX());
+        double ay = Math.acos(normal.getY());
+        double az = Math.acos(normal.getZ());
+
+        Vector offset = new Vector(Math.sin(ax), Math.sin(ay), Math.sin(az));
+        offset = offset.scale(-radius);
+
+        return Point3D.min(start.add(offset), end.add(offset));
+    }
+
+    @Override
+    public Point3D getMaxPoint() {
+
+        Point3D start = dir.getStartPoint();
+        Point3D end = dir.getPoint(height);
+        Point3D normal = dir.getDir().getHead();
+        double ax = Math.acos(normal.getX());
+        double ay = Math.acos(normal.getY());
+        double az = Math.acos(normal.getZ());
+
+        Vector offset = new Vector(Math.sin(ax), Math.sin(ay), Math.sin(az));
+        offset = offset.scale(radius);
+        
+        return Point3D.max(start.add(offset), end.add(offset));
+    }
+
 }

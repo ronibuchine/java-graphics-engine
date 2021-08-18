@@ -45,4 +45,10 @@ public class Scene {
         this.lights = List.of(lights);
         return this;
     }
+
+    public Scene createHierarchy() {
+        setGeometries(geometries.createHierarchy());
+        return this;
+    }
+
 }

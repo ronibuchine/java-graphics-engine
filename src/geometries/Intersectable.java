@@ -70,4 +70,24 @@ public interface Intersectable {
      * @return
      */
     List<GeoPoint> findGeoIntersections(Ray r, double limit);
+
+    
+    /**
+     * Abstract method to calculate Geometry's min point
+     * @return
+     */
+    public abstract Point3D getMinPoint();
+    /**
+     * Abstract method to calculate Geometry's max point
+     * @return
+     */
+    public abstract Point3D getMaxPoint();
+    default Point3D getMiddle() {
+        Point3D min = getMinPoint();
+        Point3D max = getMaxPoint();
+        return new Point3D(
+            (min.getX() + max.getX()) / 2,
+            (min.getY() + max.getY()) / 2,
+            (min.getZ() + max.getZ()) / 2);
+    }
 }
